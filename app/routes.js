@@ -10,8 +10,10 @@ var frontend = require('./handlers/frontend.js');
 module.exports = function (app, io) {
 
   // Authentication
-  
+
   app.get('/signup', auth.signup_form);
+
+  app.get('/login', auth.login_form);
 
   app.get('/logout', auth.logout);
 
@@ -27,10 +29,8 @@ module.exports = function (app, io) {
 
   app.get('/check_session', function (req, res) {
     if (req.isAuthenticated()) {
-      //      console.log(req);
       res.send(req.user.email);
     } else {
-      //      console.log(req);
       res.send("false");
     }
   });
@@ -53,9 +53,9 @@ module.exports = function (app, io) {
   // API: Exhibition
   app.get('/api/exhibition', exhibition.get_exhibition);
 
-  app.post('/api/exhibition', auth.isLoggedIn, exhibition.post_exhibition);  
-  
-  
+  app.post('/api/exhibition', auth.isLoggedIn, exhibition.post_exhibition);
+
+
   // API: Publication
   app.get('/api/publication', publication.get_publication);
 
@@ -64,11 +64,10 @@ module.exports = function (app, io) {
 
   // frontend routes =========================================================
 
-//  app.get('/admin', auth.isLoggedIn, frontend.admin);
+  //  app.get('/admin', auth.isLoggedIn, frontend.admin);
   app.get('/infra', frontend.infra);
 
   app.get('/', frontend.index);
 
-  app.get('/:id', frontend.single);
-
+  app.get('*', frontend.fallback);
 };

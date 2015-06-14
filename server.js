@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var port = process.env.PORT || 7070; // set our port
+var port = process.env.PORT || 80; // set our port
 var server = app.listen(port);
 var io = require('socket.io').listen(server);
 console.log('Server running on ' + port); // shoutout to the user
@@ -29,9 +29,7 @@ var geoip = require('geoip-lite');
 var geolib = require('geolib');
 var geopoint = require('geopoint');
 
-
 var hbs = require('express3-handlebars');
-
 
 // configuration ===========================================
 

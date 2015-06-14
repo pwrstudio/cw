@@ -21,12 +21,12 @@ html {
   color: #000;
   font-size: 11px;
   line-height: 14px;
-  letter-spacing: 0.5em;
+/*  letter-spacing: 0.5em;*/
 }
 
 body {
   background: #FFF;
-  font-family: georgia;
+  font-family: helvetica;
   overflow-x: hidden;
 }
 
@@ -38,22 +38,6 @@ article:hover {
   text-decoration: underline;
 }
 
-.container {
-  width: 100%;
-  padding-left: 2.5%;
-}
-
-section {
-  width: 20%;
-  margin-right: 5%;
-  float: left;
-}
-
-img {
-  position: absolute;
-  z-index: 100100;
-  cursor: move;
-}
 
 img.small {
   width: 150px;

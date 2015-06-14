@@ -1,77 +1,45 @@
-<!--
-<script id="droplette-template" type="text/x-handlebars-template">
-  \{{#each this}}
-  <div class="dropletteItem draggableItem">
-    <a href="\{{_id}}">
-      <img id="\{{_id}}" src="\{{thumb}}" class="droppable">
-      <p>\{{body}}</p>
-    </a>
-  </div>
-  \{{/each}}
-</script>
-
-<script id="tag-template" type="text/x-handlebars-template">
-  \{{#each this}}
-  <div id="\{{_id}}" class="draggableTag btn btn-default btn-sm">\{{title}}</div>
-  \{{/each}}
-</script>
--->
-
-<div id="imageContainer">
-  <img src="1.jpg" class="draggable small">
-  <img src="2.jpg" class="draggable small">
-  <img src="3.jpg" class="draggable small">
-  <img src="4.jpg" class="draggable small">
-  <img src="5.jpg" class="draggable small">
-  <img src="9.jpg" class="draggable small">
+<div class="col-md-3">
+  <article class="exhibition light ">
+    <div class="title ">{{distance}} km from server</div>
+  </article>
+  {{{space}}}
 </div>
 
-<div class="container">
+<div class="col-md-3">
+  <article class="exhibition light">
+    <div class="title">Exhibitions</div>
+  </article>
+  {{#each exhibition}} {{{space}}}
+  <article class="exhibition light ">
+    <div class="title">{{this.title}}</div>
+    <div class="date">{{this.start_date}} — {{this.end_date}}</div>
+    <div class="location">{{this.location}}</div>
+  </article>
+  {{/each}}
+</div>
 
-  <section id="colOne">
-    <article class="exhibition light ">
-      <div class="title ">{{distance}} km from server</div>
-    </article>
-    {{{space}}}
-  </section>
+<div class="col-md-3">
+  <article class="exhibition light ">
+    <div class="title ">Publications</div>
+  </article>
+  {{#each publication}} {{{space}}}
+  <article class="exhibition light ">
+    <div class="title">{{this.title}}</div>
+    <div class="date">{{this.start_date}}</div>
+    <div class="published">{{this.publisher}}</div>
+  </article>
+  {{/each}}
+</div>
 
-  <section id="colTwo">
-    <article class="exhibition light">
-      <div class="title ">Exhibitions</div>
-    </article>
-    {{#each exhibition}} {{{space}}}
-    <article class="exhibition light ">
-      <div class="title">{{this.title}}</div>
-      <div class="date">{{this.start_date}} — {{this.end_date}}</div>
-      <div class="location">{{this.location}}</div>
-    </article>
-    {{/each}}
-  </section>
-
-  <section id="colThree">
-    <article class="exhibition light ">
-      <div class="title ">Publications</div>
-    </article>
-    {{#each publication}} {{{space}}}
-    <article class="exhibition light ">
-      <div class="title">{{this.title}}</div>
-      <div class="date">{{this.start_date}}</div>
-      <div class="published">{{this.publisher}}</div>
-    </article>
-    {{/each}}
-  </section>
-
-  <section id="colFour">
-    <article class="exhibition light ">
-      <div class="title ">Texts</div>
-    </article>
-    {{#each text}} {{{space}}}
-    <article class="exhibition light ">
-      <div class="title">{{this.title}}</div>
-      <div class="date">{{this.start_date}}</div>
-      <div class="published">{{this.publisher}}</div>
-    </article>
-    {{/each}}
-  </section>
-
+<div class="col-md-3">
+  <article class="exhibition light ">
+    <div class="title ">Texts</div>
+  </article>
+  {{#each text}} {{{space}}}
+  <article class="exhibition light ">
+    <div class="title">{{this.title}}</div>
+    <div class="date">{{this.start_date}}</div>
+    <div class="published">{{this.publisher}}</div>
+  </article>
+  {{/each}}
 </div>

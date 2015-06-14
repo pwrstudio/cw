@@ -5,6 +5,10 @@ exports.signup_form = function (req, res) {
   res.render('signup', {});
 };
 
+exports.login_form = function (req, res) {
+  res.render('login', {});
+};
+
 exports.logout = function (req, res) {
   req.logout();
   res.redirect('/');
