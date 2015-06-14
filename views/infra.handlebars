@@ -26,8 +26,10 @@
   <div class="list-group">
     \{{#each this}}
     <a href="#" id="\{{_id}}" class="list-group-item">
-      <strong>\{{title}}</strong> \{{#if image}} <img src="\{{image.url}}">
-      <caption>\{{image.caption}}</caption>
+      <h3>\{{title}}</h3> \{{#if image}} <img src="\{{image.url}}">
+      <p>\{{image.caption}}</p>
+      \{{/if}} \{{#if text}}
+      <p>\{{text.body}}</p>
       \{{/if}}
     </a>
     \{{/each}}
@@ -107,7 +109,7 @@
 
           <div class="form-group">
             <label for="link">Link to text</label>
-            <input id="link" name="linek" type="text" placeholder="Link" class="input-sm form-control">
+            <input id="link" name="link" type="text" placeholder="Link" class="input-sm form-control">
           </div>
 
           <div class="form-group">
@@ -138,7 +140,7 @@
       <div id="exhibition-container"></div>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="add_exhibition">
-      <form class="form-horizontal ajaxForm" enctype="multipart/form-data" action="/api/exhibition">
+      <form class="ajaxForm" enctype="multipart/form-data" action="/api/exhibition">
         <fieldset>
 
           <!-- Form Name -->
@@ -199,7 +201,7 @@
     </div>
 
     <div role="tabpanel" class="tab-pane fade" id="add_publication">
-      <form class="form-horizontal ajaxForm" enctype="multipart/form-data" action="/api/publication">
+      <form class="ajaxForm" enctype="multipart/form-data" action="/api/publication">
         <fieldset>
 
           <!-- Form Name -->

@@ -15,10 +15,10 @@ module.exports = function (app, io) {
 
   app.get('/login', auth.login_form);
 
-  app.get('/logout', auth.logout);
+  app.get('/logout', auth.isLoggedIn, auth.logout);
 
   app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/',
+    successRedirect: '/infra',
     failureRedirect: '/login'
   }));
 
@@ -41,13 +41,13 @@ module.exports = function (app, io) {
 //
   app.get('/api/content/single/:id', content.get_content_by_id);
 
-  app.post('/api/content/post/image',content.post_image_content);
+  app.post('/api/content/post/image', content.post_image_content);
 
-  app.post('/api/content/post/text',  content.post_text_content);
+  app.post('/api/content/post/text', content.post_text_content);
 
-  app.delete('/api/content/del/image/:id',  content.delete_image_content);
+  app.delete('/api/content/del/image/:id', content.delete_image_content);
 
-  app.delete('/api/content/del/text/:id',  content.delete_text_content);
+  app.delete('/api/content/del/text/:id', content.delete_text_content);
 
 
   // API: Exhibition
@@ -67,7 +67,7 @@ module.exports = function (app, io) {
   // frontend routes =========================================================
 
   //  app.get('/admin', auth.isLoggedIn, frontend.admin);
-  app.get('/infra', frontend.infra);
+  app.get('/infra', auth.isLoggedIn, frontend.infra);
 
   app.get('/', frontend.index);
 

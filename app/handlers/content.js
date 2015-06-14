@@ -101,7 +101,7 @@ exports.post_image_content = function (req, res, io) {
     content.image.small = '/data/' + now + '/' + "small-" + files.pic.name;
     content.title = fields.title;
     content.image.caption = fields.caption;
-    //    content.user = req.user.email;
+    content.user = req.user.email;
 
     console.log(content);
 
@@ -121,23 +121,24 @@ exports.post_text_content = function (req, res) {
 
   var form = new formidable.IncomingForm();
 
-  form.on('field', function (field, value) {
+  form.parse(req, function (err, fields, files) {
+
+    console.log(fields);
 
     var content = new Content();
     content.date = new Date();
-    content.text.body = value;
-    //    content.user = req.user.email;
-    //    content.gen = 0;
+    content.text.body = fields.text;
+    content.title = fields.title;
+    content.user = req.user.email;
 
     content.save(function (err) {
       res.json({
-        message: 'Success'
+        result: 'content'
       });
     });
 
   });
 
-  form.parse(req);
 
 };
 
