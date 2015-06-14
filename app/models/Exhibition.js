@@ -6,8 +6,7 @@ var exhibitionSchema = new mongoose.Schema({
   title: String,
   location: String,
   start_date: Date,
-  end_date: Date,
-  tags: [String]
+  end_date: Date
 });
 
 module.exports = mongoose.model('cw_Exhibition', exhibitionSchema);

@@ -34,7 +34,7 @@
 
   <div role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#exhibition_list" aria-controls="echibition_list" role="tab" data-toggle="tab"><i class="fa fa-list"></i> List</a>
+      <li role="presentation" class="active"><a href="#exhibition_list" aria-controls="exhibition_list" role="tab" data-toggle="tab"><i class="fa fa-list"></i> List</a>
       </li>
       <li role="presentation"><a href="#add_exhibition" aria-controls="add_exhibition" role="tab" data-toggle="tab"><i class="fa fa-plus"></i> Add exhibition</a>
       </li>
@@ -44,7 +44,7 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="exhibition_list">XXXX</div>
     <div role="tabpanel" class="tab-pane fade" id="add_exhibition">
-      <form class="form-horizontal">
+      <form class="form-horizontal ajaxForm" enctype="multipart/form-data" action="/api/exhibition">
         <fieldset>
 
           <!-- Form Name -->
@@ -55,7 +55,6 @@
             <label class="control-label" for="title">Title</label>
             <div class="controls">
               <input id="title" name="title" type="text" placeholder="Title" class="input-xlarge">
-
             </div>
           </div>
 
@@ -96,7 +95,6 @@
 
         </fieldset>
       </form>
-
     </div>
   </div>
 
@@ -108,19 +106,20 @@
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#exhibition_list" aria-controls="publication_list" role="tab" data-toggle="tab"><i class="fa fa-list"></i> List</a>
       </li>
-      <li role="presentation"><a href="#add_publication" aria-controls="add_publication" role="tab" data-toggle="tab"><i class="fa fa-plus"></i> Add exhibition</a>
+      <li role="presentation"><a href="#add_publication" aria-controls="add_publication" role="tab" data-toggle="tab"><i class="fa fa-plus"></i> Add publication</a>
       </li>
     </ul>
   </div>
 
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="publication_list">XXXX</div>
+
     <div role="tabpanel" class="tab-pane fade" id="add_publication">
-      <form class="form-horizontal">
+      <form class="form-horizontal ajaxForm" enctype="multipart/form-data" action="/api/publication">
         <fieldset>
 
           <!-- Form Name -->
-          <legend><i class="fa fa-plus"></i> Add publication</legend>
+          <legend>Add publication</legend>
 
           <!-- Text input-->
           <div class="control-group">
@@ -146,6 +145,14 @@
             <div class="controls">
               <input id="date" name="date" type="text" placeholder="Date" class="input-xlarge">
 
+            </div>
+          </div>
+
+          <!-- Button -->
+          <div class="control-group">
+            <label class="control-label" for=""></label>
+            <div class="controls">
+              <button id="" name="" class="btn btn-primary">Submit</button>
             </div>
           </div>
 

@@ -137,9 +137,10 @@
           cache: false,
           processData: false,
           success: function (data, textStatus, jqXHR) {
-            getDroplettes();
-            getTags();
-            formObj.find("textarea").val('');
+//            getDroplettes();
+//            getTags();
+            alert(data);
+            formObj.find("input").val('');
           },
           error: function (jqXHR, textStatus, errorThrown) {}
         });

@@ -1,11 +1,11 @@
 var formidable = require('formidable');
 
-var Publication = require('../models/Publication.js');
+var Container = require('../models/Container.js');
 var Content = require('../models/Content.js');
 
 exports.get_publication = function (req, res) {
 
-  Publication.find().sort({
+  Container.find().sort({
     title: 1
   }).exec(function (err, publications) {
     if (err)
@@ -19,22 +19,24 @@ exports.post_publication = function (req, res) {
 
   var form = new formidable.IncomingForm();
 
-  form.on('field', function (field, value) {
+  form.parse(req, function (err, fields, files) {
 
-    var publication = new Publication();
-    publication.title = value;
+    console.log(fields);
+
+    var publication = new Container();
+    publication.title = fields.title;
+    publication.publisher = fields.publisher;
+    publication.start_date = fields.date;
 
     publication.save(function (err) {
       if (err) {
-        res.send(err);
+        res.json(err);
       } else {
         res.json('{"success"}');
       }
     });
 
   });
-
-  form.parse(req);
 
 };
 
@@ -44,7 +46,7 @@ exports.add_publication_to_post = function (req, res) {
     if (err) {
       res.send(err);
     }
-    Publication.findById(req.params.publication_id, function (err, publication) {
+    Container.findById(req.params.publication_id, function (err, publication) {
       if (err) {
         res.send(err);
       }

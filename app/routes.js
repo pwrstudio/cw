@@ -53,13 +53,15 @@ module.exports = function (app, io) {
   // API: Exhibition
   app.get('/api/exhibition', exhibition.get_exhibition);
 
-  app.post('/api/exhibition', auth.isLoggedIn, exhibition.post_exhibition);
+//  app.post('/api/exhibition', auth.isLoggedIn, exhibition.post_exhibition);
+  app.post('/api/exhibition', exhibition.post_exhibition);
 
 
   // API: Publication
   app.get('/api/publication', publication.get_publication);
 
-  app.post('/api/publication', auth.isLoggedIn, publication.post_publication);
+//  app.post('/api/publication', auth.isLoggedIn, publication.post_publication);
+  app.post('/api/publication', publication.post_publication);
 
 
   // frontend routes =========================================================

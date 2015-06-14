@@ -1,11 +1,11 @@
 var formidable = require('formidable');
 
-var Exhibition = require('../models/Exhibition.js');
+var Container = require('../models/Container.js');
 var Content = require('../models/Content.js');
 
 exports.get_exhibition = function (req, res) {
 
-  Exhibition.find().sort({
+  Container.find().sort({
     title: 1
   }).exec(function (err, exhibitions) {
     if (err)
@@ -19,14 +19,19 @@ exports.post_exhibition = function (req, res) {
 
   var form = new formidable.IncomingForm();
 
-  form.on('field', function (field, value) {
+  form.parse(req, function (err, fields, files) {
 
-    var exhibition = new Exhibition();
-    exhibition.title = value;
+    console.log(fields);
+
+    var exhibition = new Container();
+    exhibition.title = fields.title;
+    exhibition.location = fields.location;
+    exhibition.start_date = fields.start_date;
+    exhibition.end_date = fields.end_date;
 
     exhibition.save(function (err) {
       if (err) {
-        res.send(err);
+        res.json(err);
       } else {
         res.json('{"success"}');
       }
@@ -34,7 +39,6 @@ exports.post_exhibition = function (req, res) {
 
   });
 
-  form.parse(req);
 
 };
 
