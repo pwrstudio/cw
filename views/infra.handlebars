@@ -1,0 +1,110 @@
+<div class="container-fluid">
+
+  <div class="col-md-3">
+    <h2>Image</h2>
+    <form id="file-drop" action="/api/content/post/image" class="dropzone topForm" method="POST" enctype="multipart/form-data"></form>
+  </div>
+
+  <div class="col-md-3">
+    <h2>Text</h2>
+    <form class="form-horizontal ajaxForm topForm" role="form" method="POST" enctype="multipart/form-data" action="/api/content/post/text">
+      <textarea class="form-control" id="fieldText" name="text"></textarea>
+      <button id="textSubmit" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <div class="col-md-3">
+    <form class="form-horizontal">
+      <fieldset>
+
+        <!-- Form Name -->
+        <legend>Add exhibition</legend>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="title">Title</label>
+          <div class="controls">
+            <input id="title" name="title" type="text" placeholder="Title" class="input-xlarge">
+
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="location">Location</label>
+          <div class="controls">
+            <input id="location" name="location" type="text" placeholder="Location" class="input-xlarge">
+
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="start_date">Start date</label>
+          <div class="controls">
+            <input id="start_date" name="start_date" type="text" placeholder="Start date" class="input-xlarge">
+
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="end_date">End date</label>
+          <div class="controls">
+            <input id="end_date" name="end_date" type="text" placeholder="End date" class="input-xlarge">
+
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="control-group">
+          <label class="control-label" for=""></label>
+          <div class="controls">
+            <button id="" name="" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+
+      </fieldset>
+    </form>
+
+  </div>
+
+  <div class="col-md-3">
+    <form class="form-horizontal">
+      <fieldset>
+
+        <!-- Form Name -->
+        <legend>Add publication</legend>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="title">Title</label>
+          <div class="controls">
+            <input id="title" name="title" type="text" placeholder="Title" class="input-xlarge">
+
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="publisher">Publisher</label>
+          <div class="controls">
+            <input id="publisher" name="publisher" type="text" placeholder="Publisher" class="input-xlarge">
+
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="date">Date</label>
+          <div class="controls">
+            <input id="date" name="date" type="text" placeholder="Date" class="input-xlarge">
+
+          </div>
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+
+</div>
