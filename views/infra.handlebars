@@ -2,9 +2,9 @@
   <div class="list-group">
     \{{#each this}} \{{#if publisher}}
     <a href="#" id="\{{_id}}" class="list-group-item">
-      <strong>\{{title}}</strong>
-      <br> \{{publisher}}
-      <br> \{{start_date}}
+      <div><strong>\{{title}}</strong></div>
+      <div><em>\{{publisher}}</em></div>
+      <div>\{{start_date_pretty}}</div>
     </a>
     \{{/if}} \{{/each}}
   </div>
@@ -14,9 +14,9 @@
   <div class="list-group">
     \{{#each this}} \{{#if location}}
     <a href="#" id="\{{_id}}" class="list-group-item">
-      <strong>\{{title}}</strong>
-      <br> \{{location}}
-      <br> \{{start_date}} – \{{end_date}}
+      <div><strong>\{{title}}</strong></div>
+      <div><em>\{{location}}</em></div>
+      <div>\{{start_date_pretty}} – \{{end_date_pretty}}</div>
     </a>
     \{{/if}} \{{/each}}
   </div>
@@ -35,6 +35,10 @@
     \{{/each}}
   </div>
 </script>
+
+<div class="col-md-12 margin_bottom">
+<a href="logout" class="btn btn-danger btn-sm pull-right">Logout</a>
+</div>
 
 <div class="col-md-6">
   <div role="tabpanel">
@@ -234,7 +238,7 @@
 
           <label for="input-group">Publication date</label>
           <div class="input-group date">
-            <input type="text"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <input type="text" name="start_date"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
           </div>
 
           <!-- Button -->

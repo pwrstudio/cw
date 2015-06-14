@@ -66,19 +66,9 @@
 
       $('.input-daterange, .input-group.date').datepicker({
         autoclose: true,
-        format: 'dd/mm/yyyy'
+        format: 'yyyy/mm/dd'
       });
 
-      //
-      //      $.get("http://93.95.228.60:8080/check_session", function (data) {
-      //        if (data != "false") {
-      //          $("#loggedInUser").html(data);
-      //          $(".admin").show();
-      //          getTags();
-      //        } else {
-      //          $("#login").show();
-      //        }
-      //      });
 
       //      $(document).on('click', '.delete.image', function () {
       //        $.ajax({

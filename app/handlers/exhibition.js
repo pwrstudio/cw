@@ -26,7 +26,9 @@ exports.post_exhibition = function (req, res) {
     exhibition.title = fields.title;
     exhibition.location = fields.location;
     exhibition.start_date = fields.start_date;
-    exhibition.end_date = fields.end_date;
+    exhibition.end_date = fields.end_date;   
+    exhibition.start_date_pretty = fields.start_date;
+    exhibition.end_date_pretty = fields.end_date;
 
     exhibition.save(function (err) {
       if (err) {

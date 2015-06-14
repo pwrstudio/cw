@@ -336,3 +336,7 @@ input[type:"text"] {
 label {
   display: block;
 }
+
+.margin_bottom {
+  margin-bottom: 1em;
+}

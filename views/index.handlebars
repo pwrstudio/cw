@@ -10,33 +10,33 @@
   <article class="exhibition light">
     <div class="title">Exhibitions</div>
   </article>
-  {{#each exhibition}} {{{../space}}}
+  {{#each container}} {{#if location}} {{{../../space}}}
   <article class="exhibition light ">
     <div class="title">{{this.title}}</div>
-    <div class="date">{{this.start_date}} — {{this.end_date}}</div>
+    <div class="date">{{this.start_date_pretty}} — {{this.end_date_pretty}}</div>
     <div class="location">{{this.location}}</div>
   </article>
-  {{/each}}
+  {{/if}} {{/each}}
 </div>
 
 <div class="col-md-3">
   <article class="exhibition light ">
     <div class="title ">Publications</div>
   </article>
-  {{#each publication}} {{{../space}}}
+  {{#each container}} {{#if publisher}} {{{../../space}}}
   <article class="exhibition light ">
     <div class="title">{{this.title}}</div>
-    <div class="date">{{this.start_date}}</div>
+    <div class="date">{{this.start_date_pretty}}</div>
     <div class="publisher">{{this.publisher}}</div>
   </article>
-  {{/each}}
+  {{/if}} {{/each}}
 </div>
 
 <div class="col-md-3">
   <article class="exhibition light ">
     <div class="title ">Texts</div>
   </article>
-  {{#each text}} {{{../space}}}
+  {{#each text}} {{{../../space}}}
   <article class="exhibition light ">
     <div class="title">{{this.title}}</div>
     <div class="date">{{this.start_date}}</div>

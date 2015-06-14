@@ -25,7 +25,8 @@ exports.post_publication = function (req, res) {
     var publication = new Container();
     publication.title = fields.title;
     publication.publisher = fields.publisher;
-    publication.start_date = fields.date;
+    publication.start_date = fields.start_date;
+    publication.start_date_pretty = fields.start_date;
 
     publication.save(function (err) {
       if (err) {

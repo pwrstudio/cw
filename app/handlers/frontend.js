@@ -43,11 +43,10 @@ exports.index = function (req, res) {
   Container.find().sort({
     title: 1
   }).exec(function (err, data) {
-    exhibition = data;
     var data = {
       distance: distance,
       space: space,
-      exhibition: exhibition
+      container: data
     };
     //    console.log(data);
     res.render('index', data);
