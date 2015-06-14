@@ -34,6 +34,22 @@
       });
     }
 
+    function getContent() {
+      $.ajax({
+        type: 'GET',
+        url: '/api/content/get/10',
+        dataType: 'json',
+        success: function (data) {
+          $('#content-container').fadeOut(function () {
+            var source = $("#content-template").html();
+            var template = Handlebars.compile(source);
+            $("#content-container").html(template(data));
+            $('#content-container').fadeIn();
+          });
+        }
+      });
+    }
+
     Dropzone.options.fileDrop = {
       init: function () {
         this.on("complete", function (file) {
@@ -46,6 +62,7 @@
 
       getExhibitions();
       getPublications();
+      getContent();
 
       $('.input-daterange, .input-group.date').datepicker({
         autoclose: true,
@@ -106,7 +123,10 @@
             } else if (data.result == "exhibition") {
               $('a[href="#exhibition_list"]').tab('show');
               getExhibitions();
+            } else if (data.result == "content") {
+              getContent();
             }
+
           },
           error: function (jqXHR, textStatus, errorThrown) {}
         });

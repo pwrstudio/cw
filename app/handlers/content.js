@@ -19,9 +19,6 @@ exports.get_content = function (req, res) {
   Content.find().sort({
     date: -1
   }).exec(function (err, contents) {
-    if (err)
-      res.send(err);
-
     res.json(contents);
   });
 };
@@ -38,19 +35,22 @@ exports.post_image_content = function (req, res, io) {
   var form = new formidable.IncomingForm(),
     now = Date.now(),
     dir = fullDir + '/' + now;
+
   fs.mkdirSync(dir);
 
-  form.on('file', function (field, file) {
-    var path = dir + '/' + file.name;
-    //    console.log(file.name);
-    var rand = randtoken.generate(32);
-    var newPath = dir + '/' + rand + ".jpg";
-    fs.renameSync(file.path, newPath);
+  form.parse(req, function (err, fields, files) {
 
+    console.log(fields);
+    console.log(files.pic.path);
+
+    var path = dir + '/' + files.pic.name;
+    //    var rand = randtoken.generate(32);
+    var newPath = dir + '/' + files.pic.name;
+    fs.renameSync(files.pic.path, newPath);
 
     easyimg.resize({
       src: newPath,
-      dst: dir + '/' + "thumbnail-" + rand + ".jpg",
+      dst: dir + '/' + "thumbnail-" + files.pic.name,
       width: 300,
       height: 300,
       quality: 70,
@@ -65,7 +65,7 @@ exports.post_image_content = function (req, res, io) {
 
     easyimg.resize({
       src: newPath,
-      dst: dir + '/' + "large-" + rand + ".jpg",
+      dst: dir + '/' + "large-" + files.pic.name,
       width: 800,
       height: 800,
       quality: 80,
@@ -80,7 +80,7 @@ exports.post_image_content = function (req, res, io) {
 
     easyimg.resize({
       src: newPath,
-      dst: dir + '/' + "small-" + rand + ".jpg",
+      dst: dir + '/' + "small-" + files.pic.name,
       width: 450,
       height: 450,
       quality: 80,
@@ -95,30 +95,25 @@ exports.post_image_content = function (req, res, io) {
 
     var content = new Content();
     content.date = new Date();
-    content.image.url = '/data/' + now + '/' + rand + ".jpg";
-    content.image.thumb = '/data/' + now + '/' + "thumbnail-" + rand + ".jpg";
-    content.image.large = '/data/' + now + '/' + "large-" + rand + ".jpg";
-    content.image.small = '/data/' + now + '/' + "small-" + rand + ".jpg";
-    content.user = req.user.email;
+    content.image.url = '/data/' + now + '/' + files.pic.name;
+    content.image.thumb = '/data/' + now + '/' + "thumbnail-" + files.pic.name;
+    content.image.large = '/data/' + now + '/' + "large-" + files.pic.name;
+    content.image.small = '/data/' + now + '/' + "small-" + files.pic.name;
+    content.title = fields.title;
+    content.image.caption = fields.caption;
+    //    content.user = req.user.email;
 
     console.log(content);
 
     content.save(function (err) {
-      console.log("5");
-      //      if (err) {
-      //        res.send(err);
-      //      }
-
       console.log("saved");
       res.json({
-        message: 'Success'
+        result: 'content'
       });
 
     });
-
   });
 
-  form.parse(req);
 
 };
 
@@ -131,13 +126,10 @@ exports.post_text_content = function (req, res) {
     var content = new Content();
     content.date = new Date();
     content.text.body = value;
-    content.user = req.user.email;
-    content.gen = 0;
+    //    content.user = req.user.email;
+    //    content.gen = 0;
 
     content.save(function (err) {
-//      if (err) {
-//        res.send(err);
-//      }
       res.json({
         message: 'Success'
       });

@@ -1,15 +1,16 @@
-// grab the mongoose module
 var mongoose = require('mongoose');
 var random = require('mongoose-random');
 
 var contentSchema = new mongoose.Schema({
+  title: String,
   text: {
-    title: String,
     author: String,
     body: String,
-    file: String
+    file: String,
+    link: String
   },
   image: {
+    caption: String,
     url: String,
     thumb: String,
     small: String,
@@ -19,8 +20,7 @@ var contentSchema = new mongoose.Schema({
   user: String,
   public: Boolean,
   tags: [String],
-  exhibition: [String],
-  publication: [String] 
+  container_connection: [String]
 });
 
-module.exports = mongoose.model('cw_Content', contentSchema);
+module.exports = mongoose.model('content', contentSchema);

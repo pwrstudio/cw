@@ -22,6 +22,18 @@
   </div>
 </script>
 
+<script id="content-template" type="text/x-handlebars-template">
+  <div class="list-group">
+    \{{#each this}}
+    <a href="#" id="\{{_id}}" class="list-group-item">
+      <strong>\{{title}}</strong> \{{#if image}} <img src="\{{image.url}}">
+      <caption>\{{image.caption}}</caption>
+      \{{/if}}
+    </a>
+    \{{/each}}
+  </div>
+</script>
+
 <div class="col-md-6">
   <div role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
@@ -37,16 +49,72 @@
   </div>
 
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active" id="content_list">XXXX</div>
+    <div role="tabpanel" class="tab-pane fade in active" id="content_list">
+      <div id="content-container"></div>
+    </div>
     <div role="tabpanel" class="tab-pane fade" id="add_image">
-      <strong>Image</strong>
-      <form id="file-drop" action="/api/content/post/image" class="dropzone topForm" method="POST" enctype="multipart/form-data"></form>
+      <form id="file-drop" action="/api/content/post/image" class="ajaxForm" method="POST" enctype="multipart/form-data">
+        <fieldset>
+          <legend>Image</legend>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control">
+          </div>
+
+          <div class="form-group">
+            <input type="file" name="pic" accept="image/*">
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label for="caption">Caption</label>
+            <textarea id="caption" name="caption" type="text" placeholder="Caption" class="input-xl form-control"></textarea>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary">
+          </div>
+
+        </fieldset>
+      </form>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="add_text">
-      <strong>Text</strong>
-      <form class="form-horizontal ajaxForm topForm" role="form" method="POST" enctype="multipart/form-data" action="/api/content/post/text">
-        <textarea class="form-control" id="fieldText" name="text"></textarea>
-        <button id="textSubmit" type="submit" class="btn btn-primary">Submit</button>
+      <form class="ajaxForm" role="form" method="POST" enctype="multipart/form-data" action="/api/content/post/text">
+        <fieldset>
+          <legend>Text</legend>
+
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="author">Author</label>
+            <input id="author" name="author" type="text" placeholder="Author" class="input-sm form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="text">Text</label>
+            <textarea id="fieldText" name="text" class="input-xl form-control"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="text">Upload file</label>
+            <input type="file" name="pic" accept="image/*">
+          </div>
+
+          <div class="form-group">
+            <label for="link">Link to text</label>
+            <input id="link" name="linek" type="text" placeholder="Link" class="input-sm form-control">
+          </div>
+
+          <div class="form-group">
+            <button id="textSubmit" type="submit" class="btn btn-primary">Submit</button>
+          </div>
+
+        </fieldset>
       </form>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="collections">collections</div>
@@ -77,23 +145,24 @@
           <legend>Add exhibition</legend>
 
           <!-- Text input-->
-          <div class="control-group">
-            <label class="control-label" for="title">Title</label>
-            <div class="controls">
-              <input id="title" name="title" type="text" placeholder="Title" class="input-xlarge">
-            </div>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text" placeholder="Title" class="input-xlarge">
           </div>
 
           <!-- Text input-->
-          <div class="control-group">
-            <label class="control-label" for="location">Location</label>
-            <div class="controls">
-              <input id="location" name="location" type="text" placeholder="Location" class="input-xlarge">
-
-            </div>
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input id="location" name="location" type="text" placeholder="Location" class="input-xlarge">
           </div>
 
-          <label class="control-label" for="datepicker">Start and end date</label>
+          <!-- Text input-->
+          <div class="form-group">
+            <label for="link">Link</label>
+            <input id="link" name="link" type="text" placeholder="Link" class="input-xlarge">
+          </div>
+
+          <label for="datepicker">Start and end date</label>
           <div class="input-daterange input-group" id="datepicker">
             <input type="text" class="input-sm form-control" name="start_date" />
             <span class="input-group-addon">to</span>
@@ -101,11 +170,9 @@
           </div>
 
           <!-- Button -->
-          <div class="control-group">
-            <label class="control-label" for=""></label>
-            <div class="controls">
-              <button id="" name="" class="btn btn-primary">Submit</button>
-            </div>
+          <div class="form-group">
+            <label for=""></label>
+            <button id="" name="" class="btn btn-primary">Submit</button>
           </div>
 
         </fieldset>
@@ -139,31 +206,39 @@
           <legend>Add publication</legend>
 
           <!-- Text input-->
-          <div class="control-group">
-            <label class="control-label" for="title">Title</label>
-            <div class="controls">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <div>
               <input id="title" name="title" type="text" placeholder="Title" class="input-xlarge">
 
             </div>
           </div>
 
           <!-- Text input-->
-          <div class="control-group">
-            <label class="control-label" for="publisher">Publisher</label>
-            <div class="controls">
+          <div class="form-group">
+            <label for="publisher">Publisher</label>
+            <div>
               <input id="publisher" name="publisher" type="text" placeholder="Publisher" class="input-xlarge">
-
             </div>
           </div>
 
+          <!-- Text input-->
+          <div class="form-group">
+            <label for="link">Link</label>
+            <div>
+              <input id="link" name="link" type="text" placeholder="Link" class="input-xlarge">
+            </div>
+          </div>
+
+          <label for="input-group">Publication date</label>
           <div class="input-group date">
-            <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <input type="text"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
           </div>
 
           <!-- Button -->
-          <div class="control-group">
-            <label class="control-label" for=""></label>
-            <div class="controls">
+          <div class="form-group">
+            <label for=""></label>
+            <div>
               <button id="" name="" class="btn btn-primary">Submit</button>
             </div>
           </div>

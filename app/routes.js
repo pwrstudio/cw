@@ -38,16 +38,16 @@ module.exports = function (app, io) {
 
   // API: Content
   app.get('/api/content/get/:count', content.get_content);
-
+//
   app.get('/api/content/single/:id', content.get_content_by_id);
 
-  app.post('/api/content/post/image', auth.isLoggedIn, content.post_image_content);
+  app.post('/api/content/post/image',content.post_image_content);
 
-  app.post('/api/content/post/text', auth.isLoggedIn, content.post_text_content);
+  app.post('/api/content/post/text',  content.post_text_content);
 
-  app.delete('/api/content/del/image/:id', auth.isLoggedIn, content.delete_image_content);
+  app.delete('/api/content/del/image/:id',  content.delete_image_content);
 
-  app.delete('/api/content/del/text/:id', auth.isLoggedIn, content.delete_text_content);
+  app.delete('/api/content/del/text/:id',  content.delete_text_content);
 
 
   // API: Exhibition

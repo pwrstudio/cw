@@ -6,7 +6,9 @@ var containerSchema = new mongoose.Schema({
   location: String,
   start_date: Date,
   end_date: Date,
-  publisher: String
+  link: String,
+  publisher: String,
+  tags: [String]
 });
 
 module.exports = mongoose.model('container', containerSchema);

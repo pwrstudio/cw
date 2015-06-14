@@ -1,12 +1,11 @@
 var formidable = require('formidable');
-
 var Container = require('../models/Container.js');
 var Content = require('../models/Content.js');
 
 exports.get_exhibition = function (req, res) {
 
   Container.find().sort({
-    title: 1
+    start_date: -1
   }).exec(function (err, exhibitions) {
     if (err)
       res.send(err);
@@ -33,7 +32,7 @@ exports.post_exhibition = function (req, res) {
       if (err) {
         res.json(err);
       } else {
-        res.json({"result": "exhibition"});
+        res.json({result: "exhibition"});
       }
     });
 
