@@ -5,11 +5,12 @@
   {{{space}}}
 </div>
 
+
 <div class="col-md-3">
   <article class="exhibition light">
     <div class="title">Exhibitions</div>
   </article>
-  {{#each exhibition}} {{{space}}}
+  {{#each exhibition}} {{{../space}}}
   <article class="exhibition light ">
     <div class="title">{{this.title}}</div>
     <div class="date">{{this.start_date}} — {{this.end_date}}</div>
@@ -22,11 +23,11 @@
   <article class="exhibition light ">
     <div class="title ">Publications</div>
   </article>
-  {{#each publication}} {{{space}}}
+  {{#each publication}} {{{../space}}}
   <article class="exhibition light ">
     <div class="title">{{this.title}}</div>
     <div class="date">{{this.start_date}}</div>
-    <div class="published">{{this.publisher}}</div>
+    <div class="publisher">{{this.publisher}}</div>
   </article>
   {{/each}}
 </div>
@@ -35,7 +36,7 @@
   <article class="exhibition light ">
     <div class="title ">Texts</div>
   </article>
-  {{#each text}} {{{space}}}
+  {{#each text}} {{{../space}}}
   <article class="exhibition light ">
     <div class="title">{{this.title}}</div>
     <div class="date">{{this.start_date}}</div>

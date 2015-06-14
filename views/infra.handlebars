@@ -1,3 +1,27 @@
+<script id="publication-template" type="text/x-handlebars-template">
+  <div class="list-group">
+    \{{#each this}} \{{#if publisher}}
+    <a href="#" id="\{{_id}}" class="list-group-item">
+      <strong>\{{title}}</strong>
+      <br> \{{publisher}}
+      <br> \{{start_date}}
+    </a>
+    \{{/if}} \{{/each}}
+  </div>
+</script>
+
+<script id="exhibition-template" type="text/x-handlebars-template">
+  <div class="list-group">
+    \{{#each this}} \{{#if location}}
+    <a href="#" id="\{{_id}}" class="list-group-item">
+      <strong>\{{title}}</strong>
+      <br> \{{location}}
+      <br> \{{start_date}} – \{{end_date}}
+    </a>
+    \{{/if}} \{{/each}}
+  </div>
+</script>
+
 <div class="col-md-6">
   <div role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
@@ -15,11 +39,11 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="content_list">XXXX</div>
     <div role="tabpanel" class="tab-pane fade" id="add_image">
-      <h2>Image</h2>
+      <strong>Image</strong>
       <form id="file-drop" action="/api/content/post/image" class="dropzone topForm" method="POST" enctype="multipart/form-data"></form>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="add_text">
-      <h2>Text</h2>
+      <strong>Text</strong>
       <form class="form-horizontal ajaxForm topForm" role="form" method="POST" enctype="multipart/form-data" action="/api/content/post/text">
         <textarea class="form-control" id="fieldText" name="text"></textarea>
         <button id="textSubmit" type="submit" class="btn btn-primary">Submit</button>
@@ -42,7 +66,9 @@
   </div>
 
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active" id="exhibition_list">XXXX</div>
+    <div role="tabpanel" class="tab-pane fade in active" id="exhibition_list">
+      <div id="exhibition-container"></div>
+    </div>
     <div role="tabpanel" class="tab-pane fade" id="add_exhibition">
       <form class="form-horizontal ajaxForm" enctype="multipart/form-data" action="/api/exhibition">
         <fieldset>
@@ -67,22 +93,11 @@
             </div>
           </div>
 
-          <!-- Text input-->
-          <div class="control-group">
-            <label class="control-label" for="start_date">Start date</label>
-            <div class="controls">
-              <input id="start_date" name="start_date" type="text" placeholder="Start date" class="input-xlarge">
-
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="control-group">
-            <label class="control-label" for="end_date">End date</label>
-            <div class="controls">
-              <input id="end_date" name="end_date" type="text" placeholder="End date" class="input-xlarge">
-
-            </div>
+          <label class="control-label" for="datepicker">Start and end date</label>
+          <div class="input-daterange input-group" id="datepicker">
+            <input type="text" class="input-sm form-control" name="start_date" />
+            <span class="input-group-addon">to</span>
+            <input type="text" class="input-sm form-control" name="end_date" />
           </div>
 
           <!-- Button -->
@@ -104,7 +119,7 @@
 
   <div role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#exhibition_list" aria-controls="publication_list" role="tab" data-toggle="tab"><i class="fa fa-list"></i> List</a>
+      <li role="presentation" class="active"><a href="#publication_list" aria-controls="publication_list" role="tab" data-toggle="tab"><i class="fa fa-list"></i> List</a>
       </li>
       <li role="presentation"><a href="#add_publication" aria-controls="add_publication" role="tab" data-toggle="tab"><i class="fa fa-plus"></i> Add publication</a>
       </li>
@@ -112,7 +127,9 @@
   </div>
 
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active" id="publication_list">XXXX</div>
+    <div role="tabpanel" class="tab-pane fade in active" id="publication_list">
+      <div id="publication-container"></div>
+    </div>
 
     <div role="tabpanel" class="tab-pane fade" id="add_publication">
       <form class="form-horizontal ajaxForm" enctype="multipart/form-data" action="/api/publication">
@@ -139,13 +156,8 @@
             </div>
           </div>
 
-          <!-- Text input-->
-          <div class="control-group">
-            <label class="control-label" for="date">Date</label>
-            <div class="controls">
-              <input id="date" name="date" type="text" placeholder="Date" class="input-xlarge">
-
-            </div>
+          <div class="input-group date">
+            <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
           </div>
 
           <!-- Button -->

@@ -32,7 +32,7 @@ exports.post_publication = function (req, res) {
       if (err) {
         res.json(err);
       } else {
-        res.json('{"success"}');
+        res.json({'result': 'publication'});
       }
     });
 
@@ -40,33 +40,33 @@ exports.post_publication = function (req, res) {
 
 };
 
-exports.add_publication_to_post = function (req, res) {
-
-  Content.findById(req.params.image_id, function (err, image) {
-    if (err) {
-      res.send(err);
-    }
-    Container.findById(req.params.publication_id, function (err, publication) {
-      if (err) {
-        res.send(err);
-      }
-      image.publications.push(publication._id);
-      image.save(function (err) {
-        if (err) {
-          res.send(err);
-        }
-      });
-    });
-    res.json(image);
-  });
-};
-
-exports.get_publication_image = function (req, res) {
-  Content.findById(req.params.id, function (err, image) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(image.publications);
-    }
-  });
-};
+//exports.add_publication_to_post = function (req, res) {
+//
+//  Content.findById(req.params.image_id, function (err, image) {
+//    if (err) {
+//      res.send(err);
+//    }
+//    Container.findById(req.params.publication_id, function (err, publication) {
+//      if (err) {
+//        res.send(err);
+//      }
+//      image.publications.push(publication._id);
+//      image.save(function (err) {
+//        if (err) {
+//          res.send(err);
+//        }
+//      });
+//    });
+//    res.json(image);
+//  });
+//};
+//
+//exports.get_publication_image = function (req, res) {
+//  Content.findById(req.params.id, function (err, image) {
+//    if (err) {
+//      res.send(err);
+//    } else {
+//      res.json(image.publications);
+//    }
+//  });
+//};

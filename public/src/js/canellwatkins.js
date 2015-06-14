@@ -2,40 +2,37 @@
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    //    function getDroplettes() {
-    //      $.ajax({
-    //        type: 'GET',
-    //        url: '/api/droplette/get/10',
-    //        dataType: 'json',
-    //        success: function (data) {
-    //          $('#dropletteContainer').fadeOut(function () {
-    //            var source = $("#droplette-template").html();
-    //            var template = Handlebars.compile(source);
-    //            $("#dropletteContainer").html(template(data));
-    //            $('#dropletteContainer').fadeIn();
-    //            $(".draggableItem").draggable({
-    //              opacity: 0.7,
-    //              helper: "clone",
-    //              scroll: false,
-    //              stack: ".draggableItem"
-    //            });
-    //            $(".droppable").droppable({
-    //              activeClass: "activeDrag",
-    //              hoverClass: "hoverDrag",
-    //              drop: function (event, ui) {
-    //                var drag = $(ui.draggable);
-    //                if (drag.hasClass("draggableItem")) {
-    //                  movePoint($(this).attr("id"), drag.find("img").attr("id"));
-    //                } else if (drag.hasClass("draggableTag")) {
-    //                  $(this).addClass("droppedDrag");
-    //                  addTag($(this).attr("id"), drag.attr("id"));
-    //                }
-    //              }
-    //            });
-    //          });
-    //        }
-    //      });
-    //    }
+    function getExhibitions() {
+      $.ajax({
+        type: 'GET',
+        url: '/api/exhibition',
+        dataType: 'json',
+        success: function (data) {
+          $('#exhibition-container').fadeOut(function () {
+            var source = $("#exhibition-template").html();
+            var template = Handlebars.compile(source);
+            $("#exhibition-container").html(template(data));
+            $('#exhibition-container').fadeIn();
+          });
+        }
+      });
+    }
+
+    function getPublications() {
+      $.ajax({
+        type: 'GET',
+        url: '/api/publication',
+        dataType: 'json',
+        success: function (data) {
+          $('#publication-container').fadeOut(function () {
+            var source = $("#publication-template").html();
+            var template = Handlebars.compile(source);
+            $("#publication-container").html(template(data));
+            $('#publication-container').fadeIn();
+          });
+        }
+      });
+    }
 
     Dropzone.options.fileDrop = {
       init: function () {
@@ -45,51 +42,15 @@
       }
     };
 
-    //    function addTag(droplette_id, tag_id) {
-    //      $.ajax({
-    //        type: 'POST',
-    //        url: '/api/tag/' + droplette_id + '/' + tag_id,
-    //        dataType: 'json',
-    //        success: function (data) {
-    //          console.log(data.tags);
-    //        }
-    //      });
-    //    }
-
     $(document).ready(function () {
 
-//      $('#add_text a').click(function (e) {
-//        e.preventDefault()
-//        $(this).tab('show')
-//      })
-//
-//      $('#add_image a').click(function (e) {
-//        e.preventDefault()
-//        $(this).tab('show')
-//      })
-//
-//      $('#list_content a').click(function (e) {
-//        e.preventDefault()
-//        $(this).tab('show')
-//      })
-//
-//      $('#collections a').click(function (e) {
-//        e.preventDefault()
-//        $(this).tab('show')
-//      })
+      getExhibitions();
+      getPublications();
 
-      //      getDroplettes();
-
-      //      $(".draggableTopLayer").draggable({
-      //        stack: ".draggableTopLayer",
-      //        scroll: false
-      //      });
-
-      //      $(".draggableTopLayer").each(function () {
-      //        $(this).css("top", getRandomInt(5, 95) + "%");
-      //        $(this).css("left", getRandomInt(5, 95) + "%");
-      //      });
-      //      
+      $('.input-daterange, .input-group.date').datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy'
+      });
 
       //
       //      $.get("http://93.95.228.60:8080/check_session", function (data) {
@@ -137,10 +98,15 @@
           cache: false,
           processData: false,
           success: function (data, textStatus, jqXHR) {
-//            getDroplettes();
-//            getTags();
             alert(data);
             formObj.find("input").val('');
+            if (data.result == "publication") {
+              getPublications();
+              $('a[href="#publication_list"]').tab('show');
+            } else if (data.result == "exhibition") {
+              $('a[href="#exhibition_list"]').tab('show');
+              getExhibitions();
+            }
           },
           error: function (jqXHR, textStatus, errorThrown) {}
         });

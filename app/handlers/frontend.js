@@ -4,7 +4,7 @@ var geoip = require('geoip-lite');
 var geolib = require('geolib');
 var geopoint = require('geopoint');
 
-var Exhibition = require('../models/Exhibition.js');
+var Container = require('../models/Container.js');
 var Content = require('../models/Content.js');
 
 exports.index = function (req, res) {
@@ -13,11 +13,11 @@ exports.index = function (req, res) {
 
   clientIp = clientIp.replace("::ffff:", "");
 
-//  console.log(clientIp);
+  //  console.log(clientIp);
 
   var clientGeo = geoip.lookup(clientIp);
 
-//  console.log(clientGeo);
+  //  console.log(clientGeo);
 
   var lat = clientGeo.ll[0];
   var long = clientGeo.ll[1];
@@ -27,7 +27,7 @@ exports.index = function (req, res) {
   var serverLat = serverGeo.ll[0];
   var serverLong = serverGeo.ll[1];
 
-//  console.log(serverGeo);
+  //  console.log(serverGeo);
 
   var server = new geopoint(serverLat, serverLong);
   var client = new geopoint(lat, long);
@@ -40,21 +40,20 @@ exports.index = function (req, res) {
     space += '<div class="space">*</div>';
   }
 
-  Exhibition.find().sort({
+  Container.find().sort({
     title: 1
-  }).exec(function (err, exhibitions) {
-    console.log(exhibitions);
+  }).exec(function (err, data) {
+    exhibition = data;
+    var data = {
+      distance: distance,
+      space: space,
+      exhibition: exhibition
+    };
+    //    console.log(data);
+    res.render('index', data);
   });
 
-  var exhibition = "";
 
-  var data = {
-    distance: distance,
-    space: space,
-    exhibition: exhibition
-  };
-
-  res.render('index', data);
 };
 
 exports.infra = function (req, res) {

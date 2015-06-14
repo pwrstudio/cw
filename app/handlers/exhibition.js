@@ -33,21 +33,20 @@ exports.post_exhibition = function (req, res) {
       if (err) {
         res.json(err);
       } else {
-        res.json('{"success"}');
+        res.json({"result": "exhibition"});
       }
     });
 
   });
 
-
 };
 
-exports.get_exhibition_image = function (req, res) {
-  Content.findById(req.params.id, function (err, image) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(image.exhibitions);
-    }
-  });
-};
+//exports.get_exhibition_image = function (req, res) {
+//  Content.findById(req.params.id, function (err, image) {
+//    if (err) {
+//      res.send(err);
+//    } else {
+//      res.json(image.exhibitions);
+//    }
+//  });
+//};
