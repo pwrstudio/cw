@@ -24,12 +24,19 @@ var favicon = require('serve-favicon');
 
 var requestIp = require('request-ip');
 var traceroute = require('traceroute');
-//var whois = require('node-whois')
+//var whois = require('node-whois');
+var whois = require('whois-ux');
 var geoip = require('geoip-lite');
 var geolib = require('geolib');
 var geopoint = require('geopoint');
+var iso3311a2 = require('iso-3166-1-alpha-2');
+var Geohash = require('latlon-geohash');
 
 var hbs = require('express3-handlebars');
+
+
+var mtr = require('./app/helpers/mtr.js');
+
 
 // configuration ===========================================
 
@@ -71,29 +78,107 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
+app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public', {
   maxAge: oneYear
-})); // set the static files location /public/img will be /img for users
+}));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
 
 // routes ==================================================
 require('./app/routes')(app, passport, io); // pass our application into our routes
 
-//io.on('connection', function(socket){
-//  socket.on('chat message', function(msg){
-//    io.emit('chat message', msg);
-//  });
-//});
+// SOCKET
+io.on('connection', function (socket) {
 
-//io.on('connection', function(socket){
-//  console.log(io);
-//  console.log('a user connected');
-//  socket.on('disconnect', function(){
-//    console.log('user disconnected');
-//  });
-//});
+  console.log("New connection on " + socket.id);
+
+
+  var ip = socket.handshake.address;
+  ip = ip.replace("::ffff:", "");
+  var id = socket.id;
+
+
+  function getGeo(i, callback) {
+    var clientGeo = geoip.lookup(i);
+    if (clientGeo != null) {
+      callback(clientGeo);
+    }
+  }
+
+  mtr.trace_raw(ip, {}, function (data, d) {
+
+    if (d[0] == 'h') {
+
+      getGeo(d[2], function (geo) {
+
+        var lat = geolib.decimal2sexagesimal(geo.ll[0]);
+        var long = geolib.decimal2sexagesimal(geo.ll[1]);
+
+        var geohash = Geohash.encode(geo.ll[0], geo.ll[1]);
+
+        var find = 'NaN';
+        var re = new RegExp(find, 'g');
+
+        lat = lat.replace(re, "0");
+        long = long.replace(re, "0");
+
+        console.log(lat);
+        console.log(long);
+
+        whois.whois(d[2], function (err, data) {
+          console.log(data.OrgName, data.OrgId, data.netname);
+          var point = {
+            ip: d[2],
+            country: iso3311a2.getCountry(geo.country),
+            city: geo.city,
+            latitude: lat,
+            longitude: long,
+            geohash: geohash,
+            orgname: data.OrgName,
+            orgid: data.OrgId,
+            netname: data.netname
+          }
+
+          io.sockets.connected[id].emit('traced', point);
+        });
+
+
+
+      });
+
+    }
+
+  });
+
+
+  //  socket.on('mousemove', function (msg) {
+  //    console.log('x: ' + msg.x + ' / y: ' + msg.y);
+  //    socket.broadcast.emit("mousemove", {
+  //      x: msg.x,
+  //      y: msg.y,
+  //      ip: socket.handshake.address,
+  //      id: socket.id
+  //    });
+  //  });
+  //
+  //  socket.on('chat', function (msg) {
+  //    console.log(msg);
+  //    io.emit("chat", {
+  //      txt: msg,
+  //      id: socket.id
+  //    });
+  //  });
+  //
+
+  socket.on('disconnect', function () {
+    socket.broadcast.emit("left", {
+      id: socket.id
+    });
+    console.log('user disconnected');
+  });
+});
+
 
 //db.image.ensureIndex({ 'loc': '2dsphere' });
 

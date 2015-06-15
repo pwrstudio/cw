@@ -8,6 +8,7 @@
    Base styles: opinionated defaults
    ========================================================================== */
 
+/*
 * {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -16,6 +17,7 @@
   -ms-user-select: none;
   user-select: none;
 }
+*/
 
 html {
   color: #000;
@@ -339,4 +341,18 @@ label {
 
 .margin_bottom {
   margin-bottom: 1em;
+}
+
+body {
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 21px;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: inherit;
 }

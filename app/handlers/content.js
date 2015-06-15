@@ -7,6 +7,7 @@ var Chance = require('chance'),
   chance = new Chance();
 var geohash = require('latlon-geohash');
 var geolib = require('geolib');
+var validator = require('validator');
 
 // make sure data directory exists
 var dataDir = '/public/data';

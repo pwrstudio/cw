@@ -17,7 +17,7 @@ exports.index = function (req, res) {
 
   var clientGeo = geoip.lookup(clientIp);
 
-  //  console.log(clientGeo);
+  console.log(clientGeo);
 
   var lat = clientGeo.ll[0];
   var long = clientGeo.ll[1];
@@ -41,7 +41,7 @@ exports.index = function (req, res) {
   }
 
   Container.find().sort({
-    title: 1
+    start_date: 1
   }).exec(function (err, data) {
     var data = {
       distance: distance,

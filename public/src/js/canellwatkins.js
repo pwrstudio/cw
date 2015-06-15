@@ -50,23 +50,39 @@
       });
     }
 
-    Dropzone.options.fileDrop = {
-      init: function () {
-        this.on("complete", function (file) {
-          getDroplettes();
-        });
-      }
-    };
 
     $(document).ready(function () {
+
+      var socket = io();
 
       getExhibitions();
       getPublications();
       getContent();
 
-      $('.input-daterange, .input-group.date').datepicker({
-        autoclose: true,
-        format: 'yyyy/mm/dd'
+      //      $('.input-daterange, .input-group.date').datepicker({
+      //        autoclose: true,
+      //        format: 'yyyy/mm/dd'
+      //      });
+
+
+      socket.on('traced', function (msg) {
+        //        console.log(msg);
+        if (msg != null) {
+          if (msg.city != "") {
+            var out = msg.ip +
+              "<br>" + msg.orgname + 
+              "<br>" + msg.city + ", " + msg.country +
+              "<br>(" + msg.latitude + " / " + msg.longitude +
+              ") <br><a href='http://geohash.org/" + msg.geohash + "' target=_blank>[" + msg.geohash + "]</a>";
+          } else {
+            var out = msg.ip +
+              "<br>" + msg.orgname +
+              "<br>" + msg.country +
+              "<br>(" + msg.latitude + " / " + msg.longitude +
+              ") <br><a href='http://geohash.org/" + msg.geohash + "' target=_blank>[" + msg.geohash + "]</a>";
+          }
+          $("#trace-container").append("<div class='space'>*</div><div class='ping_container'>" + out + '</div>');
+        }
       });
 
 
@@ -93,6 +109,7 @@
       //      });
 
       $(document).on('submit', '.ajaxForm', function (e) {
+        $(".ajaxForm").validate();
         var formObj = $(this);
         var formURL = formObj.attr("action");
         var formData = new FormData(this);
@@ -100,21 +117,23 @@
           url: formURL,
           type: 'POST',
           data: formData,
+          dataType: "json",
           mimeType: "multipart/form-data",
           contentType: false,
           cache: false,
           processData: false,
           success: function (data, textStatus, jqXHR) {
-            alert(data);
+            alert(data.result);
             formObj.find("input").val('');
             if (data.result == "publication") {
               getPublications();
               $('a[href="#publication_list"]').tab('show');
             } else if (data.result == "exhibition") {
-              $('a[href="#exhibition_list"]').tab('show');
               getExhibitions();
+              $('a[href="#exhibition_list"]').tab('show');
             } else if (data.result == "content") {
               getContent();
+              $('a[href="#content_list"]').tab('show');
             }
 
           },
