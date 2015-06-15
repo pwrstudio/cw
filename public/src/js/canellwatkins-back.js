@@ -53,36 +53,13 @@
 
     $(document).ready(function () {
 
-      var socket = io();
-
       getExhibitions();
       getPublications();
       getContent();
 
-      //      $('.input-daterange, .input-group.date').datepicker({
-      //        autoclose: true,
-      //        format: 'yyyy/mm/dd'
-      //      });
-
-
-      socket.on('traced', function (msg) {
-        //        console.log(msg);
-        if (msg != null) {
-          if (msg.city != "") {
-            var out = msg.ip +
-              "<br>" + msg.orgname + 
-              "<br>" + msg.city + ", " + msg.country +
-              "<br>(" + msg.latitude + " / " + msg.longitude +
-              ") <br><a href='http://geohash.org/" + msg.geohash + "' target=_blank>[" + msg.geohash + "]</a>";
-          } else {
-            var out = msg.ip +
-              "<br>" + msg.orgname +
-              "<br>" + msg.country +
-              "<br>(" + msg.latitude + " / " + msg.longitude +
-              ") <br><a href='http://geohash.org/" + msg.geohash + "' target=_blank>[" + msg.geohash + "]</a>";
-          }
-          $("#trace-container").append("<div class='space'>*</div><div class='ping_container'>" + out + '</div>');
-        }
+      $('.input-daterange, .input-group.date').datepicker({
+        autoclose: true,
+        format: 'yyyy/mm/dd'
       });
 
 
@@ -141,39 +118,5 @@
         });
         e.preventDefault();
       });
-
-      //      $("body ").on("click ", ".small ", function () {
-      //        $(this).removeClass("small ").addClass("large ");
-      //        $("body ").animate({
-      //          backgroundColor: "#000 ",
-      //          color: "#FFF ",
-      //        }, 1000, "easeInOutQuart");
-      //      });
-      //
-      //      $("body ").on("click ", ".large ", function () {
-      //        $(this).removeClass("large ").addClass("small ");
-      //        if ($(".large ").size() == 0) {
-      //          $("body ").animate({
-      //            backgroundColor: "#FFF ",
-      //            color: "#000",
-      //          }, 1000, "easeInOutQuart");
-      //        }
-      //      });
-
-      //      $(".draggable ").draggable({
-      //        stack: ".draggable"
-      //      });
-
-      //      var windowWidth = $(window).width();
-      //      var documentHeight = $(document).height();
-      //
-      //      $(".draggable ").each(function () {
-      //        var elementHeight = 400;
-      //        //        var elementHeight = $(this).height();
-      //        //        var elementWidth = $(this).width();
-      //        var elementWidth = 200;
-      //        $(this).css("top", getRandomInt(0, (documentHeight - elementHeight)));
-      //        $(this).css("left", getRandomInt(0, (windowWidth - elementWidth)));
-      //      });
 
     });

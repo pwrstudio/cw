@@ -2,11 +2,11 @@ var passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy;
 
 exports.signup_form = function (req, res) {
-  res.render('signup', {});
+  res.render('signup', {layout: "backend"});
 };
 
 exports.login_form = function (req, res) {
-  res.render('login', {});
+  res.render('login', {layout: "backend"});
 };
 
 exports.logout = function (req, res) {

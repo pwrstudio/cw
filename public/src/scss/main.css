@@ -7,7 +7,6 @@
 /* ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
-
 /*
 * {
   -webkit-touch-callout: none;
@@ -323,7 +322,9 @@ textarea {
   }
 }
 
-form, .container-fluid, .list-group {
+form,
+.container-fluid,
+.list-group {
   margin-top: 2em;
 }
 
@@ -355,4 +356,24 @@ a {
 
 a:hover {
   color: inherit;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:active {
+  color: inherit;
+}
+
+.ping_container {
+  transition: opacity 2s;
+}
+
+article {
+  cursor: default;
+}
+
+article:hover {
+  text-decoration: none;
 }
