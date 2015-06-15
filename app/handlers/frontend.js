@@ -41,7 +41,7 @@ exports.index = function (req, res) {
   }
 
   Container.find().sort({
-    start_date: 1
+    start_date: -1
   }).exec(function (err, data) {
     var data = {
       distance: distance,

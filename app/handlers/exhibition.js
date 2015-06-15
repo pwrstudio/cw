@@ -25,6 +25,7 @@ exports.post_exhibition = function (req, res) {
     var exhibition = new Container();
     exhibition.title = fields.title;
     exhibition.location = fields.location;
+    exhibition.link = fields.link;
     exhibition.start_date = fields.start_date;
     exhibition.end_date = fields.end_date;   
     exhibition.start_date_pretty = fields.start_date;
@@ -42,12 +43,28 @@ exports.post_exhibition = function (req, res) {
 
 };
 
-//exports.get_exhibition_image = function (req, res) {
-//  Content.findById(req.params.id, function (err, image) {
-//    if (err) {
-//      res.send(err);
-//    } else {
-//      res.json(image.exhibitions);
-//    }
-//  });
-//};
+exports.delete_image_content = function (req, res) {
+  Content.findById(req.params.id, function (err, content) {
+    if (err) {
+      res.send(err);
+    }
+    console.log(content.url);
+    var p = content.url.split('/');
+    console.log("datadir: " + fullDir + '/' + p[2]);
+    rimraf(fullDir + '/' + p[2], function (err) {
+      if (err)
+        console.log(err);
+    });
+  });
+
+  Content.remove({
+    _id: req.params.id
+  }, function (err, content) {
+    if (err) {
+      res.send(err);
+    }
+    res.json({
+      message: 'Success'
+    });
+  });
+};

@@ -22,25 +22,24 @@
 <div class="col-md-3">
   <article class="exhibition">
     <div class="title ">canellwatkins.org</div>
-    <!--    <div class="title ">N. Canell / R. Watkins</div>-->
   </article>
-  <div id="trace-container"></div>
   <div class="space">*</div>
   <div class="title ">{{distance}} km from server to client</div>
+  <div id="trace-container"></div>
+  {{{space}}}
 </div>
 
 <div class="col-md-3">
   <article class="exhibition">
     <div class="title">Exhibitions</div>
   </article>
-  {{#each container}} {{#if this.location}} {{{../../space}}} 
-  {{#if this.link}}<a href="{{this.link}}">{{/if}}
+  {{#each container}} {{#if this.location}} {{{../../space}}} {{#if this.link}}<a href="{{this.link}}">{{/if}}
   <article class="exhibition light ">
     <div class="title">{{this.title}}</div>
     <div class="date">{{this.start_date_pretty}} — {{this.end_date_pretty}}</div>
     <div class="location">{{this.location}}</div>
   </article>
-  {{#if this.link}}</a>{{/if}} {{/if}} {{/each}}
+  {{#if this.link}}</a>{{/if}} {{/if}} {{/each}} {{{space}}}
 </div>
 
 <div class="col-md-3">
@@ -53,7 +52,7 @@
     <div class="date">{{this.start_date_pretty}}</div>
     <div class="publisher">{{this.publisher}}</div>
   </article>
-  {{/if}} {{/each}}
+  {{/if}} {{/each}} {{{space}}}
 </div>
 
 <div class="col-md-3">
@@ -66,5 +65,6 @@
     <div class="date">{{this.start_date}}</div>
     <div class="published">{{this.publisher}}</div>
   </article>
-  {{/each}}
+  {{/each}} {{{space}}}
+
 </div>

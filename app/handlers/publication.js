@@ -24,6 +24,7 @@ exports.post_publication = function (req, res) {
 
     var publication = new Container();
     publication.title = fields.title;
+    publication.link = fields.link;
     publication.publisher = fields.publisher;
     publication.start_date = fields.start_date;
     publication.start_date_pretty = fields.start_date;
@@ -32,41 +33,12 @@ exports.post_publication = function (req, res) {
       if (err) {
         res.json(err);
       } else {
-        res.json({result: 'publication'});
+        res.json({
+          result: 'publication'
+        });
       }
     });
 
   });
 
 };
-
-//exports.add_publication_to_post = function (req, res) {
-//
-//  Content.findById(req.params.image_id, function (err, image) {
-//    if (err) {
-//      res.send(err);
-//    }
-//    Container.findById(req.params.publication_id, function (err, publication) {
-//      if (err) {
-//        res.send(err);
-//      }
-//      image.publications.push(publication._id);
-//      image.save(function (err) {
-//        if (err) {
-//          res.send(err);
-//        }
-//      });
-//    });
-//    res.json(image);
-//  });
-//};
-//
-//exports.get_publication_image = function (req, res) {
-//  Content.findById(req.params.id, function (err, image) {
-//    if (err) {
-//      res.send(err);
-//    } else {
-//      res.json(image.publications);
-//    }
-//  });
-//};

@@ -7,7 +7,7 @@
 /* ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
-/*
+
 * {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -16,7 +16,6 @@
   -ms-user-select: none;
   user-select: none;
 }
-*/
 
 html {
   color: #000;
@@ -371,7 +370,7 @@ a:active {
 }
 
 article {
-  cursor: default;
+  cursor: inherit;
 }
 
 article:hover {

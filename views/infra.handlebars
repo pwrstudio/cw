@@ -1,11 +1,17 @@
 <script id="publication-template" type="text/x-handlebars-template">
   <div class="list-group">
     \{{#each this}} \{{#if publisher}}
-    <a href="#" id="\{{_id}}" class="list-group-item">
-      <div><strong>\{{title}}</strong></div>
-      <div><em>\{{publisher}}</em></div>
+    <a href="#" id="\{{_id}}" class="list-group-item" data-toggle="collapse-next">
+      <div><strong>\{{title}}</strong>
+      </div>
+      <div><em>\{{publisher}}</em>
+      </div>
       <div>\{{start_date_pretty}}</div>
     </a>
+    <div class="collapse editContainer">
+      <div class="btn btn-primary btn-xs edit cont" data-id="\{{_id}}">Edit</div>
+      <div class="btn btn-danger btn-xs delete cont" data-id="\{{_id}}">Delete</div>
+    </div>
     \{{/if}} \{{/each}}
   </div>
 </script>
@@ -13,11 +19,17 @@
 <script id="exhibition-template" type="text/x-handlebars-template">
   <div class="list-group">
     \{{#each this}} \{{#if location}}
-    <a href="#" id="\{{_id}}" class="list-group-item">
-      <div><strong>\{{title}}</strong></div>
-      <div><em>\{{location}}</em></div>
+    <a href="#" id="\{{_id}}" class="list-group-item" data-toggle="collapse-next">
+      <div><strong>\{{title}}</strong>
+      </div>
+      <div><em>\{{location}}</em>
+      </div>
       <div>\{{start_date_pretty}} – \{{end_date_pretty}}</div>
     </a>
+    <div class="collapse editContainer">
+      <div class="btn btn-primary btn-xs edit cont" data-id="\{{_id}}">Edit</div>
+      <div class="btn btn-danger btn-xs delete cont" data-id="\{{_id}}">Delete</div>
+    </div>
     \{{/if}} \{{/each}}
   </div>
 </script>
@@ -25,19 +37,23 @@
 <script id="content-template" type="text/x-handlebars-template">
   <div class="list-group">
     \{{#each this}}
-    <a href="#" id="\{{_id}}" class="list-group-item">
+    <a href="#" id="\{{_id}}" class="list-group-item" data-toggle="collapse-next">
       <h3>\{{title}}</h3> \{{#if image}} <img src="\{{image.url}}">
       <p>\{{image.caption}}</p>
       \{{/if}} \{{#if text}}
       <p>\{{text.body}}</p>
       \{{/if}}
     </a>
+    <div class="collapse editContainer">
+      <div class="btn btn-primary btn-xs edit content" data-id="\{{_id}}">Edit</div>
+      <div class="btn btn-danger btn-xs delete content" data-id="\{{_id}}">Delete</div>
+    </div>
     \{{/each}}
   </div>
 </script>
 
 <div class="col-md-12 margin_bottom">
-<a href="logout" class="btn btn-danger btn-sm pull-right">Logout</a>
+  <a href="logout" class="btn btn-danger btn-sm pull-right">Logout</a>
 </div>
 
 <div class="col-md-6">
@@ -123,7 +139,9 @@
         </fieldset>
       </form>
     </div>
-    <div role="tabpanel" class="tab-pane fade" id="collections">collections</div>
+    <div role="tabpanel" class="tab-pane fade" id="collections">
+      <div class="btn btn-primary">Make pdf</div>
+    </div>
   </div>
 
 </div>

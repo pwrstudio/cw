@@ -93,11 +93,9 @@ io.on('connection', function (socket) {
 
   console.log("New connection on " + socket.id);
 
-
   var ip = socket.handshake.address;
   ip = ip.replace("::ffff:", "");
   var id = socket.id;
-
 
   function getGeo(i, callback) {
     var clientGeo = geoip.lookup(i);
@@ -140,10 +138,12 @@ io.on('connection', function (socket) {
             netname: data.netname
           }
 
-          io.sockets.connected[id].emit('traced', point);
+          console.log(io.sockets.connected[id]);
+          console.log(id);
+          if (io.sockets.connected[id]) {
+            io.sockets.connected[id].emit('traced', point);
+          }
         });
-
-
 
       });
 
@@ -152,31 +152,13 @@ io.on('connection', function (socket) {
   });
 
 
-  //  socket.on('mousemove', function (msg) {
-  //    console.log('x: ' + msg.x + ' / y: ' + msg.y);
-  //    socket.broadcast.emit("mousemove", {
-  //      x: msg.x,
-  //      y: msg.y,
-  //      ip: socket.handshake.address,
+  //  socket.on('disconnect', function () {
+  //    socket.broadcast.emit("left", {
   //      id: socket.id
   //    });
+  //    console.log('user disconnected');
   //  });
-  //
-  //  socket.on('chat', function (msg) {
-  //    console.log(msg);
-  //    io.emit("chat", {
-  //      txt: msg,
-  //      id: socket.id
-  //    });
-  //  });
-  //
 
-  socket.on('disconnect', function () {
-    socket.broadcast.emit("left", {
-      id: socket.id
-    });
-    console.log('user disconnected');
-  });
 });
 
 

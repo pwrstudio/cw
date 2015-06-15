@@ -6,6 +6,7 @@ var content = require('./handlers/content.js');
 var exhibition = require('./handlers/exhibition.js');
 var publication = require('./handlers/publication.js');
 var frontend = require('./handlers/frontend.js');
+var container = require('./handlers/container.js');
 
 module.exports = function (app, io) {
 
@@ -48,6 +49,10 @@ module.exports = function (app, io) {
   app.delete('/api/content/del/image/:id', content.delete_image_content);
 
   app.delete('/api/content/del/text/:id', content.delete_text_content);
+
+  
+  // Container
+  app.delete('/api/container/:id', auth.isLoggedIn, container.delete);
 
 
   // API: Exhibition
