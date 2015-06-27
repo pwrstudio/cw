@@ -41,8 +41,8 @@ exports.post_image_content = function (req, res, io) {
 
   form.parse(req, function (err, fields, files) {
 
-    console.log(fields);
-    console.log(files.pic.path);
+//    console.log(fields);
+//    console.log(files.pic.path);
 
     var path = dir + '/' + files.pic.name;
     //    var rand = randtoken.generate(32);
@@ -130,6 +130,8 @@ exports.post_text_content = function (req, res) {
     content.date = new Date();
     content.text.body = fields.text;
     content.title = fields.title;
+    content.text.author = fields.author;
+    content.text.link = fields.link;
     content.user = req.user.email;
 
     content.save(function (err) {

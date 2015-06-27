@@ -9,118 +9,73 @@
    ========================================================================== */
 
 * {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 html {
-  color: #000;
-  font-size: 11px;
-  line-height: 14px;
-  /*  letter-spacing: 0.5em;*/
+	color: #000;
+	font-size: 11px;
+	line-height: 14px;
+	/*  letter-spacing: 0.5em;*/
 }
 
 body {
-  background: #FFF;
-  font-family: helvetica;
-  overflow-x: hidden;
+	background: #FFF;
+	font-family: helvetica;
+	overflow-x: hidden;
 }
 
 article {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 article:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 img.small {
-  width: 150px;
-  -webkit-transition: width 1s;
-  transition: width 1s;
+	width: 150px;
+	-webkit-transition: width 1s;
+	transition: width 1s;
 }
 
 img.large {
-  width: 500px;
-  -webkit-transition: width 1s;
-  transition: width 1s;
+	width: 500px;
+	-webkit-transition: width 1s;
+	transition: width 1s;
 }
 
 .space {
-  height: 42px;
-  line-height: 42px;
+	height: 42px;
+	line-height: 42px;
+	letter-spacing: 42px;
 }
-/*
-.parallax {
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-perspective: 1px;
-  perspective: 1px;
-  perspective-origin-x: 100%;
-}
-
-.parallax__layer {
-  transform-origin-x: 100%;
-  position: absolute;
-  top: 0;
-}
-
-.parallax__layer--base {
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-}
-
-.parallax__layer--back {
-  -webkit-transform: translateZ(-1px) scale(2);
-  transform: translateZ(-1px) scale(2);
-}
-
-
-#colOne {
-  left: 10%;
-}
-
-#colTwo {
-  left: 60%;
-}
-
-#colThree {
-  left: 50%;
-}
-*/
-/*
- * Remove text-shadow in selection highlight:
- * https://twitter.com/miketaylr/status/12228805301
- *
- * These selection rule sets have to be separate.
- * Customize the background color to match your design.
- */
 
 ::-moz-selection {
-  background: #b3d4fc;
-  text-shadow: none;
+	background: #b3d4fc;
+	text-shadow: none;
 }
 
 ::selection {
-  background: #b3d4fc;
-  text-shadow: none;
+	background: #b3d4fc;
+	text-shadow: none;
 }
 /*
  * A better looking default horizontal rule
  */
 
 hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #ccc;
+	margin: 1em 0;
+	padding: 0;
 }
 /*
  * Remove the gap between audio, canvas, iframes,
@@ -134,33 +89,33 @@ iframe,
 img,
 svg,
 video {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 /*
  * Remove default fieldset styles.
  */
 
 fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
+	border: 0;
+	margin: 0;
+	padding: 0;
 }
 /*
  * Allow only vertical resizing of textareas.
  */
 
 textarea {
-  resize: vertical;
+	resize: vertical;
 }
 /* ==========================================================================
    Browser Upgrade Prompt
    ========================================================================== */
 
 .browserupgrade {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+	margin: 0.2em 0;
+	background: #ccc;
+	color: #000;
+	padding: 0.2em 0;
 }
 /* ==========================================================================
    Author's custom styles
@@ -173,7 +128,7 @@ textarea {
  */
 
 .hidden {
-  display: none !important;
+	display: none !important;
 }
 /*
  * Hide only visually, but have it available for screen readers:
@@ -181,14 +136,14 @@ textarea {
  */
 
 .visuallyhidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
 }
 /*
  * Extends the .visuallyhidden class to allow the element
@@ -198,19 +153,19 @@ textarea {
 
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
-  clip: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  position: static;
-  width: auto;
+	clip: auto;
+	height: auto;
+	margin: 0;
+	overflow: visible;
+	position: static;
+	width: auto;
 }
 /*
  * Hide visually and from screen readers, but maintain layout
  */
 
 .invisible {
-  visibility: hidden;
+	visibility: hidden;
 }
 /*
  * Clearfix: contain floats
@@ -226,15 +181,15 @@ textarea {
 
 .clearfix:before,
 .clearfix:after {
-  content: " ";
-  /* 1 */
-  
-  display: table;
-  /* 2 */
+	content: " ";
+	/* 1 */
+	
+	display: table;
+	/* 2 */
 }
 
 .clearfix:after {
-  clear: both;
+	clear: both;
 }
 /* ==========================================================================
    EXAMPLE Media Queries for Responsive Design.
@@ -243,136 +198,115 @@ textarea {
    ========================================================================== */
 
 @media only screen and (min-width: 35em) {
-  /* Style adjustments for viewports that meet the condition */
-}
-
-@media print,
-(-webkit-min-device-pixel-ratio: 1.25),
-(min-resolution: 1.25dppx),
-(min-resolution: 120dpi) {
-  /* Style adjustments for high resolution devices */
-}
-/* ==========================================================================
-   Print styles.
-   Inlined to avoid the additional HTTP request:
-   http://www.phpied.com/delay-loading-your-print-css/
-   ========================================================================== */
-
-@media print {
-  *,
-  *:before,
-  *:after {
-    background: transparent !important;
-    color: #000 !important;
-    /* Black prints faster:
-                                   http://www.sanbeiji.com/archives/953 */
-    
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
-  a[href]:after {
-    content: " (" attr(href) ")";
-  }
-  abbr[title]:after {
-    content: " (" attr(title) ")";
-  }
-  /*
-     * Don't show links that are fragment identifiers,
-     * or use the `javascript:` pseudo protocol
-     */
-  
-  a[href^="#"]:after,
-  a[href^="javascript:"]:after {
-    content: "";
-  }
-  pre,
-  blockquote {
-    border: 1px solid #999;
-    page-break-inside: avoid;
-  }
-  /*
-     * Printing Tables:
-     * http://css-discuss.incutio.com/wiki/Printing_Tables
-     */
-  
-  thead {
-    display: table-header-group;
-  }
-  tr,
-  img {
-    page-break-inside: avoid;
-  }
-  img {
-    max-width: 100% !important;
-  }
-  p,
-  h2,
-  h3 {
-    orphans: 3;
-    widows: 3;
-  }
-  h2,
-  h3 {
-    page-break-after: avoid;
-  }
+	/* Style adjustments for viewports that meet the condition */
 }
 
 form,
-.container-fluid,
 .list-group {
-  margin-top: 2em;
+	margin-top: 1em;
+}
+
+.container-fluid {
+	padding: 0;
+	margin-top: 10px;
+	margin-left: 10px;
 }
 
 img {
-  max-width: 100%;
+	max-width: 100%;
 }
 
 input[type:"text"] {
-  width: 100%;
+	width: 100%;
 }
 
 label {
-  display: block;
+	display: block;
 }
 
 .margin_bottom {
-  margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 body {
-  font-size: 11px;
-  letter-spacing: 1px;
-  line-height: 21px;
+	font-size: 11px;
+	letter-spacing: 1px;
+	line-height: 21px;
 }
 
 a {
-  color: inherit;
+	color: inherit;
+/*	transition: color 1s ease-out;*/
 }
 
 a:hover {
-  color: inherit;
+	color: #00F;
+	text-decoration: none;
 }
 
 a:visited {
-  color: inherit;
+	/*	color: inherit;*/
 }
 
 a:active {
-  color: inherit;
+	/*	color: inherit;*/
 }
 
 .ping_container {
-  transition: opacity 2s;
+	transition: opacity 2s;
 }
 
 article {
-  cursor: inherit;
+	cursor: inherit;
 }
 
 article:hover {
-  text-decoration: none;
+	text-decoration: none;
+}
+
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+	position: relative;
+	min-height: 1px;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.col-xs-5ths {
+	width: 20%;
+	float: left;
+}
+
+@media (min-width: 768px) {
+	.col-sm-5ths {
+		width: 20%;
+		float: left;
+	}
+}
+
+@media (min-width: 992px) {
+	.col-md-5ths {
+		width: 20%;
+		float: left;
+	}
+}
+
+@media (min-width: 1200px) {
+	.col-lg-5ths {
+		width: 20%;
+		float: left;
+	}
+}
+
+.ping_container {
+	max-width: 75%;
+	transition: color 2s ease;
+}
+
+.ping_container:last-of-type {
+	max-width: 75%;
+	color: #00F;
+	transition: color 2s ease;
 }

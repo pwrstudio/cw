@@ -24,7 +24,6 @@ var favicon = require('serve-favicon');
 
 var requestIp = require('request-ip');
 var traceroute = require('traceroute');
-//var whois = require('node-whois');
 var whois = require('whois-ux');
 var geoip = require('geoip-lite');
 var geolib = require('geolib');
@@ -33,7 +32,6 @@ var iso3311a2 = require('iso-3166-1-alpha-2');
 var Geohash = require('latlon-geohash');
 
 var hbs = require('express3-handlebars');
-
 
 var mtr = require('./app/helpers/mtr.js');
 
@@ -50,6 +48,7 @@ global.appRoot = path.resolve(__dirname);
 app.engine('handlebars', exphbs({
   defaultLayout: 'main'
 }));
+
 app.set('view engine', 'handlebars');
 
 mongoose.connect(db.url); // connect to our mongoDB database 
@@ -121,11 +120,11 @@ io.on('connection', function (socket) {
         lat = lat.replace(re, "0");
         long = long.replace(re, "0");
 
-        console.log(lat);
-        console.log(long);
+//        console.log(lat);
+//        console.log(long);
 
         whois.whois(d[2], function (err, data) {
-          console.log(data.OrgName, data.OrgId, data.netname);
+//          console.log(data.OrgName, data.OrgId, data.netname);
           var point = {
             ip: d[2],
             country: iso3311a2.getCountry(geo.country),
@@ -138,8 +137,8 @@ io.on('connection', function (socket) {
             netname: data.netname
           }
 
-          console.log(io.sockets.connected[id]);
-          console.log(id);
+//          console.log(io.sockets.connected[id]);
+//          console.log(id);
           if (io.sockets.connected[id]) {
             io.sockets.connected[id].emit('traced', point);
           }
