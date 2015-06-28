@@ -44,7 +44,7 @@ exports.index = function (req, res) {
 					space: function () {
 						var s = "";
 						var i;
-						for (i = 0; i < (distance / 300); i++) {
+						for (i = 0; i < (distance / 500); i++) {
 							//						if (random.bool(.1)) {
 							//							s += '<a href="" class="image"><div class="space">*</div></a>';
 							//						} else {
