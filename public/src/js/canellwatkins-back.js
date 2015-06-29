@@ -60,9 +60,9 @@ $(document).ready(function () {
   $('.collapse').collapse();
 
   $('body').on('click.collapse-next.data-api', '[data-toggle=collapse-next]', function (e) {
-    var $target = $(this).next()
-    $target.data('collapse') ? $target.collapse('toggle') : $target.collapse()
-  })
+    var $target = $(this).next();
+    $target.data('collapse') ? $target.collapse('toggle') : $target.collapse();
+  });
 
   $('.input-daterange, .input-group.date').datepicker({
     autoclose: true,

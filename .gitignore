@@ -2,3 +2,4 @@ public/libs
 public/data
 node_modules/
 .sass-cache/
+public/dist/
