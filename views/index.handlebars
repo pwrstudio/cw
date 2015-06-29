@@ -1,38 +1,38 @@
 <script id="trace-template" type="text/x-handlebars-template">
-	<div class='space'>*</div>
-	<article class='ping_container'>
-		<div>\{{ip}}</div>
-		\{{#if orgname}}
-		<div>\{{orgname}}</div>
-		\{{else}} \{{#if orgid}}
-		<div>\{{orgid}}</div>
-		\{{else}} \{{#if netname}}
-		<div>\{{netname}}</div>
-		\{{/if}} \{{/if}} \{{/if}}
-		<div>
-			\{{#if city}} \{{city}}, \{{/if}} \{{#if country}} \{{country}} \{{/if}}
-		</div>
-		<div>
-			<a href='http://geohash.org/\{{geohash}}' target=_blank>\{{geohash}}</a>
-		</div>
-	</article>
+  <div class='space'>*</div>
+  <article class='ping_container'>
+    <div>\{{ip}}</div>
+    \{{#if orgname}}
+    <div>\{{orgname}}</div>
+    \{{else}} \{{#if orgid}}
+    <div>\{{orgid}}</div>
+    \{{else}} \{{#if netname}}
+    <div>\{{netname}}</div>
+    \{{/if}} \{{/if}} \{{/if}}
+    <div>
+      \{{#if city}} \{{city}}, \{{/if}} \{{#if country}} \{{country}} \{{/if}}
+    </div>
+    <div>
+      <a href='http://geohash.org/\{{geohash}}' target=_blank>\{{geohash}}</a>
+    </div>
+  </article>
 </script>
 
 <div class="col-md-5ths col-sm-5ths col-xs-5ths">
-	<article class="exhibition">
-		<div class="title ">canellwatkins.org</div>
-	</article>
-	<div class="space">*</div>
-	<div class="title ">{{distance}} km from server to client</div>
-	<div id="trace-container"></div>
-	{{{space}}}
+  <article class="exhibition">
+    <div class="title ">canellwatkins.org</div>
+  </article>
+  <div class="space">*</div>
+  <div class="title ">{{distance}} km from server to client</div>
+  <div id="trace-container"></div>
+  {{{space}}}
 </div>
 
 <div class="col-md-5ths col-sm-5ths col-xs-5ths">
-	<article class="exhibition">
-		<div class="title">Exhibitions</div>
-	</article>
-	{{#each container}} {{#if this.location}} {{{space}}} {{#if this.link}}<a href="{{this.link}}">{{/if}}
+  <article class="exhibition">
+    <div class="title">Exhibitions</div>
+  </article>
+  {{#each container}} {{#if this.location}} {{{space}}} {{#if this.link}}<a href="{{this.link}}">{{/if}}
   <article class="exhibition light ">
     <div class="title">{{this.title}}</div>
     <div class="date">{{this.start_date_pretty}} — {{this.end_date_pretty}}</div>
@@ -42,47 +42,46 @@
 </div>
 
 <div class="col-md-5ths col-sm-5ths col-xs-5ths">
-	<article class="exhibition">
-		<div class="title ">Publications</div>
-	</article>
-	{{#each container}} {{#if this.publisher}} {{{space}}}
-	<article class="exhibition light ">
-		<div class="title">{{this.title}}</div>
-		<div class="date">{{this.start_date_pretty}}</div>
-		<div class="publisher">{{this.publisher}}</div>
-	</article>
-	{{/if}} {{/each}} {{{space}}}
+  <article class="exhibition">
+    <div class="title ">Publications</div>
+  </article>
+  {{#each container}} {{#if this.publisher}} {{{space}}}
+  <article class="exhibition light ">
+    <div class="title">{{this.title}}</div>
+    <div class="date">{{this.start_date_pretty}}</div>
+    <div class="publisher">{{this.publisher}}</div>
+  </article>
+  {{/if}} {{/each}} {{{space}}}
 </div>
 
 <div class="col-md-5ths col-sm-5ths col-xs-5ths">
-	<article class="exhibition">
-		<div class="title ">Images</div>
-	</article>
-	{{#each content}} {{#if this.image.large}} {{{space}}}
-	<article class="exhibition light ">
-		<a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
-			<div class="title">{{this.title}}</div>
-		</a>
-		<div class="thumb-container">
-			<a href="{{this.image.large}}" class="lightBox"><img src="{{this.image.thumb}}">
-			</a>
-		</div>
-	</article>
-	{{/if}} {{/each}} {{{space}}}
+  <article class="exhibition">
+    <div class="title ">Images</div>
+  </article>
+  {{#each content}} {{#if this.image.large}} {{{space}}}
+  <article class="exhibition light ">
+    <a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
+      <div class="title">{{this.title}}</div>
+    </a>
+      <div class="thumb-container">
+        <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
+      </div>
+  </article>
+  {{/if}} {{/each}} {{{space}}}
 </div>
 
 <div class="col-md-5ths col-sm-5ths col-xs-5ths">
-	<article class="exhibition">
-		<div class="title ">Texts</div>
-	</article>
-	{{#each content}} {{#if this.text.author}} {{{space}}}
+  <article class="exhibition">
+    <div class="title ">Texts</div>
+  </article>
+  {{#each content}} {{#if this.text.author}} {{{space}}}
 
-	<a href="{{this.text.title}}">
-		<article class="exhibition light ">
-			<div class="title">{{this.title}}</div>
-			<div class="date">{{this.text.author}}</div>
-		</article>
-	</a>
-	{{/if}} {{/each}} {{{space}}}
+  <a href="{{this.text.title}}">
+    <article class="exhibition light ">
+      <div class="title">{{this.title}}</div>
+      <div class="date">{{this.text.author}}</div>
+    </article>
+  </a>
+  {{/if}} {{/each}} {{{space}}}
 
 </div>
