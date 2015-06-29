@@ -18,7 +18,7 @@
 	</article>
 </script>
 
-<div class="col-md-2 col-sm-2 col-xs-2">
+<div class="col-md-5ths col-sm-5ths col-xs-5ths">
 	<article class="exhibition">
 		<div class="title ">canellwatkins.org</div>
 	</article>
@@ -28,7 +28,7 @@
 	{{{space}}}
 </div>
 
-<div class="col-md-3 col-sm-3 col-xs-3">
+<div class="col-md-5ths col-sm-5ths col-xs-5ths">
 	<article class="exhibition">
 		<div class="title">Exhibitions</div>
 	</article>
@@ -41,7 +41,7 @@
   {{#if this.link}}</a>{{/if}} {{/if}} {{/each}} {{{space}}}
 </div>
 
-<div class="col-md-3 col-sm-3 col-xs-3">
+<div class="col-md-5ths col-sm-5ths col-xs-5ths">
 	<article class="exhibition">
 		<div class="title ">Publications</div>
 	</article>
@@ -54,7 +54,24 @@
 	{{/if}} {{/each}} {{{space}}}
 </div>
 
-<div class="col-md-2 col-sm-2 col-xs-2">
+<div class="col-md-5ths col-sm-5ths col-xs-5ths">
+	<article class="exhibition">
+		<div class="title ">Images</div>
+	</article>
+	{{#each content}} {{#if this.image.large}} {{{space}}}
+	<article class="exhibition light ">
+		<a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
+			<div class="title">{{this.title}}</div>
+		</a>
+		<div class="thumb-container">
+			<a href="{{this.image.large}}" class="lightBox"><img src="{{this.image.thumb}}">
+			</a>
+		</div>
+	</article>
+	{{/if}} {{/each}} {{{space}}}
+</div>
+
+<div class="col-md-5ths col-sm-5ths col-xs-5ths">
 	<article class="exhibition">
 		<div class="title ">Texts</div>
 	</article>
@@ -68,17 +85,4 @@
 	</a>
 	{{/if}} {{/each}} {{{space}}}
 
-</div>
-
-<div class="col-md-2 col-sm-2 col-xs-2">
-	<article class="exhibition">
-		<div class="title ">Images</div>
-	</article>
-	{{#each content}} {{#if this.image.large}} {{{space}}}
-	<article class="exhibition light ">
-		<a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
-			<div class="title" >{{this.title}}</div>
-		</a>
-	</article>
-	{{/if}} {{/each}} {{{space}}}
 </div>

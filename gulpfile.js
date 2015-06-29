@@ -4,54 +4,102 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var nodemon = require('gulp-nodemon');
 
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var autoprefixer = require('gulp-autoprefixer');
+var rename = require('gulp-rename');
+var compass = require('gulp-compass');
+var plumber = require('gulp-plumber');
+var imagemin = require('gulp-imagemin');
+var cache = require('gulp-cache');
+var jshint = require('gulp-jshint');
+var scsslint = require('gulp-scss-lint');
+var minifyCSS = require('gulp-minify-css');
+
+
+// Concatenate & Minify JS
+gulp.task('scripts', function () {
+	return gulp.src('public/src/js/*.js')
+		.pipe(jshint())
+		.pipe(jshint.reporter('default'))
+		.pipe(concat('main.js'))
+		//    .pipe(rename({suffix: '.min'}))
+		//    .pipe(uglify())
+		.pipe(gulp.dest('build/js/'));
+});
+
+gulp.task('sass', function () {
+	return gulp.src('public/src/scss/main.scss')
+		.pipe(plumber())
+		.pipe(scsslint())
+		.pipe(compass({
+			css: 'public/dist/css',
+			sass: 'public/src/scss/'
+		}))
+		.pipe(autoprefixer())
+		//    .pipe(minifyCSS())
+		.pipe(gulp.dest('public/dist/css'));
+});
+
+gulp.task('images', function () {
+	return gulp.src('src/img/**/*')
+		.pipe(cache(imagemin({
+			optimizationLevel: 5,
+			progressive: true,
+			interlaced: true
+		})))
+		.pipe(gulp.dest('build/img'));
+});
+
+// Watch for changes in files
+gulp.task('watch', function () {
+	// Watch .js files
+	gulp.watch('public/src/js/*.js', ['scripts']);
+	// Watch .scss files
+	gulp.watch('public/src/scss/main.scss', ['sass']);
+	// Watch image files
+	//    gulp.watch('src/img/**/*', ['images']);
+});
+
 // we'd need a slight delay to reload browsers
 // connected to browser-sync after restarting nodemon
 var BROWSER_SYNC_RELOAD_DELAY = 500;
 
 gulp.task('nodemon', function (cb) {
-  var called = false;
-  return nodemon({
+	var called = false;
+	return nodemon({
 
-    // nodemon our expressjs server
-    script: 'server.js',
+			// nodemon our expressjs server
+			script: 'server.js',
 
-    // watch core server file(s) that require server restart on change
-    watch: ['server.js']
-  })
-    .on('start', function onStart() {
-      // ensure start only got called once
-      if (!called) { cb(); }
-      called = true;
-    })
-    .on('restart', function onRestart() {
-      // reload connected browsers after a slight delay
-      setTimeout(function reload() {
-        browserSync.reload({
-          stream: false   //
-        });
-      }, BROWSER_SYNC_RELOAD_DELAY);
-    });
+			// watch core server file(s) that require server restart on change
+			watch: ['server.js']
+		})
+		.on('start', function onStart() {
+			// ensure start only got called once
+			if (!called) {
+				cb();
+			}
+			called = true;
+		})
+		.on('restart', function onRestart() {
+			// reload connected browsers after a slight delay
+			setTimeout(function reload() {
+				browserSync.reload({
+					stream: false //
+				});
+			}, BROWSER_SYNC_RELOAD_DELAY);
+		});
 });
 
 gulp.task('browser-sync', ['nodemon'], function () {
 
-  // for more browser-sync config options: http://www.browsersync.io/docs/options/
-  browserSync.init({
-
-    // watch the following files; changes will be injected (css & images) or cause browser to refresh
-    files: ['public/**/*.*', 'public/**/*.*'],
-
-    // informs browser-sync to proxy our expressjs app which would run at the following location
-    proxy: 'http://localhost:8080',
-
-    // informs browser-sync to use the following port for the proxied app
-    // notice that the default port is 3000, which would clash with our expressjs
-    port: 5678,
-
-    // open the proxied app in chrome
-    browser: ['google chrome']
-  });
+	// for more browser-sync config options: http://www.browsersync.io/docs/options/
+	browserSync.init({
+		files: ['public/**/*.*', 'public/**/*.*'],
+		proxy: 'http://localhost:80',
+		port: 9000
+	});
 });
 
-gulp.task('default', ['browser-sync']);
-//gulp.task('default', ['nodemon']);
+gulp.task('default', ['nodemon', 'scripts', 'sass', 'watch']);
