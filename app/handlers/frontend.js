@@ -16,7 +16,7 @@ exports.index = function (req, res) {
 
 	var clientGeo = geoip.lookup(clientIp);
 
-	console.log(clientGeo);
+//	console.log(clientGeo);
 
 	var lat = clientGeo.ll[0];
 	var long = clientGeo.ll[1];
@@ -56,7 +56,7 @@ exports.index = function (req, res) {
 					}
 				}
 			}
-			console.log(ctx);
+//			console.log(ctx);
 			res.render('index', ctx);
 		});
 	});

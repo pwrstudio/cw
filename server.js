@@ -54,7 +54,7 @@ app.set('view engine', 'handlebars');
 mongoose.connect(db.url); // connect to our mongoDB database 
 //mongoose.set('debug', true);
 
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.json({
   type: 'application/vnd.api+json'
@@ -90,7 +90,7 @@ require('./app/routes')(app, passport, io); // pass our application into our rou
 // SOCKET
 io.on('connection', function (socket) {
 
-  console.log("New connection on " + socket.id);
+//  console.log("New connection on " + socket.id);
 
   var ip = socket.handshake.address;
   ip = ip.replace("::ffff:", "");

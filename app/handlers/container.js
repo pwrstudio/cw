@@ -16,6 +16,8 @@ exports.get = function (req, res) {
 
 exports.delete = function (req, res) {
 
+  console.log(req.params.id);
+  
   Container.remove({
     _id: req.params.id
   }, function (err, content) {

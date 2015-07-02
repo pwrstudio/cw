@@ -50,16 +50,16 @@ function getContent() {
   });
 }
 
-
 $(document).ready(function () {
 
   getExhibitions();
   getPublications();
   getContent();
 
-  $('.collapse').collapse();
+  //  $('.collapse').collapse();
 
   $('body').on('click.collapse-next.data-api', '[data-toggle=collapse-next]', function (e) {
+    e.preventDefault();
     var $target = $(this).next();
     $target.data('collapse') ? $target.collapse('toggle') : $target.collapse();
   });
@@ -69,14 +69,51 @@ $(document).ready(function () {
     format: 'yyyy/mm/dd'
   });
 
+  $(document).on('click', '.delete.image', function () {
+    $.ajax({
+      type: 'DELETE',
+      url: '/api/content/del/image/' + $(this).data('id'),
+      dataType: 'json',
+      success: function (data) {
+        $.notify({
+          message: 'Image deleted'
+        }, {
+          type: 'success'
+        });
+        getContent();
+      }
+    });
+  });
+
+  $(document).on('click', '.delete.text', function () {
+    $.ajax({
+      type: 'DELETE',
+      url: '/api/content/del/text/' + $(this).data('id'),
+      dataType: 'json',
+      success: function (data) {
+        $.notify({
+          message: 'Text deleted'
+        }, {
+          type: 'success'
+        });
+        getContent();
+      }
+    });
+  });
+
   $(document).on('click', '.delete.cont', function () {
     $.ajax({
       type: 'DELETE',
       url: '/api/container/' + $(this).data('id'),
       dataType: 'json',
       success: function (data) {
-        getPublications();
+        $.notify({
+          message: 'Item deleted'
+        }, {
+          type: 'success'
+        });
         getExhibitions();
+        getPublications();
       }
     });
   });
@@ -96,15 +133,30 @@ $(document).ready(function () {
       cache: false,
       processData: false,
       success: function (data, textStatus, jqXHR) {
-        alert(data.result);
+        //        alert(data.result);
         formObj.find("input").val('');
         if (data.result == "publication") {
+          $.notify({
+            message: 'Sucessfully added'
+          }, {
+            type: 'success'
+          });
           getPublications();
           $('a[href="#publication_list"]').tab('show');
         } else if (data.result == "exhibition") {
+          $.notify({
+            message: 'Sucessfully added'
+          }, {
+            type: 'success'
+          });
           getExhibitions();
           $('a[href="#exhibition_list"]').tab('show');
         } else if (data.result == "content") {
+          $.notify({
+            message: 'Sucessfully added'
+          }, {
+            type: 'success'
+          });
           getContent();
           $('a[href="#content_list"]').tab('show');
         }

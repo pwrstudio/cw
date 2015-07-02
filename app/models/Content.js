@@ -15,6 +15,7 @@ var contentSchema = new mongoose.Schema({
     thumb: String,
     small: String,
     large: String,
+    size: Number
   },
   date: Date,
   user: String,

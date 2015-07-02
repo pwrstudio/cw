@@ -52,7 +52,7 @@ module.exports = function (app, io) {
 
   
   // Container
-  app.delete('/api/container/:id', auth.isLoggedIn, container.delete);
+  app.delete('/api/container/:id', container.delete);
 
 
   // API: Exhibition

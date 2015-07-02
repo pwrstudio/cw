@@ -11,7 +11,7 @@ $baseline: 10px;
 
 html {
   color: $main-color;
-  font-size: $baseline;
+  font-size: 11px;
   line-height: 2 * $baseline;
 }
 
@@ -66,14 +66,8 @@ form,
 }
 
 img {
-  max-width: 100%;
+  max-width: 95%;
 }
-
-//img:hover {
-//  opacity: 0.6;
-//  filter: grayscale(100%);
-//  transition: opacity .5s ease;
-//}
 
 input[type='text'] {
   width: 100%;
@@ -104,6 +98,12 @@ label {
   margin: 0;
   padding: 0;
   line-height: 0;
+}
+
+.editContainer {
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  border: 1px solid #ddd;
 }
 
 .thumbnail {
@@ -139,8 +139,7 @@ label {
 .col-lg-5ths {
   position: relative;
   min-height: 1px;
-  padding-right: 0;
-  padding-left: 0;
+
 }
 
 .col-xs-5ths {

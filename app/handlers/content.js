@@ -33,6 +33,14 @@ exports.get_content_by_id = function (req, res) {
 };
 
 exports.post_image_content = function (req, res, io) {
+
+  function getSize(f, cb) {
+    var stats = fs.statSync('/data/' + now + '/' + f.pic.name);
+    var fileSizeInKilobytes = stats["size"] / 1000.0;
+    console.log("xxxxxxxx: " + fileSizeInKilobytes);
+    cb(fileSizeInKilobytes);
+  };
+
   var form = new formidable.IncomingForm(),
     now = Date.now(),
     dir = fullDir + '/' + now;
@@ -41,11 +49,7 @@ exports.post_image_content = function (req, res, io) {
 
   form.parse(req, function (err, fields, files) {
 
-//    console.log(fields);
-//    console.log(files.pic.path);
-
     var path = dir + '/' + files.pic.name;
-    //    var rand = randtoken.generate(32);
     var newPath = dir + '/' + files.pic.name;
     fs.renameSync(files.pic.path, newPath);
 
@@ -57,65 +61,59 @@ exports.post_image_content = function (req, res, io) {
       quality: 70,
     }).then(
       function (image) {
-        console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
+        easyimg.resize({
+          src: newPath,
+          dst: dir + '/' + "large-" + files.pic.name,
+          width: 800,
+          height: 800,
+          quality: 80,
+        }).then(
+          function (image) {
+            easyimg.resize({
+              src: newPath,
+              dst: dir + '/' + "small-" + files.pic.name,
+              width: 450,
+              height: 450,
+              quality: 80,
+            }).then(
+              function (image) {
+                getSize(files, function (fileSize) {
+                  var content = new Content();
+                  content.date = new Date();
+                  content.public = fields.public;
+                  content.image.size = fileSize;
+                  content.image.url = '/data/' + now + '/' + files.pic.name;
+                  content.image.thumb = '/data/' + now + '/' + "thumbnail-" + files.pic.name;
+                  content.image.large = '/data/' + now + '/' + "large-" + files.pic.name;
+                  content.image.small = '/data/' + now + '/' + "small-" + files.pic.name;
+                  content.title = fields.title;
+                  content.image.caption = fields.caption;
+                  content.user = req.user.email;
+
+                  content.save(function (err) {
+                    console.log(content);
+                    res.json({
+                      result: 'content'
+                    });
+                  });
+
+                });
+              },
+              function (err) {
+                console.log("small: " + err);
+              }
+            )
+          },
+          function (err) {
+            console.log("large: " + err);
+          }
+        );
       },
       function (err) {
-        console.log(err);
+        console.log("thumb: " + err);
       }
     );
-
-    easyimg.resize({
-      src: newPath,
-      dst: dir + '/' + "large-" + files.pic.name,
-      width: 800,
-      height: 800,
-      quality: 80,
-    }).then(
-      function (image) {
-        console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
-      },
-      function (err) {
-        console.log(err);
-      }
-    );
-
-    easyimg.resize({
-      src: newPath,
-      dst: dir + '/' + "small-" + files.pic.name,
-      width: 450,
-      height: 450,
-      quality: 80,
-    }).then(
-      function (image) {
-        console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
-      },
-      function (err) {
-        console.log(err);
-      }
-    )
-
-    var content = new Content();
-    content.date = new Date();
-    content.image.url = '/data/' + now + '/' + files.pic.name;
-    content.image.thumb = '/data/' + now + '/' + "thumbnail-" + files.pic.name;
-    content.image.large = '/data/' + now + '/' + "large-" + files.pic.name;
-    content.image.small = '/data/' + now + '/' + "small-" + files.pic.name;
-    content.title = fields.title;
-    content.image.caption = fields.caption;
-    content.user = req.user.email;
-
-    console.log(content);
-
-    content.save(function (err) {
-      console.log("saved");
-      res.json({
-        result: 'content'
-      });
-
-    });
   });
-
-
 };
 
 exports.post_text_content = function (req, res) {
@@ -124,9 +122,8 @@ exports.post_text_content = function (req, res) {
 
   form.parse(req, function (err, fields, files) {
 
-    console.log(fields);
-
     var content = new Content();
+    content.public = fields.public;
     content.date = new Date();
     content.text.body = fields.text;
     content.title = fields.title;
@@ -150,8 +147,7 @@ exports.delete_image_content = function (req, res) {
     if (err) {
       res.send(err);
     }
-    console.log(content.url);
-    var p = content.url.split('/');
+    var p = content.image.url.split('/');
     console.log("datadir: " + fullDir + '/' + p[2]);
     rimraf(fullDir + '/' + p[2], function (err) {
       if (err)
@@ -172,9 +168,9 @@ exports.delete_image_content = function (req, res) {
 };
 
 exports.delete_text_content = function (req, res) {
-  Text.remove({
+  Content.remove({
     _id: req.params.id
-  }, function (err, text) {
+  }, function (err, content) {
     if (err) {
       res.send(err);
     }
