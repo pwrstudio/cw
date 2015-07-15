@@ -182,13 +182,9 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
-
   $(document).on('submit', '.ajaxFormUpdate', function (e) {
     var formObj = $(this);
-    var spinner = $(this).parent().find(".spinner");
-    spinner.show();
-    formObj.hide();
-    var formURL = formObj.attr("action") + "/" + $(this).data("post-id");
+    var formURL = formObj.attr("action") + "/" + formObj.data("post-id");
     var formData = new FormData(this);
     $.ajax({
       url: formURL,
@@ -200,15 +196,32 @@ $(document).ready(function () {
       cache: false,
       processData: false,
       success: function (data, textStatus, jqXHR) {
-        getContent();
-        $.notify({
-          message: 'Post updated'
-        }, {
-          type: 'success'
-        });
-        $('a[href="#content_list"]').tab('show');
-        spinner.hide();
-        formObj.show();
+        if (data.result == "publication") {
+          $.notify({
+            message: 'Publication updated'
+          }, {
+            type: 'success'
+          });
+          getPublications();
+          $('a[href="#publication_list"]').tab('show');
+        } else if (data.result == "exhibition") {
+          $.notify({
+            message: 'Exhibition updated'
+          }, {
+            type: 'success'
+          });
+          getExhibitions();
+          $('a[href="#exhibition_list"]').tab('show');
+        } else if (data.result == "content") {
+          $.notify({
+            message: 'Post updated'
+          }, {
+            type: 'success'
+          });
+          getContent();
+          $('a[href="#content_list"]').tab('show');
+        }
+        formObj.parent(".editContainer").slideFadeToggle();
       },
       error: function (jqXHR, textStatus, errorThrown) {}
     });

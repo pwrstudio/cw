@@ -34,8 +34,9 @@ exports.index = function (req, res) {
   Container.find().sort({
     start_date: -1
   }).exec(function (err, data_container) {
-    Content.find().exec(function (err, data_content) {
-
+    Content.find().sort({
+      year: -1
+    }).exec(function (err, data_content) {
       var ctx = {
         distance: distance,
         container: data_container,
@@ -45,18 +46,13 @@ exports.index = function (req, res) {
             var s = "";
             var i;
             for (i = 0; i < (distance / 500); i++) {
-              //						if (random.bool(.1)) {
-              //							s += '<a href="" class="image"><div class="space">*</div></a>';
-              //						} else {
               s += '<div class="space">*</div>';
-              //						}
             }
             return s;
-            //          return "ajklsdn";
           }
         }
       };
-      //			console.log(ctx);
+      console.log(ctx);
       res.render('index', ctx);
     });
   });

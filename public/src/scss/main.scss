@@ -65,6 +65,7 @@ form,
   padding: 0;
   margin-top: 2 * $baseline;
   margin-left: 2 * $baseline;
+  margin-bottom: 6 * $baseline;
 }
 
 img {
@@ -163,16 +164,10 @@ label {
   top: 10px;
   right: 10px;
   font-weight: normal;
-  text-decoration: underline;
   font-size: 1em;
 }
 
 .label-text {
-  background-color: none;
-  color: black;
-}
-
-.label-image {
   background-color: none;
   color: black;
 }

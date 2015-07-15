@@ -42,3 +42,38 @@ exports.post_publication = function (req, res) {
   });
 
 };
+
+exports.update_publication = function (req, res) {
+
+  var form = new formidable.IncomingForm();
+
+  form.parse(req, function (err, fields, files) {
+
+    Container.findById(req.params.id, function (err, publication) {
+      if (err) {
+        res.send(err);
+      }
+
+      console.log(fields);
+
+      publication.title = fields.title;
+      publication.link = fields.link;
+      publication.publisher = fields.publisher;
+      publication.start_date = fields.start_date;
+      publication.start_date_pretty = fields.start_date;
+
+      publication.save(function (err) {
+        if (err) {
+          res.json(err);
+        } else {
+          res.json({
+            result: 'publication'
+          });
+        }
+      });
+
+    });
+
+  });
+
+};

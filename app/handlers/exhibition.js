@@ -27,7 +27,7 @@ exports.post_exhibition = function (req, res) {
     exhibition.location = fields.location;
     exhibition.link = fields.link;
     exhibition.start_date = fields.start_date;
-    exhibition.end_date = fields.end_date;   
+    exhibition.end_date = fields.end_date;
     exhibition.start_date_pretty = fields.start_date;
     exhibition.end_date_pretty = fields.end_date;
 
@@ -35,8 +35,47 @@ exports.post_exhibition = function (req, res) {
       if (err) {
         res.json(err);
       } else {
-        res.json({result: "exhibition"});
+        res.json({
+          result: "exhibition"
+        });
       }
+    });
+
+  });
+
+};
+
+exports.update_exhibition = function (req, res) {
+
+  var form = new formidable.IncomingForm();
+
+  form.parse(req, function (err, fields, files) {
+
+    Container.findById(req.params.id, function (err, exhibition) {
+      if (err) {
+        res.send(err);
+      }
+
+      console.log(fields);
+
+      exhibition.title = fields.title;
+      exhibition.location = fields.location;
+      exhibition.link = fields.link;
+      exhibition.start_date = fields.start_date;
+      exhibition.end_date = fields.end_date;
+      exhibition.start_date_pretty = fields.start_date;
+      exhibition.end_date_pretty = fields.end_date;
+
+      exhibition.save(function (err) {
+        if (err) {
+          res.json(err);
+        } else {
+          res.json({
+            result: "exhibition"
+          });
+        }
+      });
+
     });
 
   });

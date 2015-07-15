@@ -39,13 +39,13 @@ module.exports = function (app, io) {
 
   // API: Content
   app.get('/api/content/get/:count', content.get_content);
-//
+  //
   app.get('/api/content/single/:id', content.get_content_by_id);
 
   app.post('/api/content/post/image', content.post_image_content);
-  
+
   app.post('/api/content/update/image/:id', content.update_image_content);
-  
+
   app.post('/api/content/update/text/:id', content.update_text_content);
 
   app.post('/api/content/post/text', content.post_text_content);
@@ -54,7 +54,7 @@ module.exports = function (app, io) {
 
   app.delete('/api/content/del/text/:id', content.delete_text_content);
 
-  
+
   // Container
   app.delete('/api/container/:id', container.delete);
 
@@ -64,17 +64,19 @@ module.exports = function (app, io) {
 
   app.post('/api/exhibition', exhibition.post_exhibition);
 
+  app.post('/api/update/exhibition/:id', exhibition.update_exhibition);
+
 
   // API: Publication
   app.get('/api/publication', publication.get_publication);
 
-//  app.post('/api/publication', auth.isLoggedIn, publication.post_publication);
   app.post('/api/publication', publication.post_publication);
+
+  app.post('/api/update/publication/:id', publication.update_publication);
 
 
   // frontend routes =========================================================
 
-  //  app.get('/admin', auth.isLoggedIn, frontend.admin);
   app.get('/infra', auth.isLoggedIn, frontend.infra);
 
   app.get('/', frontend.index);

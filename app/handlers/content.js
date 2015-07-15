@@ -125,9 +125,9 @@ exports.update_image_content = function (req, res) {
       if (err) {
         res.send(err);
       }
-      
+
       console.log(fields);
-      
+
       content.year = fields.year;
       content.public = fields.public;
       content.title = fields.title;
@@ -176,18 +176,26 @@ exports.update_text_content = function (req, res) {
 
   form.parse(req, function (err, fields, files) {
 
-    var content = new Content();
-    content.public = fields.public;
-    content.year = fields.year;
-    content.text.body = fields.text;
-    content.title = fields.title;
-    content.text.author = fields.author;
-    content.text.link = fields.link;
-    content.user = req.user.email;
 
-    content.save(function (err) {
-      res.json({
-        result: 'content'
+    Content.findById(req.params.id, function (err, content) {
+      if (err) {
+        res.send(err);
+      }
+
+      console.log(fields);
+
+      content.public = fields.public;
+      content.year = fields.year;
+      content.text.body = fields.text;
+      content.title = fields.title;
+      content.text.author = fields.author;
+      content.text.link = fields.link;
+      content.user = req.user.email;
+
+      content.save(function (err) {
+        res.json({
+          result: 'content'
+        });
       });
     });
 
@@ -234,9 +242,12 @@ exports.delete_text_content = function (req, res) {
 };
 
 exports.get_content = function (req, res) {
+  console.log("asasdfasdfasfd");
   Content.find().sort({
     date: -1
   }).exec(function (err, contents) {
+    console.log("asd");
+    console.log(contents);
     res.json(contents);
   });
 };
