@@ -3,6 +3,7 @@
 $background: #fff;
 $main-color: #000;
 $highlight: #00f;
+$alert: #f00;
 $baseline: 10px;
 * {
   -webkit-touch-callout: none;
@@ -48,6 +49,7 @@ article:hover {
   line-height: 2 * $baseline;
   margin-bottom: $baseline;
   margin-top: $baseline;
+  transition: all 1s ease;
 }
 
 form,
@@ -104,6 +106,8 @@ label {
   padding: 10px 15px;
   margin-bottom: -1px;
   border: 1px solid #ddd;
+  display: none;
+  background: #f5f5f5;
 }
 
 .thumbnail {
@@ -132,6 +136,14 @@ label {
   }
 }
 
+.error {
+  color: $alert;
+}
+
+.spinner {
+  display: none;
+}
+
 // Extended columns
 .col-xs-5ths,
 .col-sm-5ths,
@@ -139,12 +151,34 @@ label {
 .col-lg-5ths {
   position: relative;
   min-height: 1px;
-
 }
 
 .col-xs-5ths {
   width: 20%;
   float: left;
+}
+
+.label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: normal;
+  text-decoration: underline;
+  font-size: 1em;
+}
+
+.label-text {
+  background-color: none;
+  color: black;
+}
+
+.label-image {
+  background-color: none;
+  color: black;
+}
+
+strong {
+  font-weight: bold;
 }
 
 @media (min-width: 768px) {

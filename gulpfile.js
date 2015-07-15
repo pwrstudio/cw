@@ -1,5 +1,3 @@
-'use strict';
-
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var nodemon = require('gulp-nodemon');
@@ -18,23 +16,37 @@ var minifyCSS = require('gulp-minify-css');
 
 
 // Concatenate & Minify JS
-gulp.task('scripts', function () {
-  return gulp.src('public/src/js/canellwatkins-back.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    //		.pipe(concat('main.js'))
-    //    .pipe(rename({suffix: '.min'}))
-    //    .pipe(uglify())
-    .pipe(gulp.dest('public/dist/js/'));
-
+gulp.task('frontend', function () {
   return gulp.src('public/src/js/canellwatkins-front.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    //		.pipe(concat('main.js'))
-    //    .pipe(rename({suffix: '.min'}))
-    //    .pipe(uglify())
+    .pipe(concat('main.js'))
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(uglify())
     .pipe(gulp.dest('public/dist/js/'));
 });
+
+gulp.task('backend', function () {
+  return gulp.src('public/src/js/canellwatkins-back.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
+    .pipe(concat('main.js'))
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(uglify())
+    .pipe(gulp.dest('public/dist/js/'));
+});
+
+
+gulp.task('lint', function () {
+  return gulp.src(['*.js', 'config/*.js', 'app/**/*.js', 'public/src/js/*.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+});
+
 
 gulp.task('sass', function () {
   return gulp.src('public/src/scss/main.scss')
@@ -62,7 +74,7 @@ gulp.task('images', function () {
 // Watch for changes in files
 gulp.task('watch', function () {
   // Watch .js files
-  gulp.watch('public/src/js/*.js', ['scripts']);
+  gulp.watch('public/src/js/*.js', ['backend', 'frontend']);
   // Watch .scss files
   gulp.watch('public/src/scss/main.scss', ['sass']);
   // Watch image files
@@ -108,4 +120,4 @@ gulp.task('browser-sync', ['nodemon'], function () {
   });
 });
 
-gulp.task('default', ['nodemon', 'scripts', 'sass', 'watch']);
+gulp.task('default', ['nodemon', 'frontend', 'backend', 'sass', 'watch']);

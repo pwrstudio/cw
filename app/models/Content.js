@@ -18,6 +18,7 @@ var contentSchema = new mongoose.Schema({
     size: Number
   },
   date: Date,
+  year: Number,
   user: String,
   public: Boolean,
   tags: [String],

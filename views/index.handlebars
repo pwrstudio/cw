@@ -58,25 +58,24 @@
   <article class="exhibition">
     <div class="title ">Images</div>
   </article>
-  {{#each content}} {{#if this.image.large}} {{{space}}}
+  {{#each content}} {{#if this.public }} {{#if this.image.large}} {{{space}}}
   <article class="exhibition light ">
     <a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
       <div class="title">{{this.title}}</div>
-      <div class="title">176kb</div>
-<!--      <div class="title">{{this.image.size}}</div>-->
+      <div class="title">{{this.image.size}}kb</div>
     </a>
-      <div class="thumb-container">
-        <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
-      </div>
+    <div class="thumb-container">
+      <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
+    </div>
   </article>
-  {{/if}} {{/each}} {{{space}}}
+  {{/if}} {{/if}} {{/each}} {{{space}}}
 </div>
 
 <div class="col-md-5ths col-sm-5ths col-xs-5ths">
   <article class="exhibition">
     <div class="title ">Texts</div>
   </article>
-  {{#each content}} {{#if this.text.author}} {{{space}}}
+  {{#each content}} {{#if this.public }} {{#if this.text.author}} {{{space}}}
 
   <a href="{{this.text.title}}">
     <article class="exhibition light ">
@@ -84,6 +83,6 @@
       <div class="date">{{this.text.author}}</div>
     </article>
   </a>
-  {{/if}} {{/each}} {{{space}}}
+  {{/if}} {{/if}} {{/each}} {{{space}}}
 
 </div>

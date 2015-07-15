@@ -1,26 +1,27 @@
 // Server modules =================================================
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var port = process.env.PORT || 80; // set our port
-var server = app.listen(port);
-var io = require('socket.io').listen(server);
+var express = require('express'),
+  app = express(),
+  http = require('http').Server(app),
+  port = process.env.PORT || 80,
+  server = app.listen(port),
+  io = require('socket.io').listen(server);
+
 console.log('Server running on ' + port); // shoutout to the user
 
 
 // Server modules =================================================
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var path = require('path');
-var exphbs = require('express3-handlebars');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var methodOverride = require('method-override');
-var flash = require('connect-flash');
-var passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy;
-var morgan = require('morgan');
-var favicon = require('serve-favicon');
+var mongoose = require('mongoose'),
+  bodyParser = require('body-parser'),
+  path = require('path'),
+  exphbs = require('express3-handlebars'),
+  cookieParser = require('cookie-parser'),
+  session = require('express-session'),
+  methodOverride = require('method-override'),
+  flash = require('connect-flash'),
+  passport = require('passport'),
+  LocalStrategy = require('passport-local').Strategy,
+  morgan = require('morgan'),
+  favicon = require('serve-favicon');
 
 var requestIp = require('request-ip');
 var traceroute = require('traceroute');
@@ -41,7 +42,7 @@ var mtr = require('./app/helpers/mtr.js');
 // config files
 var db = require('./config/db');
 
-require('./config/passport')(passport); // pass passport for configuration
+require('./config/passport')(passport);
 
 global.appRoot = path.resolve(__dirname);
 
@@ -51,17 +52,16 @@ app.engine('handlebars', exphbs({
 
 app.set('view engine', 'handlebars');
 
-mongoose.connect(db.url); // connect to our mongoDB database 
-//mongoose.set('debug', true);
+mongoose.connect(db.url);
 
-//app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.json({
   type: 'application/vnd.api+json'
 }));
 app.use(bodyParser.urlencoded({
   extended: true
-})); // parse application/x-www-form-urlencoded
+}));
 
 app.use(cookieParser());
 
@@ -90,7 +90,7 @@ require('./app/routes')(app, passport, io); // pass our application into our rou
 // SOCKET
 io.on('connection', function (socket) {
 
-//  console.log("New connection on " + socket.id);
+  //  console.log("New connection on " + socket.id);
 
   var ip = socket.handshake.address;
   ip = ip.replace("::ffff:", "");
@@ -98,7 +98,7 @@ io.on('connection', function (socket) {
 
   function getGeo(i, callback) {
     var clientGeo = geoip.lookup(i);
-    if (clientGeo != null) {
+    if (clientGeo !== null) {
       callback(clientGeo);
     }
   }
@@ -109,40 +109,39 @@ io.on('connection', function (socket) {
 
       getGeo(d[2], function (geo) {
 
-        var lat = geolib.decimal2sexagesimal(geo.ll[0]);
-        var long = geolib.decimal2sexagesimal(geo.ll[1]);
+        if (geo !== undefined && geo !== null) {
 
-        var geohash = Geohash.encode(geo.ll[0], geo.ll[1]);
+          var lat = geolib.decimal2sexagesimal(geo.ll[0]);
+          var long = geolib.decimal2sexagesimal(geo.ll[1]);
 
-        var find = 'NaN';
-        var re = new RegExp(find, 'g');
+          var geohash = Geohash.encode(geo.ll[0], geo.ll[1]);
 
-        lat = lat.replace(re, "0");
-        long = long.replace(re, "0");
+          var find = 'NaN';
+          var re = new RegExp(find, 'g');
 
-//        console.log(lat);
-//        console.log(long);
+          lat = lat.replace(re, "0");
+          long = long.replace(re, "0");
 
-        whois.whois(d[2], function (err, data) {
-//          console.log(data.OrgName, data.OrgId, data.netname);
-          var point = {
-            ip: d[2],
-            country: iso3311a2.getCountry(geo.country),
-            city: geo.city,
-            latitude: lat,
-            longitude: long,
-            geohash: geohash,
-            orgname: data.OrgName,
-            orgid: data.OrgId,
-            netname: data.netname
-          }
 
-//          console.log(io.sockets.connected[id]);
-//          console.log(id);
-          if (io.sockets.connected[id]) {
-            io.sockets.connected[id].emit('traced', point);
-          }
-        });
+          whois.whois(d[2], function (err, data) {
+            var point = {
+              ip: d[2],
+              country: iso3311a2.getCountry(geo.country),
+              city: geo.city,
+              latitude: lat,
+              longitude: long,
+              geohash: geohash,
+              orgname: data.OrgName,
+              orgid: data.OrgId,
+              netname: data.netname
+            };
+
+            if (io.sockets.connected[id]) {
+              io.sockets.connected[id].emit('traced', point);
+            }
+          });
+
+        }
 
       });
 

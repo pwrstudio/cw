@@ -1,6 +1,6 @@
 $.fn.preload = function () {
-    $('<img/>')[0].src = this;
-}
+  $('<img/>')[0].src = this;
+};
 
 $(document).ready(function () {
 
@@ -14,7 +14,7 @@ $(document).ready(function () {
   var socket = io();
 
   socket.on('traced', function (msg) {
-    if (msg != null) {
+    if (msg !== null) {
       var source = $("#trace-template").html();
       var template = Handlebars.compile(source);
       $("#trace-container").append(template(msg));
@@ -26,7 +26,7 @@ $(document).ready(function () {
     var container = $(this).next(".thumb-container");
     container.slideFadeToggle();
     var large = container.children("img").data("large");
-    console.log(large)
+    console.log(large);
     $('<img/>')[0].src = large;
   });
 
@@ -44,5 +44,12 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
+  var spaceOut = function () {
+    var space = parseInt($(".space").css("margin-top")) + 10;
+    $(".space").css("margin-top", space + "px");
+    $(".space").css("margin-bottom", space + "px");
+  };
+
+  setInterval(spaceOut, 60000);
 
 });

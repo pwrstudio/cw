@@ -56,12 +56,17 @@ $(document).ready(function () {
   getPublications();
   getContent();
 
-  //  $('.collapse').collapse();
+  $.fn.slideFadeToggle = function (speed, easing, callback) {
+    return this.animate({
+      opacity: 'toggle',
+      height: 'toggle'
+    }, speed, easing, callback);
+  };
 
-  $('body').on('click.collapse-next.data-api', '[data-toggle=collapse-next]', function (e) {
+  $(document).on("click", ".list-group-item", function (e) {
     e.preventDefault();
-    var $target = $(this).next();
-    $target.data('collapse') ? $target.collapse('toggle') : $target.collapse();
+    var container = $(this).next(".editContainer");
+    container.slideFadeToggle();
   });
 
   $('.input-daterange, .input-group.date').datepicker({
@@ -119,8 +124,18 @@ $(document).ready(function () {
   });
 
   $(document).on('submit', '.ajaxForm', function (e) {
-    $(".ajaxForm").validate();
+    $(".ajaxForm").validate({
+      rules: {
+        year: {
+          required: true,
+          date: true
+        }
+      }
+    });
     var formObj = $(this);
+    var spinner = $(this).parent().find(".spinner");
+    spinner.show();
+    formObj.hide();
     var formURL = formObj.attr("action");
     var formData = new FormData(this);
     $.ajax({
@@ -133,7 +148,6 @@ $(document).ready(function () {
       cache: false,
       processData: false,
       success: function (data, textStatus, jqXHR) {
-        //        alert(data.result);
         formObj.find("input").val('');
         if (data.result == "publication") {
           $.notify({
@@ -160,6 +174,41 @@ $(document).ready(function () {
           getContent();
           $('a[href="#content_list"]').tab('show');
         }
+        spinner.hide();
+        formObj.show();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {}
+    });
+    e.preventDefault();
+  });
+
+
+  $(document).on('submit', '.ajaxFormUpdate', function (e) {
+    var formObj = $(this);
+    var spinner = $(this).parent().find(".spinner");
+    spinner.show();
+    formObj.hide();
+    var formURL = formObj.attr("action") + "/" + $(this).data("post-id");
+    var formData = new FormData(this);
+    $.ajax({
+      url: formURL,
+      type: 'POST',
+      data: formData,
+      dataType: "json",
+      mimeType: "multipart/form-data",
+      contentType: false,
+      cache: false,
+      processData: false,
+      success: function (data, textStatus, jqXHR) {
+        getContent();
+        $.notify({
+          message: 'Post updated'
+        }, {
+          type: 'success'
+        });
+        $('a[href="#content_list"]').tab('show');
+        spinner.hide();
+        formObj.show();
       },
       error: function (jqXHR, textStatus, errorThrown) {}
     });

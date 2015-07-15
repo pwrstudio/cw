@@ -43,6 +43,10 @@ module.exports = function (app, io) {
   app.get('/api/content/single/:id', content.get_content_by_id);
 
   app.post('/api/content/post/image', content.post_image_content);
+  
+  app.post('/api/content/update/image/:id', content.update_image_content);
+  
+  app.post('/api/content/update/text/:id', content.update_text_content);
 
   app.post('/api/content/post/text', content.post_text_content);
 
@@ -58,7 +62,6 @@ module.exports = function (app, io) {
   // API: Exhibition
   app.get('/api/exhibition', exhibition.get_exhibition);
 
-//  app.post('/api/exhibition', auth.isLoggedIn, exhibition.post_exhibition);
   app.post('/api/exhibition', exhibition.post_exhibition);
 
 
