@@ -32,6 +32,8 @@ var geopoint = require('geopoint');
 var iso3311a2 = require('iso-3166-1-alpha-2');
 var Geohash = require('latlon-geohash');
 
+var Cables = require('./app/models/Cables.js');
+
 var hbs = require('express3-handlebars');
 
 var mtr = require('./app/helpers/mtr.js');
@@ -122,23 +124,44 @@ io.on('connection', function (socket) {
           lat = lat.replace(re, "0");
           long = long.replace(re, "0");
 
-
           whois.whois(d[2], function (err, data) {
-            var point = {
-              ip: d[2],
-              country: iso3311a2.getCountry(geo.country),
-              city: geo.city,
-              latitude: lat,
-              longitude: long,
-              geohash: geohash,
-              orgname: data.OrgName,
-              orgid: data.OrgId,
-              netname: data.netname
-            };
 
-            if (io.sockets.connected[id]) {
-              io.sockets.connected[id].emit('traced', point);
-            }
+            var close = [];
+
+            Cables.search({
+              loc: [geo.ll[1], geo.ll[0]],
+              distance: 100
+            }, function (err, items) {
+              if (err) console.log(err);
+              var arrayLength = items.length;
+              for (var i = 1; i < arrayLength && i < 6; i++) {
+                var newObject = {
+                  name: items[i].name,
+                  url: items[i].url,
+                  owners: items[i].owners
+                };
+                close.push(newObject);
+              }
+
+              console.log(close);
+              
+              var point = {
+                ip: d[2],
+                country: iso3311a2.getCountry(geo.country),
+                city: geo.city,
+                latitude: lat,
+                longitude: long,
+                geohash: geohash,
+                orgname: data.OrgName,
+                orgid: data.OrgId,
+                netname: data.netname,
+                cables: close
+              };
+
+              if (io.sockets.connected[id]) {
+                io.sockets.connected[id].emit('traced', point);
+              }
+            });
           });
 
         }

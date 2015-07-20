@@ -7,6 +7,7 @@ var exhibition = require('./handlers/exhibition.js');
 var publication = require('./handlers/publication.js');
 var frontend = require('./handlers/frontend.js');
 var container = require('./handlers/container.js');
+var geo = require('./handlers/geo.js');
 
 module.exports = function (app, io) {
 
@@ -73,6 +74,10 @@ module.exports = function (app, io) {
   app.post('/api/publication', publication.post_publication);
 
   app.post('/api/update/publication/:id', publication.update_publication);
+
+  // CABLES
+
+  app.get('/cables', geo.get_cables);
 
 
   // frontend routes =========================================================

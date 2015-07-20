@@ -74,6 +74,10 @@ $(document).ready(function () {
     format: 'yyyy/mm/dd'
   });
 
+  $('body').on('focus', ".datepicker_recurring_start", function () {
+    $(this).datepicker();
+  });
+
   $(document).on('click', '.delete.image', function () {
     $.ajax({
       type: 'DELETE',

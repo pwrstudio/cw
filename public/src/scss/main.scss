@@ -88,12 +88,10 @@ label {
   max-width: 75%;
   transition: color 2s ease;
   transition: opacity 2s;
-}
-
-.ping_container:last-of-type {
-  max-width: 75%;
-  color: $highlight;
-  transition: color 2s ease;
+  .last {
+    color: $highlight;
+    transition: color 2s ease;
+  }
 }
 
 .thumb-container {
@@ -174,6 +172,10 @@ label {
 
 strong {
   font-weight: bold;
+}
+
+.cableContainer {
+  color: $highlight;
 }
 
 @media (min-width: 768px) {

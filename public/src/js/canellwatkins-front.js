@@ -44,12 +44,12 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
-  var spaceOut = function () {
-    var space = parseInt($(".space").css("margin-top")) + 10;
-    $(".space").css("margin-top", space + "px");
-    $(".space").css("margin-bottom", space + "px");
-  };
-
-  setInterval(spaceOut, 60000);
+//  var spaceOut = function () {
+//    var space = parseInt($(".space").css("margin-top")) + 10;
+//    $(".space").css("margin-top", space + "px");
+//    $(".space").css("margin-bottom", space + "px");
+//  };
+//
+//  setInterval(spaceOut, 60000);
 
 });

@@ -1,7 +1,7 @@
 <script id="trace-template" type="text/x-handlebars-template">
   <div class='space'>*</div>
   <article class='ping_container'>
-    <div>\{{ip}}</div>
+    <div>⟢ \{{ip}}</div>
     \{{#if orgname}}
     <div>\{{orgname}}</div>
     \{{else}} \{{#if orgid}}
@@ -16,6 +16,12 @@
       <a href='http://geohash.org/\{{geohash}}' target=_blank>\{{geohash}}</a>
     </div>
   </article>
+    \{{#if cables}}
+    <div class='space'>*</div>
+      \{{#each cables}}
+        <div class="cableContainer space">∿ <a href="\{{this.url}}">\{{this.name}} [\{{this.owners}}]</a></div>
+      \{{/each}}
+    \{{/if}}
 </script>
 
 <div class="col-md-5ths col-sm-5ths col-xs-5ths">

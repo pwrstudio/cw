@@ -36,8 +36,8 @@
           </div>
 
           <label for="input-group">Publication date</label>
-          <div class="input-group date">
-            <input type="text" class="input-sm form-control" name="start_date" value="\{{start_date}}" required>
+          <div class="input-group date datepicker_recurring_start">
+            <input type="text" class="input-sm form-control" name="start_date" value="\{{start_date_pretty}}" required>
           </div>
 
           <!-- Button -->
@@ -86,10 +86,10 @@
           </div>
 
           <label for="datepicker">Start and end date</label>
-          <div class="input-daterange input-group" id="datepicker">
-            <input type="text" class="input-sm form-control" name="start_date" required value="\{{start_date}}">
+          <div class="input-daterange input-group datepicker_recurring_start" id="datepicker">
+            <input type="text" class="input-sm form-control" name="start_date" required value="\{{start_date_pretty}}">
             <span class="input-group-addon">to</span>
-            <input type="text" class="input-sm form-control" name="end_date" required value="\{{end_date}}">
+            <input type="text" class="input-sm form-control" name="end_date" required value="\{{end_date_pretty}}">
           </div>
 
           <!-- Button -->
@@ -456,3 +456,4 @@
     </div>
   </div>
 </div>
+
