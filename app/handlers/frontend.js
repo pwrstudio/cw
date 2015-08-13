@@ -7,6 +7,7 @@ var random = require("random-js")();
 
 var Container = require('../models/Container.js');
 var Content = require('../models/Content.js');
+var Collection = require('../models/Collection.js');
 
 exports.index = function (req, res) {
 
@@ -61,6 +62,34 @@ exports.index = function (req, res) {
 exports.infra = function (req, res) {
   res.render('infra', {
     layout: "backend"
+  });
+};
+
+exports.collection = function (req, res) {
+
+  console.log(req.params.slug);
+
+  Collection.findOne({
+    slug: req.params.slug
+  }).exec(function (err, collection) {
+    //    console.log(collection);
+
+    var objects = [];
+
+    for (var i = 0; i < collection.content.length; i++) {
+      Content.findById(collection.content[i], function (err, item) {
+        objects.push(item);
+        console.log(objects);
+      });
+    }
+
+    console.log(objects);
+
+    var data = {
+      collection: collection,
+      objects: objects
+    }
+    res.render('collection', data);
   });
 };
 

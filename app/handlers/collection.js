@@ -7,7 +7,9 @@ var slug = require('slug')
 
 exports.get_collection = function (req, res) {
 
-  Collection.find().sort({"date": -1}).exec(function (err, collections) {
+  Collection.find().sort({
+    "date": -1
+  }).exec(function (err, collections) {
     if (err)
       res.send(err);
 
@@ -38,21 +40,36 @@ exports.get_collection_by_title = function (req, res) {
 
 exports.make_collection = function (req, res) {
 
-  var form = new formidable.IncomingForm();
+  console.log(req.body);
+  console.log(req.body.title);
+  console.log(req.body.selected);
 
-  form.parse(req, function (err, fields, files) {
+  var collection = new Collection();
+  collection.title = req.body.title;
+  collection.slug = slug(req.body.title);
+  collection.content = req.body.selected;
+  collection.private = false;
+  collection.date = new Date();
 
-    var collection = new Collection();
-    collection.title = fields.title;
-    collection.slug = slug(fields.title);
-    collection.private = false;
-    collection.date = new Date();
+  collection.save(function (err) {
+    console.log(collection);
+    res.json({
+      result: 'collection'
+    });
+  });
 
-    collection.save(function (err) {
-      console.log(collection);
-      res.json({
-        result: 'collection'
-      });
+};
+
+exports.delete_collection = function (req, res) {
+
+  Collection.remove({
+    _id: req.params.id
+  }, function (err, collection) {
+    if (err) {
+      res.send(err);
+    }
+    res.json({
+      message: 'Success'
     });
   });
 

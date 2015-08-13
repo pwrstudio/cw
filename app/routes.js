@@ -3,6 +3,7 @@ var passport = require('passport'),
 
 var auth = require('./handlers/auth.js');
 var content = require('./handlers/content.js');
+var collection = require('./handlers/collection.js');
 var exhibition = require('./handlers/exhibition.js');
 var publication = require('./handlers/publication.js');
 var frontend = require('./handlers/frontend.js');
@@ -55,6 +56,16 @@ module.exports = function (app, io) {
 
   app.delete('/api/content/del/text/:id', content.delete_text_content);
 
+  // API: Collection
+  app.delete('/api/collection/del/:id', collection.delete_collection);
+
+  app.get('/api/collection/', collection.get_collection);
+
+  app.get('/api/collection/single/:id', collection.get_collection_by_id);
+
+  app.post('/api/collection/', collection.make_collection);
+
+
 
   // Container
   app.delete('/api/container/:id', container.delete);
@@ -76,7 +87,6 @@ module.exports = function (app, io) {
   app.post('/api/update/publication/:id', publication.update_publication);
 
   // CABLES
-
   app.get('/cables', geo.get_cables);
 
 
@@ -85,6 +95,8 @@ module.exports = function (app, io) {
   app.get('/infra', auth.isLoggedIn, frontend.infra);
 
   app.get('/', frontend.index);
+
+  app.get('/collection/:slug', frontend.collection);
 
   app.get('*', frontend.fallback);
 };

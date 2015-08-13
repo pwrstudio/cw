@@ -5,7 +5,7 @@ var collectionSchema = new mongoose.Schema({
   slug: String,
   link: String,
   date: Date,
-  items: [String],
+  content: [String],
   private: Boolean
 });
 

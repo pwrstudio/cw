@@ -1,1 +1,13 @@
-asdfklasndfölaskdfaöldkfmcaösds
+<p>{{collection.title}}</p>
+<p>{{collectiondate}}</p>
+
+{{#each objects}}
+
+<div class="page">
+  <div class="one-image">
+    <img src="{{this.image.url}}">
+    <strong>{{this.title}} </strong>
+    <p>{{this.image.caption}}</p>
+  </div>
+</div>
+{{/each}}
