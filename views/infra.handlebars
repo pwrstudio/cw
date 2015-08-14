@@ -7,6 +7,10 @@
 {{!-- ***** COLUMN ONE ***** --}}
 
 <div class="col-md-6 col-sm-6 col-xs-6">
+
+
+  {{!-- ***** COL1: TOP LEVEL MENU ***** --}}
+
   <div role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#content_list" aria-controls="content_list" role="tab" data-toggle="tab"><i class="fa fa-list"></i> List</a>
@@ -23,102 +27,49 @@
   </div>
 
   <div class="tab-content">
+
+
+    {{!-- ***** COL1: LIST CONTENT ***** --}}
+
     <div role="tabpanel" class="tab-pane fade in active" id="content_list">
-      <div id="content-container">
-      </div>
+      <div id="content-container"></div>
     </div>
+
+
+    {{!-- ***** COL1: ADD IMAGE FORM ***** --}}
+
     <div role="tabpanel" class="tab-pane fade" id="add_image">
+
       <div class="spinner">
         <i class="fa fa-spinner fa-spin fa-5x"></i>
       </div>
 
-      <form id="file-drop" action="/api/content/post/image" class="ajaxForm" method="POST" enctype="multipart/form-data">
-        <fieldset>
-          <legend>Image</legend>
+      <div id="image-form-container"></div>
 
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" required>
-          </div>
-
-          <div class="form-group">
-            <label for="input-group">Year</label>
-            <input type="text" class="input-sm form-control" name="year" id="year" required>
-          </div>
-
-          <div class="form-group">
-            <label for="text">Upload file</label>
-            <input type="file" class="input-sm form-control" name="pic" accept="image/*" required>
-          </div>
-
-          <div class="form-group">
-            <label for="caption">Caption</label>
-            <textarea id="caption" name="caption" type="text" placeholder="Caption" class="input-xl form-control"></textarea>
-          </div>
-
-          <div class="form-group">
-            Public
-            <input type="checkbox" name="public" value="public">
-          </div>
-
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary">
-          </div>
-
-        </fieldset>
-      </form>
     </div>
+
+
+    {{!-- ***** COL1: ADD TEXT FORM ***** --}}
+
     <div role="tabpanel" class="tab-pane fade" id="add_text">
 
       <div class="spinner">
         <i class="fa fa-spinner fa-spin fa-5x"></i>
       </div>
 
-      <form class="ajaxForm" role="form" method="POST" enctype="multipart/form-data" action="/api/content/post/text">
-        <fieldset>
-          <legend>Text</legend>
+      <div id="text-form-container"></div>
 
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" required>
-          </div>
-
-          <div class="form-group">
-            <label for="author">Author</label>
-            <input id="author" name="author" type="text" placeholder="Author" class="input-sm form-control" required>
-          </div>
-
-          <div class="form-group">
-            <label for="input-group">Year</label>
-            <input type="text" class="input-sm form-control" name="year" id="year" required>
-          </div>
-
-          <div class="form-group">
-            <label for="text">Upload text file</label>
-            <input type="file" class="input-sm form-control" name="text" accept="text">
-          </div>
-
-          <div class="form-group">
-            <label for="link">Link to text</label>
-            <input id="link" name="link" type="url" placeholder="Link" class="input-sm form-control">
-          </div>
-
-          <div class="form-group">
-            Public
-            <input type="checkbox" name="public" value="public">
-          </div>
-
-          <div class="form-group">
-            <button id="textSubmit" type="submit" class="btn btn-primary">Submit</button>
-          </div>
-
-        </fieldset>
-      </form>
     </div>
+
+
+    {{!-- ***** COL1: LIST COLLECTIONS ***** --}}
+
     <div role="tabpanel" class="tab-pane fade" id="collections">
       <div id="collection-container"></div>
     </div>
 
+
+    {{!-- ***** COL1: ADD COLLECTION FORM ***** --}}
 
     <div role="tabpanel" class="tab-pane fade" id="make-collection">
 
@@ -126,24 +77,10 @@
         <i class="fa fa-spinner fa-spin fa-5x"></i>
       </div>
 
-      <form class="collection-form" role="form" method="POST" enctype="multipart/form-data" action="/api/collection/">
-        <fieldset>
-
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input id="main-title" name="title" type="text" placeholder="Title" class="input-sm form-control" required>
-          </div>
-
-          <div class="form-group">
-            <button id="collectionSubmit" type="submit" class="btn btn-primary">Submit</button>
-          </div>
-
-          <ul name="selected-files" id="collection-content-container"></ul>
-
-        </fieldset>
-      </form>
+      <div id="collection-form-container"></div>
 
     </div>
+
   </div>
 
 </div>
@@ -152,6 +89,9 @@
 {{!-- ***** COLUMN TWO ***** --}}
 
 <div class="col-md-3 col-sm-3 col-xs-3">
+
+
+  {{!-- ***** COL2: TOP LEVEL MENU ***** --}}
 
   <div role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
@@ -163,52 +103,27 @@
   </div>
 
   <div class="tab-content">
+
+
+    {{!-- ***** COL2: LIST EXHIBITIONS ***** --}}
+
     <div role="tabpanel" class="tab-pane fade in active" id="exhibition_list">
       <div id="exhibition-container"></div>
     </div>
+
+
+    {{!-- ***** COL2: ADD EXHIBITION FORM ***** --}}
+
     <div role="tabpanel" class="tab-pane fade" id="add_exhibition">
+
       <div class="spinner">
         <i class="fa fa-spinner fa-spin fa-5x"></i>
       </div>
-      <form class="ajaxForm" enctype="multipart/form-data" action="/api/exhibition">
-        <fieldset>
 
-          <!-- Form Name -->
-          <legend>Add exhibition</legend>
+      <div id="exhibition-form-container"></div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" required>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label for="location">Location</label>
-            <input id="location" name="location" type="text" placeholder="Location" class="input-sm form-control" required>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label for="link">Link</label>
-            <input id="link" name="link" type="url" placeholder="Link" class="input-sm form-control">
-          </div>
-
-          <label for="datepicker">Start and end date</label>
-          <div class="input-daterange input-group" id="datepicker">
-            <input type="text" class="input-sm form-control" name="start_date" required>
-            <span class="input-group-addon">to</span>
-            <input type="text" class="input-sm form-control" name="end_date" required>
-          </div>
-
-          <!-- Button -->
-          <div class="form-group">
-            <button id="" name="" class="btn btn-primary">Submit</button>
-          </div>
-
-        </fieldset>
-      </form>
     </div>
+
   </div>
 
 </div>
@@ -217,6 +132,9 @@
 {{!-- ***** COLUMN THREE ***** --}}
 
 <div class="col-md-3 col-sm-3 col-xs-3">
+
+
+  {{!-- ***** COL3: TOP LEVEL MENU ***** --}}
 
   <div role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
@@ -228,60 +146,25 @@
   </div>
 
   <div class="tab-content">
+
+
+    {{!-- ***** COL3: LIST PUBLICATIONS ***** --}}
+
     <div role="tabpanel" class="tab-pane fade in active" id="publication_list">
       <div id="publication-container"></div>
     </div>
 
+
+    {{!-- ***** COL3: ADD FORM PUBLICATIONS ***** --}}
+
     <div role="tabpanel" class="tab-pane fade" id="add_publication">
+
       <div class="spinner">
         <i class="fa fa-spinner fa-spin fa-5x"></i>
       </div>
-      <form class="ajaxForm" enctype="multipart/form-data" action="/api/publication">
-        <fieldset>
 
-          <!-- Form Name -->
-          <legend>Add publication</legend>
+      <div id="publication-form-container"></div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label for="title">Title</label>
-            <div>
-              <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" required>
-
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label for="publisher">Publisher</label>
-            <div>
-              <input id="publisher" name="publisher" type="text" placeholder="Publisher" class="input-sm form-control">
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label for="link">Link</label>
-            <div>
-              <input id="link" name="link" type="url" placeholder="Link" class="input-sm form-control">
-            </div>
-          </div>
-
-          <label for="input-group">Publication date</label>
-          <div class="input-group date">
-            <input type="text" class="input-sm form-control" name="start_date" required>
-          </div>
-
-          <!-- Button -->
-          <div class="form-group">
-            <label for=""></label>
-            <div>
-              <button id="" name="" class="btn btn-primary">Submit</button>
-            </div>
-          </div>
-
-        </fieldset>
-      </form>
     </div>
   </div>
 </div>

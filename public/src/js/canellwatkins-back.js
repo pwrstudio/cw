@@ -116,6 +116,33 @@ function getCollectionContent() {
 
 /*
  *
+ *  Load forms
+ *
+ */
+
+function loadImageForm() {
+  $("#image-form-container").html(MyApp.templates.imageform());
+}
+
+function loadTextForm() {
+  $("#text-form-container").html(MyApp.templates.textform());
+}
+
+function loadCollectionForm() {
+  $("#collection-form-container").html(MyApp.templates.collectionform());
+}
+
+function loadExhibitionForm() {
+  $("#exhibition-form-container").html(MyApp.templates.exhibitionform());
+}
+
+function loadPublicationForm() {
+  $("#publication-form-container").html(MyApp.templates.publicationform());
+}
+
+
+/*
+ *
  *
  *
  *  DOCUMENT READY
@@ -127,12 +154,21 @@ function getCollectionContent() {
 
 $(document).ready(function () {
 
+  console.log(MyApp);
+
   //  Render all content
   getExhibitions();
   getPublications();
   getContent();
   getCollection();
   getCollectionContent();
+
+  // Load forms
+  loadImageForm();
+  loadTextForm();
+  loadCollectionForm();
+  loadExhibitionForm();
+  loadPublicationForm();
 
 
   /*
@@ -150,6 +186,13 @@ $(document).ready(function () {
     $(this).datepicker();
   });
 
+  
+  /*
+   *
+   *  Slide out for edit form
+   *
+   */
+  
   $(document).on("click", ".list-group-item", function (e) {
     e.preventDefault();
     var container = $(this).next(".editContainer");
@@ -316,8 +359,10 @@ $(document).ready(function () {
           type: 'success'
         });
         getCollection();
+        getCollectionContent();
+        loadCollectionForm();
+        $('a[href="#collections"]').tab('show');
         spinner.hide();
-        formObj.show();
       },
       error: function (jqXHR, textStatus, errorThrown) {}
     });
@@ -363,6 +408,7 @@ $(document).ready(function () {
             type: 'success'
           });
           getPublications();
+          loadPublicationForm();
           $('a[href="#publication_list"]').tab('show');
         } else if (data.result == "exhibition") {
           $.notify({
@@ -371,6 +417,7 @@ $(document).ready(function () {
             type: 'success'
           });
           getExhibitions();
+          loadExhibitionForm();
           $('a[href="#exhibition_list"]').tab('show');
         } else if (data.result == "content") {
           $.notify({
@@ -379,14 +426,9 @@ $(document).ready(function () {
             type: 'success'
           });
           getContent();
+          loadImageForm();
+          loadTextForm();
           $('a[href="#content_list"]').tab('show');
-        } else if (data.result == "collection") {
-          $.notify({
-            message: 'Collection sucessfully created'
-          }, {
-            type: 'success'
-          });
-          getCollection();
         }
         spinner.hide();
         formObj.show();

@@ -1,0 +1,34 @@
+<form id="file-drop" action="/api/content/post/image" class="ajaxForm" method="POST" enctype="multipart/form-data">
+  <fieldset>
+    
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="input-group">Year</label>
+      <input type="text" class="input-sm form-control" name="year" id="year" required>
+    </div>
+
+    <div class="form-group">
+      <label for="text">Upload file</label>
+      <input type="file" class="input-sm form-control" name="pic" accept="image/*" required>
+    </div>
+
+    <div class="form-group">
+      <label for="caption">Caption</label>
+      <textarea id="caption" name="caption" type="text" placeholder="Caption" class="input-xl form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+      Public
+      <input type="checkbox" name="public" value="public">
+    </div>
+
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary">
+    </div>
+
+  </fieldset>
+</form>
