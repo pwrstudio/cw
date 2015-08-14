@@ -24,43 +24,49 @@ exports.index = function (req, res) {
 
   var clientGeo = geoip.lookup(clientIp);
 
-  var lat = clientGeo.ll[0],
-    long = clientGeo.ll[1];
+  if (clientGeo != undefined && clientGeo != null) {
 
-  var serverGeo = geoip.lookup("52.5.9.41");
+    var lat = clientGeo.ll[0],
+      long = clientGeo.ll[1];
 
-  var serverLat = serverGeo.ll[0],
-    serverLong = serverGeo.ll[1];
+    var serverGeo = geoip.lookup("52.5.9.41");
 
-  var server = new geopoint(serverLat, serverLong),
-    client = new geopoint(lat, long);
+    if (serverGeo != undefined && serverGeo != null) {
 
-  var distance = Math.round(server.distanceTo(client, true));
+      var serverLat = serverGeo.ll[0],
+        serverLong = serverGeo.ll[1];
 
-  Container.find().sort({
-    start_date: -1
-  }).exec(function (err, data_container) {
-    Content.find().sort({
-      year: -1
-    }).exec(function (err, data_content) {
-      var ctx = {
-        distance: distance,
-        container: data_container,
-        content: data_content,
-        helpers: {
-          space: function () {
-            var s = "";
-            var i;
-            for (i = 0; i < (distance / 500); i++) {
-              s += '<div class="space">*</div>';
+      var server = new geopoint(serverLat, serverLong),
+        client = new geopoint(lat, long);
+
+      var distance = Math.round(server.distanceTo(client, true));
+
+      Container.find().sort({
+        start_date: -1
+      }).exec(function (err, data_container) {
+        Content.find().sort({
+          year: -1
+        }).exec(function (err, data_content) {
+          var ctx = {
+            distance: distance,
+            container: data_container,
+            content: data_content,
+            helpers: {
+              space: function () {
+                var s = "";
+                var i;
+                for (i = 0; i < (distance / 500); i++) {
+                  s += '<div class="space">*</div>';
+                }
+                return s;
+              }
             }
-            return s;
-          }
-        }
-      };
-      res.render('index', ctx);
-    });
-  });
+          };
+          res.render('index', ctx);
+        });
+      });
+    }
+  }
 };
 
 

@@ -12,12 +12,11 @@
           <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" value="{{title}}" required>
         </div>
 
-        <!-- Button -->
         <div class="form-group">
-          <button id="" name="" class="btn btn-primary">Update</button>
+          <a class="btn btn-primary">Update</a>
           <a class="btn btn-primary" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/collection/{{this.slug}}" target=_blank>View</a>
-          <button id="" name="" class="btn btn-primary">Make pdf</button>
-          <div class="btn btn-danger delete collection" data-id="{{_id}}">Delete</div>
+          <a href="http://ec2-52-5-9-41.compute-1.amazonaws.com/pdf/{{this.slug}}" class="btn btn-primary">Make pdf</a>
+          <a class="btn btn-danger delete collection" data-id="{{_id}}">Delete</a>
 
         </div>
 

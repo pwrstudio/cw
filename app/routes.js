@@ -14,9 +14,14 @@
     exhibition = require('./handlers/exhibition.js'),
     publication = require('./handlers/publication.js'),
     frontend = require('./handlers/frontend.js'),
-    container = require('./handlers/container.js');
+    container = require('./handlers/container.js'),
+    pdf = require('./handlers/pdf.js');
+
 
   module.exports = function (app, io) {
+    
+    
+    console.log(pdf);
 
     /*
      *
@@ -102,6 +107,14 @@
     app.get('/api/collection/', collection.get_collection);
     app.get('/api/collection/single/:id', collection.get_collection_by_id);
     app.post('/api/collection/', collection.make_collection);
+
+
+    /*
+     *
+     *  PDF
+     *
+     */
+    app.get('/pdf/:slug', pdf.generatePdf);
 
 
     /*

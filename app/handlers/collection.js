@@ -4,32 +4,30 @@
  *
  */
 
-var pdf = require('phantomjs-pdf'),
-  slug = require('slug'),
+var slug = require('slug'),
   Collection = require('../models/Collection.js');
 
+  /*
+   *
+   *  Get all collections
+   *
+   */
+
+  exports.get_collection = function (req, res) {
+    Collection.find().sort({
+      "date": -1
+    }).exec(function (err, collections) {
+      if (err) {
+        res.send(err);
+      }
+      res.json(collections);
+    });
+  };
+
 
 /*
  *
- *  Get all collections
- *
- */
-
-exports.get_collection = function (req, res) {
-  Collection.find().sort({
-    "date": -1
-  }).exec(function (err, collections) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(collections);
-  });
-};
-
-
-/*
- *
- *  Get a colelction  by id
+ *  Get a collection  by id
  *
  */
 

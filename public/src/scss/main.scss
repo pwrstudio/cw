@@ -211,7 +211,7 @@ form,
 //
 //
 //
-// COLLECtION PAGE
+// COLLECTION PAGE
 //
 //
 //
@@ -260,4 +260,18 @@ form,
     width: 20%;
     float: left;
   }
+}
+
+//
+//
+//
+//
+// PRINT
+//
+//
+//
+@media all {}
+
+.page {
+  page-break-after: always;
 }
