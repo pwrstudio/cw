@@ -1,23 +1,21 @@
-var formidable = require('formidable');
-var Container = require('../models/Container.js');
-var Content = require('../models/Content.js');
+/*
+ *
+ *  Container handler
+ *
+ */
 
-exports.get = function (req, res) {
+var formidable = require('formidable'),
+  Container = require('../models/Container.js');
 
-  Container.find().sort({
-    start_date: -1
-  }).exec(function (err, containers) {
-    if (err)
-      res.send(err);
 
-    res.json(containers);
-  });
-};
+/*
+ *
+ *  Delete Container
+ *
+ */
 
 exports.delete = function (req, res) {
 
-  console.log(req.params.id);
-  
   Container.remove({
     _id: req.params.id
   }, function (err, content) {

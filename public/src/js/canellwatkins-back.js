@@ -1,6 +1,19 @@
+/*
+ *
+ *  Random number generator
+ *
+ */
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+
+/*
+ *
+ *  EXHIBITIONS render
+ *
+ */
 
 function getExhibitions() {
   $.ajax({
@@ -9,14 +22,19 @@ function getExhibitions() {
     dataType: 'json',
     success: function (data) {
       $('#exhibition-container').fadeOut(function () {
-        var source = $("#exhibition-template").html();
-        var template = Handlebars.compile(source);
-        $("#exhibition-container").html(template(data));
+        $("#exhibition-container").html(MyApp.templates.exhibition(data));
         $('#exhibition-container').fadeIn();
       });
     }
   });
 }
+
+
+/*
+ *
+ *  PUBLICATIONS render
+ *
+ */
 
 function getPublications() {
   $.ajax({
@@ -25,14 +43,19 @@ function getPublications() {
     dataType: 'json',
     success: function (data) {
       $('#publication-container').fadeOut(function () {
-        var source = $("#publication-template").html();
-        var template = Handlebars.compile(source);
-        $("#publication-container").html(template(data));
+        $("#publication-container").html(MyApp.templates.publication(data));
         $('#publication-container').fadeIn();
       });
     }
   });
 }
+
+
+/*
+ *
+ *  CONTENT render
+ *
+ */
 
 function getContent() {
   $.ajax({
@@ -41,14 +64,19 @@ function getContent() {
     dataType: 'json',
     success: function (data) {
       $('#content-container').fadeOut(function () {
-        var source = $("#content-template").html();
-        var template = Handlebars.compile(source);
-        $("#content-container").html(template(data));
+        $("#content-container").html(MyApp.templates.content(data));
         $('#content-container').fadeIn();
       });
     }
   });
 }
+
+
+/*
+ *
+ *  COLLECTIONS render
+ *
+ */
 
 function getCollection() {
   $.ajax({
@@ -57,14 +85,19 @@ function getCollection() {
     dataType: 'json',
     success: function (data) {
       $('#collection-container').fadeOut(function () {
-        var source = $("#collection-template").html();
-        var template = Handlebars.compile(source);
-        $("#collection-container").html(template(data));
+        $("#collection-container").html(MyApp.templates.collection(data));
         $("#collection-container").fadeIn();
       });
     }
   });
 }
+
+
+/*
+ *
+ *  CONTENT in COLLECTION list render
+ *
+ */
 
 function getCollectionContent() {
   $.ajax({
@@ -73,41 +106,40 @@ function getCollectionContent() {
     dataType: 'json',
     success: function (data) {
       $('#collection-content-container').fadeOut(function () {
-        var source = $("#collection-content-template").html();
-        var template = Handlebars.compile(source);
-        $("#collection-content-container").html(template(data));
+        $("#collection-content-container").html(MyApp.templates.collectioncontent(data));
         $("#collection-content-container").fadeIn();
       });
     }
   });
 }
 
+
+/*
+ *
+ *
+ *
+ *  DOCUMENT READY
+ *
+ *
+ *
+ */
+
+
 $(document).ready(function () {
 
+  //  Render all content
   getExhibitions();
   getPublications();
   getContent();
   getCollection();
   getCollectionContent();
 
-  $.fn.slideFadeToggle = function (speed, easing, callback) {
-    return this.animate({
-      opacity: 'toggle',
-      height: 'toggle'
-    }, speed, easing, callback);
-  };
 
-  $(document).on("click", ".list-group-item", function (e) {
-    e.preventDefault();
-    var container = $(this).next(".editContainer");
-    container.slideFadeToggle();
-  });
-
-  //  $(document).on("click", ".enterContainer", function (e) {
-  //    e.preventDefault();
-  //    var container = $(this).next(".editContainer");
-  //    container.slideFadeToggle();
-  //  });
+  /*
+   *
+   *  Initialize datepicker
+   *
+   */
 
   $('.input-daterange, .input-group.date').datepicker({
     autoclose: true,
@@ -117,6 +149,19 @@ $(document).ready(function () {
   $('body').on('focus', ".datepicker_recurring_start", function () {
     $(this).datepicker();
   });
+
+  $(document).on("click", ".list-group-item", function (e) {
+    e.preventDefault();
+    var container = $(this).next(".editContainer");
+    container.slideToggle();
+  });
+
+
+  /*
+   *
+   *  DELETE image click
+   *
+   */
 
   $(document).on('click', '.delete.image', function () {
     $.ajax({
@@ -130,9 +175,17 @@ $(document).ready(function () {
           type: 'success'
         });
         getContent();
+        getCollectionContent();
       }
     });
   });
+
+
+  /*
+   *
+   *  DELETE text click
+   *
+   */
 
   $(document).on('click', '.delete.text', function () {
     $.ajax({
@@ -146,9 +199,17 @@ $(document).ready(function () {
           type: 'success'
         });
         getContent();
+        getCollectionContent();
       }
     });
   });
+
+
+  /*
+   *
+   *  DELETE Container click
+   *
+   */
 
   $(document).on('click', '.delete.cont', function () {
     $.ajax({
@@ -165,8 +226,15 @@ $(document).ready(function () {
         getPublications();
       }
     });
-  });  
-  
+  });
+
+
+  /*
+   *
+   *  DELETE Collection click
+   *
+   */
+
   $(document).on('click', '.delete.collection', function () {
     $.ajax({
       type: 'DELETE',
@@ -183,20 +251,35 @@ $(document).ready(function () {
     });
   });
 
+
+  /*
+   *
+   *  Mark selected content for collection
+   *
+   */
+
   $(document).on('click', '.collection-select-button', function () {
     var container = $(this).parent(".list-group-item");
     if (container.hasClass("selected")) {
-      container.children("select-box").prop("checked", false);
       $(this).text("Add to collection");
     } else {
-      container.children("select-box").prop("checked", true);
       $(this).text("Remove from collection");
     }
     $(this).parent(".list-group-item").toggleClass("selected");
   });
 
+
+  /*
+   *
+   *  Submit new collection
+   *
+   */
+
   $(document).on('submit', '.collection-form', function (e) {
-    $(".ajaxForm").validate({
+
+    e.preventDefault();
+
+    $(this).validate({
       rules: {
         year: {
           required: true,
@@ -204,6 +287,7 @@ $(document).ready(function () {
         }
       }
     });
+
     var formObj = $(this);
     var spinner = $(this).parent().find(".spinner");
     spinner.show();
@@ -216,22 +300,15 @@ $(document).ready(function () {
       selected.push($(this).attr("id"));
     });
 
-    e.preventDefault();
-
-    console.log(selected);
-
     formData = {
       title: $("#main-title").val(),
       selected: selected
     };
-    
-    console.log(formData);
 
     $.ajax({
       url: formURL,
       type: 'POST',
       data: formData,
-//      dataType: "json",
       success: function (data, textStatus, jqXHR) {
         $.notify({
           message: 'Collection sucessfully created'
@@ -245,6 +322,13 @@ $(document).ready(function () {
       error: function (jqXHR, textStatus, errorThrown) {}
     });
   });
+
+
+  /*
+   *
+   *  Submit ajax form
+   *
+   */
 
   $(document).on('submit', '.ajaxForm', function (e) {
     $(".ajaxForm").validate({
@@ -312,6 +396,13 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
+
+  /*
+   *
+   *  Submit ajax form for updating
+   *
+   */
+
   $(document).on('submit', '.ajaxFormUpdate', function (e) {
     var formObj = $(this);
     var formURL = formObj.attr("action") + "/" + formObj.data("post-id");
@@ -351,7 +442,7 @@ $(document).ready(function () {
           getContent();
           $('a[href="#content_list"]').tab('show');
         }
-        formObj.parent(".editContainer").slideFadeToggle();
+        formObj.parent(".editContainer").slideToggle();
       },
       error: function (jqXHR, textStatus, errorThrown) {}
     });

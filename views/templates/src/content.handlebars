@@ -1,0 +1,99 @@
+<div class="list-group">
+  {{#each this}}
+  <a href="#" id="{{_id}}" class="list-group-item">
+{{#if image}}
+      <p><i class="fa fa-file-image-o"></i> <strong>{{title}}</strong></p>
+      <img src="{{image.thumb}}">
+      {{/if}} {{#if text}}
+                      <p><i class="fa fa-file-text-o"></i> <strong>{{title}}</strong>
+ {{#if text.link}}
+      <p>{{text.link}}</p>
+      {{/if}} {{#if text.url}}
+      <p>{{text.url}}</p>
+
+      {{/if}} {{/if}}
+       {{#if public}}<span class="label label-text"><i class="fa fa-eye"></i> Public</span>{{/if}} 
+    </a>
+  <div class="editContainer">
+    {{#if image}}
+
+    <form action="/api/content/update/image" class="ajaxFormUpdate" method="POST" enctype="multipart/form-data" data-post-id="{{_id}}">
+      <fieldset>
+
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input id="title" name="title" type="text" class="input-sm form-control" required value="{{title}}">
+        </div>
+
+        <label for="input-group">Year</label>
+        <div class="form-group">
+          <input type="text" class="input-sm form-control" name="year" id="year" value="{{year}}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="caption">Caption</label>
+          <textarea id="caption" name="caption" type="text" class="input-xl form-control">{{image.caption}}</textarea>
+        </div>
+
+        <div class="form-group">
+          Public {{#if public}}
+          <input type="checkbox" name="public" value="public" checked> {{/if}} {{#unless public}}
+          <input type="checkbox" name="public" value="public"> {{/unless}}
+        </div>
+
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary" value="Update">
+          <div class="btn btn-danger delete image" data-id="{{_id}}">Delete</div>
+        </div>
+
+      </fieldset>
+    </form>
+
+    {{/if}} {{#if text}}
+
+    <form class="ajaxFormUpdate" role="form" method="PUT" enctype="multipart/form-data" action="/api/content/update/text" data-post-id="{{_id}}">
+      <fieldset>
+
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input id="title" name="title" type="text" placeholder="Title" value="{{title}}" class="input-sm form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author</label>
+          <input id="author" name="author" type="text" placeholder="Author" value="{{text.author}}" class="input-sm form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="input-group">Year</label>
+          <input class="input-sm form-control" type="text" name="year" value="{{year}}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="text">Upload text file</label>
+          <input type="file" name="text" accept="text">
+        </div>
+
+        <div class="form-group">
+          <label for="link">Link to text</label>
+          <input id="link" name="link" type="url" placeholder="Link" value="{{text.link}}" class="input-sm form-control">
+        </div>
+
+        <div class="form-group">
+          Public {{#if public}}
+          <input type="checkbox" name="public" value="public" checked> {{/if}} {{#unless public}}
+          <input type="checkbox" name="public" value="public"> {{/unless}}
+        </div>
+
+        <div class="form-group">
+          <button id="textSubmit" type="submit" class="btn btn-primary">Submit</button>
+          <div class="btn btn-danger delete text" data-id="{{_id}}">Delete</div>
+        </div>
+
+      </fieldset>
+    </form>
+
+    {{/if}}
+  </div>
+  {{/each}}
+</div>

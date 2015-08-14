@@ -1,34 +1,39 @@
-var requestIp = require('request-ip');
-var traceroute = require('traceroute');
-var geoip = require('geoip-lite');
-var geolib = require('geolib');
-var geopoint = require('geopoint');
-var random = require("random-js")();
+/*
+ *
+ *  FRONTEND HANDLER
+ *
+ */
 
-var Container = require('../models/Container.js');
-var Content = require('../models/Content.js');
-var Collection = require('../models/Collection.js');
+
+var requestIp = require('request-ip'),
+  geoip = require('geoip-lite'),
+  geopoint = require('geopoint'),
+  Container = require('../models/Container.js'),
+  Content = require('../models/Content.js'),
+  Collection = require('../models/Collection.js');
+
+/*
+ *
+ *  Render index page
+ *
+ */
 
 exports.index = function (req, res) {
 
-  var clientIp = requestIp.getClientIp(req);
-
-  clientIp = clientIp.replace("::ffff:", "");
+  var clientIp = requestIp.getClientIp(req).replace("::ffff:", "");
 
   var clientGeo = geoip.lookup(clientIp);
 
-  //	console.log(clientGeo);
-
-  var lat = clientGeo.ll[0];
-  var long = clientGeo.ll[1];
+  var lat = clientGeo.ll[0],
+    long = clientGeo.ll[1];
 
   var serverGeo = geoip.lookup("52.5.9.41");
 
-  var serverLat = serverGeo.ll[0];
-  var serverLong = serverGeo.ll[1];
+  var serverLat = serverGeo.ll[0],
+    serverLong = serverGeo.ll[1];
 
-  var server = new geopoint(serverLat, serverLong);
-  var client = new geopoint(lat, long);
+  var server = new geopoint(serverLat, serverLong),
+    client = new geopoint(lat, long);
 
   var distance = Math.round(server.distanceTo(client, true));
 
@@ -53,11 +58,17 @@ exports.index = function (req, res) {
           }
         }
       };
-      console.log(ctx);
       res.render('index', ctx);
     });
   });
 };
+
+
+/*
+ *
+ *  Render backend area
+ *
+ */
 
 exports.infra = function (req, res) {
   res.render('infra', {
@@ -65,25 +76,26 @@ exports.infra = function (req, res) {
   });
 };
 
+
+/*
+ *
+ *  Render collection page
+ *
+ */
+
 exports.collection = function (req, res) {
 
-  console.log(req.params.slug);
-
+  // Find collection by slug
   Collection.findOne({
     slug: req.params.slug
   }).exec(function (err, collection) {
-    //    console.log(collection);
-
     var objects = [];
 
     for (var i = 0; i < collection.content.length; i++) {
       Content.findById(collection.content[i], function (err, item) {
         objects.push(item);
-        console.log(objects);
       });
     }
-
-    console.log(objects);
 
     var data = {
       collection: collection,
@@ -92,6 +104,13 @@ exports.collection = function (req, res) {
     res.render('collection', data);
   });
 };
+
+
+/*
+ *
+ *  Fallback 404
+ *
+ */
 
 exports.fallback = function (req, res) {
   res.render('404', {});

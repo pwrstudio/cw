@@ -1,4 +1,9 @@
-// grab the mongoose module
+/*
+ *
+ *  Submarine cable database
+ *
+ */
+
 var mongoose = require('mongoose');
 
 var cablesSchema = new mongoose.Schema({
@@ -10,7 +15,6 @@ var cablesSchema = new mongoose.Schema({
     geohash: String,
     name: String,
     loc: {
-      //      index: '2dsphere',
       type: {
         type: String,
         default: "Point"
@@ -28,6 +32,12 @@ var cablesSchema = new mongoose.Schema({
   col10: String
 });
 
+/*
+ *
+ *  Proximity search
+ *
+ */
+
 cablesSchema.statics.search = function (search, cb) {
   var qry = this.find();
   console.log(search);
@@ -37,7 +47,7 @@ cablesSchema.statics.search = function (search, cb) {
         type: 'Point',
         coordinates: search.loc
       },
-      maxDistance: 50000
+      maxDistance: 50000 // NB!!
     });
   }
   qry.exec(cb);

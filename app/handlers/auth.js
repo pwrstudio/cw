@@ -1,27 +1,60 @@
-var passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy;
+  /*
+   *
+   *  Authentication
+   *
+   */
 
-exports.signup_form = function (req, res) {
-  res.render('signup', {
-    layout: "backend"
-  });
-};
+  var passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy;
 
-exports.login_form = function (req, res) {
-  res.render('login', {
-    layout: "backend"
-  });
-};
 
-exports.logout = function (req, res) {
-  req.logout();
-  res.redirect('/');
-};
+  /*
+   *
+   *  Signup form
+   *
+   */
 
-exports.isLoggedIn = function (req, res, next) {
+  exports.signup_form = function (req, res) {
+    res.render('signup', {
+      layout: "backend"
+    });
+  };
 
-  if (req.isAuthenticated())
-    return next();
 
-  res.redirect('/login');
-};
+  /*
+   *
+   *  Login form
+   *
+   */
+
+  exports.login_form = function (req, res) {
+    res.render('login', {
+      layout: "backend"
+    });
+  };
+
+
+  /*
+   *
+   *  Logout
+   *
+   */
+
+  exports.logout = function (req, res) {
+    req.logout();
+    res.redirect('/');
+  };
+
+
+  /*
+   *
+   *  Check if logged in, else redirect
+   *
+   */
+
+  exports.isLoggedIn = function (req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/login');
+  };

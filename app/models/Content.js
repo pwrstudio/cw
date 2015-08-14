@@ -1,3 +1,9 @@
+/*
+ *
+ *  Content (image / text)
+ *
+ */
+
 var mongoose = require('mongoose');
 var random = require('mongoose-random');
 

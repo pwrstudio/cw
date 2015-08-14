@@ -1,3 +1,9 @@
+/*
+ *
+ *  Collection
+ *
+ */
+
 var mongoose = require('mongoose');
 
 var collectionSchema = new mongoose.Schema({
@@ -5,8 +11,7 @@ var collectionSchema = new mongoose.Schema({
   slug: String,
   link: String,
   date: Date,
-  content: [String],
-  private: Boolean
+  content: [String]
 });
 
 module.exports = mongoose.model('collection', collectionSchema);

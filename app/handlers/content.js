@@ -1,26 +1,38 @@
+/*
+ *
+ *  CONTENT HANDLER
+ *
+ */
+
 var formidable = require('formidable'),
   fs = require('fs'),
   rimraf = require('rimraf'),
-  randtoken = require('rand-token'),
   easyimg = require('easyimage'),
-  Chance = require('chance'),
-  chance = new Chance(),
-  geohash = require('latlon-geohash'),
-  geolib = require('geolib'),
-  validator = require('validator');
+  validator = require('validator'),
+  Content = require('../models/Content.js');
 
-// make sure data directory exists
+
+/*
+ *
+ *  Initialize data directory
+ *
+ */
+
 var dataDir = '/public/data',
   fullDir = appRoot + dataDir;
 
 fs.existsSync(fullDir) || fs.mkdirSync(fullDir);
 
-var Content = require('../models/Content.js');
 
-// Internal 
+/*
+ *
+ *  Resize images
+ *
+ */
 
 function resizeContent(newPath, dir, fileName) {
 
+  // Thumbnail
   easyimg.resize({
     src: newPath,
     dst: dir + '/' + "thumbnail-" + fileName,
@@ -28,14 +40,12 @@ function resizeContent(newPath, dir, fileName) {
     height: 300,
     quality: 70,
   }).then(
-    function (image) {
-      console.log(image);
-    },
     function (err) {
       console.log("large: " + err);
     }
   );
 
+  // Large
   easyimg.resize({
     src: newPath,
     dst: dir + '/' + "large-" + fileName,
@@ -43,14 +53,12 @@ function resizeContent(newPath, dir, fileName) {
     height: 800,
     quality: 80,
   }).then(
-    function (image) {
-      console.log(image);
-    },
     function (err) {
       console.log("large: " + err);
     }
   );
 
+  // Small
   easyimg.resize({
     src: newPath,
     dst: dir + '/' + "small-" + fileName,
@@ -58,16 +66,50 @@ function resizeContent(newPath, dir, fileName) {
     height: 450,
     quality: 80,
   }).then(
-    function (image) {
-      console.log(image);
-    },
     function (err) {
       console.log("thumb: " + err);
     }
   );
 }
 
-exports.post_image_content = function (req, res, io) {
+
+/*
+ *
+ *  Get all content
+ *
+ */
+
+exports.get_content = function (req, res) {
+  Content.find().sort({
+    date: -1
+  }).exec(function (err, contents) {
+    res.json(contents);
+  });
+};
+
+
+/*
+ *
+ *  Get content by ID
+ *
+ */
+
+exports.get_content_by_id = function (req, res) {
+  Content.findById(req.params.id, function (err, content) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(content);
+  });
+};
+
+/*
+ *
+ *  Add image
+ *
+ */
+
+exports.post_image_content = function (req, res) {
 
   var form = new formidable.IncomingForm(),
     now = Date.now(),
@@ -76,8 +118,6 @@ exports.post_image_content = function (req, res, io) {
   fs.mkdirSync(dir);
 
   form.parse(req, function (err, fields, files) {
-
-    console.log(files);
 
     var fullFilePath = '/data/' + now + '/' + files.pic.name;
 
@@ -89,9 +129,6 @@ exports.post_image_content = function (req, res, io) {
 
     var stats = fs.statSync(newPath);
     var fileSizeInKilobytes = stats.size / 1000.0;
-
-    console.log("year: " + fields.year);
-    console.log("///////////: " + fields);
 
     var content = new Content();
     content.date = new Date();
@@ -107,13 +144,19 @@ exports.post_image_content = function (req, res, io) {
     content.user = req.user.email;
 
     content.save(function (err) {
-      console.log(content);
       res.json({
         result: 'content'
       });
     });
   });
 };
+
+
+/*
+ *
+ *  Update image
+ *
+ */
 
 exports.update_image_content = function (req, res) {
 
@@ -126,15 +169,12 @@ exports.update_image_content = function (req, res) {
         res.send(err);
       }
 
-      console.log(fields);
-
       content.year = fields.year;
       content.public = fields.public;
       content.title = fields.title;
       content.image.caption = fields.caption;
 
       content.save(function (err) {
-        console.log(content);
         res.json({
           result: 'content'
         });
@@ -143,6 +183,13 @@ exports.update_image_content = function (req, res) {
 
   });
 };
+
+
+/*
+ *
+ *  Add text post
+ *
+ */
 
 exports.post_text_content = function (req, res) {
 
@@ -170,6 +217,13 @@ exports.post_text_content = function (req, res) {
 
 };
 
+
+/*
+ *
+ *  Update text post
+ *
+ */
+
 exports.update_text_content = function (req, res) {
 
   var form = new formidable.IncomingForm();
@@ -181,8 +235,6 @@ exports.update_text_content = function (req, res) {
       if (err) {
         res.send(err);
       }
-
-      console.log(fields);
 
       content.public = fields.public;
       content.year = fields.year;
@@ -203,16 +255,23 @@ exports.update_text_content = function (req, res) {
 
 };
 
+
+/*
+ *
+ *  Delete image
+ *
+ */
+
 exports.delete_image_content = function (req, res) {
   Content.findById(req.params.id, function (err, content) {
     if (err) {
       res.send(err);
     }
     var p = content.image.url.split('/');
-    console.log("datadir: " + fullDir + '/' + p[2]);
     rimraf(fullDir + '/' + p[2], function (err) {
-      if (err)
+      if (err) {
         console.log(err);
+      }
     });
   });
 
@@ -227,6 +286,13 @@ exports.delete_image_content = function (req, res) {
     });
   });
 };
+
+
+/*
+ *
+ *  Delete text
+ *
+ */
 
 exports.delete_text_content = function (req, res) {
   Content.remove({
@@ -238,24 +304,5 @@ exports.delete_text_content = function (req, res) {
     res.json({
       message: 'Success'
     });
-  });
-};
-
-exports.get_content = function (req, res) {
-  console.log("asasdfasdfasfd");
-  Content.find().sort({
-    date: -1
-  }).exec(function (err, contents) {
-    console.log("asd");
-    console.log(contents);
-    res.json(contents);
-  });
-};
-
-exports.get_content_by_id = function (req, res) {
-  Content.findById(req.params.id, function (err, content) {
-    if (err)
-      res.send(err);
-    res.json(content);
   });
 };

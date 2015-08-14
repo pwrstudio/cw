@@ -1,0 +1,23 @@
+<div class='space'>*</div>
+<article class='ping_container'>
+  <div>⟢ {{ip}}</div>
+  {{#if orgname}}
+  <div>{{orgname}}</div>
+  {{else}} {{#if orgid}}
+  <div>{{orgid}}</div>
+  {{else}} {{#if netname}}
+  <div>{{netname}}</div>
+  {{/if}} {{/if}} {{/if}}
+  <div>
+    {{#if city}} {{city}}, {{/if}} {{#if country}} {{country}} {{/if}}
+  </div>
+  <div>
+    <a href='http://geohash.org/{{geohash}}' target=_blank>{{geohash}}</a>
+  </div>
+</article>
+{{#if cables}}
+<div class='space'>*</div>
+{{#each cables}}
+<div class="cableContainer space">∿ <a href="{{this.url}}">{{this.name}} [{{this.owners}}]</a>
+</div>
+{{/each}} {{/if}}

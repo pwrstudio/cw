@@ -1,55 +1,58 @@
+/*
+ *
+ *  Preload images
+ *
+ */
+
 $.fn.preload = function () {
   $('<img/>')[0].src = this;
 };
 
+/*
+ *
+ *
+ *
+ *  DOCUMENT READY
+ *
+ *
+ *
+ */
+
 $(document).ready(function () {
 
-  $.fn.slideFadeToggle = function (speed, easing, callback) {
-    return this.animate({
-      opacity: 'toggle',
-      height: 'toggle'
-    }, speed, easing, callback);
-  };
+  /*
+   *
+   *  Sockets client
+   *
+   */
 
   var socket = io();
 
   socket.on('traced', function (msg) {
     if (msg !== null) {
-      var source = $("#trace-template").html();
-      var template = Handlebars.compile(source);
-      $("#trace-container").append(template(msg));
+      $("#trace-container").append(MyApp.templates.trace(msg));
     }
   });
 
   $(document).on("click", ".image-link", function (e) {
     e.preventDefault();
     var container = $(this).next(".thumb-container");
-    container.slideFadeToggle();
+    container.slideToggle(1000);
     var large = container.children("img").data("large");
-    console.log(large);
     $('<img/>')[0].src = large;
   });
 
   $('.lightBox').on('click', function (e) {
-    $("body").addClass("no-scroll");
     var largeLink = '<img src="' + $(this).data("large") + '">';
     $("#overlay").html(largeLink);
-    $("#overlay").fadeIn();
+    $("#overlay").show();
     e.preventDefault();
   });
 
   $('#overlay').on('click', function (e) {
-    $("body").removeClass("no-scroll");
-    $("#overlay").fadeOut();
+    $("#overlay").hide();
     e.preventDefault();
   });
 
-//  var spaceOut = function () {
-//    var space = parseInt($(".space").css("margin-top")) + 10;
-//    $(".space").css("margin-top", space + "px");
-//    $(".space").css("margin-bottom", space + "px");
-//  };
-//
-//  setInterval(spaceOut, 60000);
 
 });

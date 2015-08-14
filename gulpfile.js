@@ -13,6 +13,9 @@ var cache = require('gulp-cache');
 var jshint = require('gulp-jshint');
 var scsslint = require('gulp-scss-lint');
 var minifyCSS = require('gulp-minify-css');
+var handlebars = require('gulp-handlebars');
+var wrap = require('gulp-wrap');
+var declare = require('gulp-declare');
 
 
 // Concatenate & Minify JS
@@ -71,6 +74,18 @@ gulp.task('images', function () {
     .pipe(gulp.dest('build/img'));
 });
 
+gulp.task('templates', function () {
+  gulp.src('views/templates/src/*.handlebars')
+    .pipe(handlebars())
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'MyApp.templates',
+      noRedeclare: true, // Avoid duplicate declarations 
+    }))
+    .pipe(concat('templates.js'))
+    .pipe(gulp.dest('public/dist/js/handlebars'));
+});
+
 // Watch for changes in files
 gulp.task('watch', function () {
   // Watch .js files
@@ -120,4 +135,4 @@ gulp.task('browser-sync', ['nodemon'], function () {
   });
 });
 
-gulp.task('default', ['nodemon', 'frontend', 'backend', 'sass', 'watch']);
+gulp.task('default', ['nodemon', 'frontend', 'backend', 'sass', 'watch', 'templates']);

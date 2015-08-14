@@ -1,4 +1,9 @@
-// Server modules =================================================
+/*
+ *
+ *  Set up Express, start server, start socket.io...
+ *
+ */
+
 var express = require('express'),
   app = express(),
   http = require('http').Server(app),
@@ -6,10 +11,16 @@ var express = require('express'),
   server = app.listen(port),
   io = require('socket.io').listen(server);
 
-console.log('Server running on ' + port); // shoutout to the user
+console.log('Server running on ' + port); // DEV
 
 
-// Server modules =================================================
+/*
+ *
+ *  Get the modules...
+ *
+ */
+
+
 var mongoose = require('mongoose'),
   bodyParser = require('body-parser'),
   path = require('path'),
@@ -23,30 +34,26 @@ var mongoose = require('mongoose'),
   morgan = require('morgan'),
   favicon = require('serve-favicon');
 
-var requestIp = require('request-ip');
-var traceroute = require('traceroute');
-var whois = require('whois-ux');
-var geoip = require('geoip-lite');
-var geolib = require('geolib');
-var geopoint = require('geopoint');
-var iso3311a2 = require('iso-3166-1-alpha-2');
-var Geohash = require('latlon-geohash');
+/*
+ *
+ *  Configuration
+ *
+ */
 
-var Cables = require('./app/models/Cables.js');
-
-var hbs = require('express3-handlebars');
-
-var mtr = require('./app/helpers/mtr.js');
-
-
-// configuration ===========================================
-
-// config files
 var db = require('./config/db');
 
 require('./config/passport')(passport);
 
 global.appRoot = path.resolve(__dirname);
+
+app.use(morgan('dev')); // Debug
+
+
+/*
+ *
+ *  Set up handlebars
+ *
+ */
 
 app.engine('handlebars', exphbs({
   defaultLayout: 'main'
@@ -54,16 +61,30 @@ app.engine('handlebars', exphbs({
 
 app.set('view engine', 'handlebars');
 
+
+/*
+ *
+ *  Connect MongoDB
+ *
+ */
+
 mongoose.connect(db.url);
 
-app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.json({
   type: 'application/vnd.api+json'
 }));
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+
+/*
+ *
+ *  Session etc...
+ *
+ */
 
 app.use(cookieParser());
 
@@ -75,115 +96,54 @@ app.use(session({
     maxAge: 2629743830
   },
   store: require('mongoose-session')(mongoose)
-})); // session secret
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(methodOverride('X-HTTP-Method-Override'));
+
+
+/*
+ *
+ *  Set up static directory
+ *
+ */
+
 app.use(express.static(__dirname + '/public', {
   maxAge: oneYear
 }));
+
+
+/*
+ *
+ *  Favicon
+ *
+ */
+
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
 
-// routes ==================================================
-require('./app/routes')(app, passport, io); // pass our application into our routes
+/*
+ *
+ *  Routes
+ *
+ */
 
-// SOCKET
-io.on('connection', function (socket) {
+require('./app/routes')(app, passport, io);
 
-  //  console.log("New connection on " + socket.id);
+/*
+ *
+ *  Sockets
+ *
+ */
 
-  var ip = socket.handshake.address;
-  ip = ip.replace("::ffff:", "");
-  var id = socket.id;
-
-  function getGeo(i, callback) {
-    var clientGeo = geoip.lookup(i);
-    if (clientGeo !== null) {
-      callback(clientGeo);
-    }
-  }
-
-  mtr.trace_raw(ip, {}, function (data, d) {
-
-    if (d[0] == 'h') {
-
-      getGeo(d[2], function (geo) {
-
-        if (geo !== undefined && geo !== null) {
-
-          var lat = geolib.decimal2sexagesimal(geo.ll[0]);
-          var long = geolib.decimal2sexagesimal(geo.ll[1]);
-
-          var geohash = Geohash.encode(geo.ll[0], geo.ll[1]);
-
-          var find = 'NaN';
-          var re = new RegExp(find, 'g');
-
-          lat = lat.replace(re, "0");
-          long = long.replace(re, "0");
-
-          whois.whois(d[2], function (err, data) {
-
-            var close = [];
-
-            Cables.search({
-              loc: [geo.ll[1], geo.ll[0]],
-              distance: 100
-            }, function (err, items) {
-              if (err) console.log(err);
-              var arrayLength = items.length;
-              for (var i = 1; i < arrayLength && i < 6; i++) {
-                var newObject = {
-                  name: items[i].name,
-                  url: items[i].url,
-                  owners: items[i].owners
-                };
-                close.push(newObject);
-              }
-
-              console.log(close);
-              
-              var point = {
-                ip: d[2],
-                country: iso3311a2.getCountry(geo.country),
-                city: geo.city,
-                latitude: lat,
-                longitude: long,
-                geohash: geohash,
-                orgname: data.OrgName,
-                orgid: data.OrgId,
-                netname: data.netname,
-                cables: close
-              };
-
-              if (io.sockets.connected[id]) {
-                io.sockets.connected[id].emit('traced', point);
-              }
-            });
-          });
-
-        }
-
-      });
-
-    }
-
-  });
+require('./app/handlers/socket.js')(app, io);
 
 
-  //  socket.on('disconnect', function () {
-  //    socket.broadcast.emit("left", {
-  //      id: socket.id
-  //    });
-  //    console.log('user disconnected');
-  //  });
+/*
+ *
+ *  Start app
+ *
+ */
 
-});
-
-
-//db.image.ensureIndex({ 'loc': '2dsphere' });
-
-// start app ===============================================
-exports = module.exports = app; // expose app
+exports = module.exports = app;

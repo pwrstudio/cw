@@ -1,26 +1,42 @@
-var formidable = require('formidable');
-var Container = require('../models/Container.js');
-var Content = require('../models/Content.js');
+/*
+ *
+ *  Publication handler
+ *
+ */
+
+var formidable = require('formidable'),
+  Container = require('../models/Container.js');
+
+
+/*
+ *
+ *  Get all publication
+ *
+ */
 
 exports.get_publication = function (req, res) {
-
   Container.find().sort({
     start_date: -1
   }).exec(function (err, publications) {
-    if (err)
+    if (err) {
       res.send(err);
-
+    }
     res.json(publications);
   });
 };
+
+
+/*
+ *
+ *  Add publication
+ *
+ */
 
 exports.post_publication = function (req, res) {
 
   var form = new formidable.IncomingForm();
 
   form.parse(req, function (err, fields, files) {
-
-    console.log(fields);
 
     var publication = new Container();
     publication.title = fields.title;
@@ -43,6 +59,13 @@ exports.post_publication = function (req, res) {
 
 };
 
+
+/*
+ *
+ *  Update publication
+ *
+ */
+
 exports.update_publication = function (req, res) {
 
   var form = new formidable.IncomingForm();
@@ -53,8 +76,6 @@ exports.update_publication = function (req, res) {
       if (err) {
         res.send(err);
       }
-
-      console.log(fields);
 
       publication.title = fields.title;
       publication.link = fields.link;

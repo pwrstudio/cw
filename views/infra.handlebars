@@ -1,259 +1,10 @@
-<script id="publication-template" type="text/x-handlebars-template">
-  <div class="list-group">
-    \{{#each this}} \{{#if publisher}}
-    <a href="#" id="\{{_id}}" class="list-group-item" data-toggle="collapse-next">
-      <div><strong>\{{title}}</strong>
-      </div>
-      <div><em>\{{publisher}}</em>
-      </div>
-      <div>\{{start_date_pretty}}</div>
-    </a>
-    <div class="collapse editContainer">
-      <form class="ajaxFormUpdate" enctype="multipart/form-data" action="/api/update/publication" data-post-id="\{{_id}}">
-        <fieldset>
-
-          <div class="form-group">
-            <label for="title">Title</label>
-            <div>
-              <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" value="\{{title}}" required>
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label for="publisher">Publisher</label>
-            <div>
-              <input id="publisher" name="publisher" type="text" placeholder="Publisher" class="input-sm form-control" value="\{{publisher}}">
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label for="link">Link</label>
-            <div>
-              <input id="link" name="link" type="url" placeholder="Link" class="input-sm form-control" value="\{{link}}">
-            </div>
-          </div>
-
-          <label for="input-group">Publication date</label>
-          <div class="input-group date datepicker_recurring_start">
-            <input type="text" class="input-sm form-control" name="start_date" value="\{{start_date_pretty}}" required>
-          </div>
-
-          <!-- Button -->
-          <div class="form-group">
-            <label for=""></label>
-            <div>
-              <button id="" name="" class="btn btn-primary">Update</button>
-              <div class="btn btn-danger delete cont" data-id="\{{_id}}">Delete</div>
-            </div>
-          </div>
-
-        </fieldset>
-      </form>
-    </div>
-    \{{/if}} \{{/each}}
-  </div>
-</script>
-
-<script id="exhibition-template" type="text/x-handlebars-template">
-  <div class="list-group">
-    \{{#each this}} \{{#if location}}
-    <a href="#" id="\{{_id}}" class="list-group-item" data-toggle="collapse-next">
-      <div><strong>\{{title}}</strong>
-      </div>
-      <div><em>\{{location}}</em>
-      </div>
-      <div>\{{start_date_pretty}} – \{{end_date_pretty}}</div>
-    </a>
-    <div class="collapse editContainer">
-      <form class="ajaxFormUpdate" enctype="multipart/form-data" action="/api/update/exhibition" data-post-id="\{{_id}}">
-        <fieldset>
-
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" value="\{{title}}" required>
-          </div>
-
-          <div class="form-group">
-            <label for="location">Location</label>
-            <input id="location" name="location" type="text" placeholder="Location" value="\{{location}}" class="input-sm form-control" required>
-          </div>
-
-          <div class="form-group">
-            <label for="link">Link</label>
-            <input id="link" name="link" type="url" placeholder="Link" value="\{{link}}" class="input-sm form-control">
-          </div>
-
-          <label for="datepicker">Start and end date</label>
-          <div class="input-daterange input-group datepicker_recurring_start" id="datepicker">
-            <input type="text" class="input-sm form-control" name="start_date" required value="\{{start_date_pretty}}">
-            <span class="input-group-addon">to</span>
-            <input type="text" class="input-sm form-control" name="end_date" required value="\{{end_date_pretty}}">
-          </div>
-
-          <!-- Button -->
-          <div class="form-group">
-            <label for=""></label>
-            <button id="" name="" class="btn btn-primary">Update</button>
-            <div class="btn btn-danger delete cont" data-id="\{{_id}}">Delete</div>
-          </div>
-
-        </fieldset>
-      </form>
-    </div>
-    \{{/if}} \{{/each}}
-  </div>
-</script>
-
-<script id="content-template" type="text/x-handlebars-template">
-  <div class="list-group">
-    \{{#each this}}
-    <a href="#" id="\{{_id}}" class="list-group-item">
-\{{#if image}}
-      <p><i class="fa fa-file-image-o"></i> <strong>\{{title}}</strong></p>
-      <img src="\{{image.thumb}}">
-      \{{/if}} \{{#if text}}
-                      <p><i class="fa fa-file-text-o"></i> <strong>\{{title}}</strong>
- \{{#if text.link}}
-      <p>{{text.link}}</p>
-      \{{/if}} \{{#if text.url}}
-      <p>{{text.url}}</p>
-
-      \{{/if}} \{{/if}}
-       \{{#if public}}<span class="label label-text"><i class="fa fa-eye"></i> Public</span>\{{/if}} 
-    </a>
-    <div class="editContainer">
-      \{{#if image}}
-
-      <form action="/api/content/update/image" class="ajaxFormUpdate" method="POST" enctype="multipart/form-data" data-post-id="\{{_id}}">
-        <fieldset>
-
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input id="title" name="title" type="text" class="input-sm form-control" required value="\{{title}}">
-          </div>
-
-          <label for="input-group">Year</label>
-          <div class="form-group">
-            <input type="text" class="input-sm form-control" name="year" id="year" value="\{{year}}" required>
-          </div>
-
-          <div class="form-group">
-            <label for="caption">Caption</label>
-            <textarea id="caption" name="caption" type="text" class="input-xl form-control">\{{image.caption}}</textarea>
-          </div>
-
-          <div class="form-group">
-            Public \{{#if public}}
-            <input type="checkbox" name="public" value="public" checked> \{{/if}} \{{#unless public}}
-            <input type="checkbox" name="public" value="public"> \{{/unless}}
-          </div>
-
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Update">
-            <div class="btn btn-danger delete image" data-id="\{{_id}}">Delete</div>
-          </div>
-
-        </fieldset>
-      </form>
-
-      \{{/if}} \{{#if text}}
-
-      <form class="ajaxFormUpdate" role="form" method="PUT" enctype="multipart/form-data" action="/api/content/update/text" data-post-id="\{{_id}}">
-        <fieldset>
-
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input id="title" name="title" type="text" placeholder="Title" value="\{{title}}" class="input-sm form-control" required>
-          </div>
-
-          <div class="form-group">
-            <label for="author">Author</label>
-            <input id="author" name="author" type="text" placeholder="Author" value="\{{text.author}}" class="input-sm form-control" required>
-          </div>
-
-          <div class="form-group">
-            <label for="input-group">Year</label>
-            <input class="input-sm form-control" type="text" name="year" value="\{{year}}" required>
-          </div>
-
-          <div class="form-group">
-            <label for="text">Upload text file</label>
-            <input type="file" name="text" accept="text">
-          </div>
-
-          <div class="form-group">
-            <label for="link">Link to text</label>
-            <input id="link" name="link" type="url" placeholder="Link" value="\{{text.link}}" class="input-sm form-control">
-          </div>
-
-          <div class="form-group">
-            Public \{{#if public}}
-            <input type="checkbox" name="public" value="public" checked> \{{/if}} \{{#unless public}}
-            <input type="checkbox" name="public" value="public"> \{{/unless}}
-          </div>
-
-          <div class="form-group">
-            <button id="textSubmit" type="submit" class="btn btn-primary">Submit</button>
-            <div class="btn btn-danger delete text" data-id="\{{_id}}">Delete</div>
-          </div>
-
-        </fieldset>
-      </form>
-
-      \{{/if}}
-    </div>
-    \{{/each}}
-  </div>
-</script>
-
-<script id="collection-template" type="text/x-handlebars-template">
-  <div class="list-group">
-    \{{#each this}}
-    <div id="\{{_id}}" class="list-group-item" data-toggle="collapse-next">
-      \{{this.title}}</a>
-    </div>
-    <div class="collapse editContainer">
-      <form class="ajaxFormUpdate" enctype="multipart/form-data" action="/api/update/exhibition" data-post-id="\{{_id}}">
-        <fieldset>
-
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" value="\{{title}}" required>
-          </div>
-
-          <!-- Button -->
-          <div class="form-group">
-            <button id="" name="" class="btn btn-primary">Update</button>
-            <a class="btn btn-primary" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/collection/\{{this.slug}}" target=_blank>View</a>
-            <button id="" name="" class="btn btn-primary">Make pdf</button>
-            <div class="btn btn-danger delete collection" data-id="\{{_id}}">Delete</div>
-            
-          </div>
-
-        </fieldset>
-      </form>
-    </div>
-    \{{/each}}
-  </div>
-</script>
-
-<script id="collection-content-template" type="text/x-handlebars-template">
-  \{{#each this}} \{{#if image}}
-  <div id="\{{_id}}" class="list-group-item">
-    <p><i class="fa fa-file-image-o"></i> <strong>\{{title}}</strong>
-    </p>
-    <img src="\{{image.thumb}}" class="collection-image not-selected">
-    <a href="#" class="btn btn-default collection-select-button">Add to collection</a>
-  </div>
-
-  \{{/if}} \{{/each}}
-</script>
-
 <div class="col-md-12 hidden-sm hidden-xs margin_bottom">
+  {{!-- ***** LOGOUT BUTTON ***** --}}
   <a href="logout" class="btn btn-danger btn-sm pull-right">Logout</a>
 </div>
+
+
+{{!-- ***** COLUMN ONE ***** --}}
 
 <div class="col-md-6 col-sm-6 col-xs-6">
   <div role="tabpanel">
@@ -273,7 +24,8 @@
 
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="content_list">
-      <div id="content-container"></div>
+      <div id="content-container">
+      </div>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="add_image">
       <div class="spinner">
@@ -396,6 +148,9 @@
 
 </div>
 
+
+{{!-- ***** COLUMN TWO ***** --}}
+
 <div class="col-md-3 col-sm-3 col-xs-3">
 
   <div role="tabpanel">
@@ -457,6 +212,9 @@
   </div>
 
 </div>
+
+
+{{!-- ***** COLUMN THREE ***** --}}
 
 <div class="col-md-3 col-sm-3 col-xs-3">
 
