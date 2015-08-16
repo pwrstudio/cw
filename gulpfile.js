@@ -52,7 +52,7 @@ gulp.task('lint', function () {
 
 
 gulp.task('sass', function () {
-  return gulp.src('public/src/scss/main.scss')
+  return gulp.src('public/src/scss/*')
     .pipe(plumber())
     .pipe(scsslint())
     .pipe(compass({

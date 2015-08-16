@@ -1,7 +1,15 @@
+<div id="overlay"></div>
+<div id="counterOverlay">
+  <span id="distance" data-distance="{{distance}}">0</span>
+  <div id="tracestart-container">
+  </div>
+</div>
+<div id="startUpOverlay" class="here"></div>
+
 <div class="container-fluid">
 
   <audio class="player" id="startUpSound">
-    <source src="sweep.mp3">
+    <source src="sweeep.mp3">
   </audio>
 
   <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
@@ -14,7 +22,6 @@
     <div class="title">{{distance}} km from server to client</div>
     <div class='space'>*</div>
     <div class="title ">Route</div>
-    <div class='space'>*</div>
     <div id="trace-container"></div>
   </div>
 

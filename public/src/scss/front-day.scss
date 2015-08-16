@@ -1,0 +1,44 @@
+//
+//
+//
+//
+// RESET
+//
+//
+//
+//
+@import 'compass/reset';
+* {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+//
+//
+//
+//
+// VARIABLES
+//
+//
+//
+//
+$background: #fff;
+$main-color: #000;
+$highlight: #00f;
+$alert: #f00;
+$dark-gray: #ddd;
+$light-gray: lighten($dark-gray,
+40);
+$baseline: 10px;
+
+//
+//
+//
+//
+// Main Styles
+//
+//
+//
+//
+
+@import 'main';

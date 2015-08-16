@@ -134,7 +134,7 @@ $(document).ready(function () {
   });
 
   $('.lightBox').on('click', function (e) {
-    $(this).css('visibility', 'hidden');
+    $(this).parent().addClass("clicked");
     var largeLink = '<img src="' + $(this).data("large") + '">';
     $("#overlay").html(largeLink);
     $("#overlay").show();
@@ -142,7 +142,7 @@ $(document).ready(function () {
   });
 
   $('#overlay').on('click', function (e) {
-    $(".lightBox").css('visibility', 'visible');
+    $(".thumb-container").removeClass("clicked");
     $("#overlay").hide();
     e.preventDefault();
   });

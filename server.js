@@ -32,7 +32,8 @@ var mongoose = require('mongoose'),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   morgan = require('morgan'),
-  favicon = require('serve-favicon');
+  favicon = require('serve-favicon'),
+  Segfault = require('segfault');
 
 /*
  *
@@ -48,6 +49,7 @@ global.appRoot = path.resolve(__dirname);
 
 app.use(morgan('dev')); // Debug
 
+Segfault.registerHandler("/home/ubuntu/seg.log"); // Debug
 
 /*
  *

@@ -8,6 +8,7 @@
 var requestIp = require('request-ip'),
   geoip = require('geoip-lite'),
   geopoint = require('geopoint'),
+  SolarCalc = require('solar-calc'),
   Container = require('../models/Container.js'),
   Content = require('../models/Content.js'),
   Collection = require('../models/Collection.js');
@@ -41,6 +42,21 @@ exports.index = function (req, res) {
 
       var distance = Math.round(server.distanceTo(client, true));
 
+      var now = new Date(),
+        night = false;
+
+      var solar = new SolarCalc(now, serverLat, serverLong);
+
+//      console.log(solar);
+//      console.log(solar.sunrise);
+//      console.log(solar.sunset);
+
+      if (now >= solar.sunset && now <= solar.sunrise) {
+        night = true;
+      }
+      
+//      console.log(night);
+
       Container.find().sort({
         start_date: -1
       }).exec(function (err, data_container) {
@@ -48,6 +64,7 @@ exports.index = function (req, res) {
           year: -1
         }).exec(function (err, data_content) {
           var ctx = {
+            night: night,
             distance: distance,
             container: data_container,
             content: data_content,

@@ -17,23 +17,6 @@
 //
 //
 //
-// VARIABLES
-//
-//
-//
-//
-$background: #fff;
-$main-color: #000;
-$highlight: #00f;
-$alert: #f00;
-$dark-gray: #ddd;
-$light-gray: lighten($dark-gray,
-40);
-$baseline: 10px;
-//
-//
-//
-//
 // GLOBAL BASICS
 //
 //
@@ -60,8 +43,8 @@ a:active {
 }
 
 a:hover {
-  color: $highlight;
-  text-decoration: none;
+  color: inherit;
+  text-decoration: underline;
 }
 
 img {
@@ -112,10 +95,6 @@ article:hover {
   max-width: 75%;
 }
 
-.cableContainer {
-  //  color: $highlight;
-}
-
 .content-columns {
   display: none;
 }
@@ -125,6 +104,12 @@ article:hover {
   margin: 0;
   padding: 0;
   line-height: 0;
+}
+
+.clicked {
+  img {
+    visibility: hidden;
+  }
 }
 
 .thumbnail {
@@ -190,7 +175,7 @@ article:hover {
   transform: translateX(-50%) translateY(-50%);
   position: fixed;
   z-index: 10000;
-  background: black;
+  background: $main-color;
   pointer-events: none;
   transition: width 8.5s cubic-bezier(0.445, 0.05, 0.55, 0.95), height 8.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }

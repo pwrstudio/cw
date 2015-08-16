@@ -36,8 +36,7 @@ module.exports = function (app, io) {
     // Trace the route from server to client
     mtr.trace_raw(ip, {}, function (data, d) {
 
-      console.log(d);
-
+//      console.log(d);
 
       if (d[0] == 'h') {
 
@@ -109,7 +108,6 @@ module.exports = function (app, io) {
 
       if (d[0] == 'p') {
 
-
         var point = {
           latency: d[2],
           index: d[1],
@@ -123,21 +121,24 @@ module.exports = function (app, io) {
 
       if (d[0] == 'x') {
 
-        var session = ping.createSession();
+        var ms = 74;
 
-        session.pingHost(ip, function (error, target, sent, rcvd) {
-          var ms = rcvd - sent;
-          if (error)
-            console.log(target + ": " + error.toString());
-          else
-            console.log(target + ": Alive (ms=" + ms + ")");
-          if (io.sockets.connected[id]) {
-            var point = {
-              roundtrip: ms
-            };
-            io.sockets.connected[id].emit('tracedone', point);
-          }
-        });
+
+        //        var session = ping.createSession();
+        //
+        //        session.pingHost(ip, function (error, target, sent, rcvd) {
+        //          var ms = rcvd - sent;
+        //          if (error)
+        //            console.log(target + ": " + error.toString());
+        //          else
+        //            console.log(target + ": Alive (ms=" + ms + ")");
+        if (io.sockets.connected[id]) {
+          var point = {
+            roundtrip: ms
+          };
+          io.sockets.connected[id].emit('tracedone', point);
+        }
+        //        });
 
       }
 

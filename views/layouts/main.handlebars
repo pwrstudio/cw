@@ -22,22 +22,15 @@
   <meta property="og:description" content="Description Here" />
   <meta property="og:site_name" content="serf.club" />
 
-  <link rel="stylesheet" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/dist/css/main.css">
+  {{#if night}}<link rel="stylesheet" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/dist/css/front-night.css">
+  {{else}}<link rel="stylesheet" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/dist/css/front-day.css">{{/if}}
 
 </head>
 
 <body>
 
-  <div id="overlay"></div>
-  <div id="counterOverlay">
-    <span id="distance" data-distance="{{distance}}">0</span>
-    <div id="tracestart-container">
-    </div>
-  </div>
-  <div id="startUpOverlay" class="here"></div>
-
-
-  {{{body}}}
+  
+ {{{body}}}
 
 
   <script src="./libs/handlebars/handlebars.runtime.min.js"></script>
