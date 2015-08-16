@@ -11,6 +11,23 @@ function getRandomInt(min, max) {
 
 /*
  *
+ *  Meta render
+ *
+ */
+
+function getMeta() {
+  $.ajax({
+    type: 'GET',
+    url: '/api/meta',
+    dataType: 'json',
+    success: function (data) {
+      $("#meta-container").html(MyApp.templates.meta(data));
+    }
+  });
+}
+
+/*
+ *
  *  EXHIBITIONS render
  *
  */
@@ -154,14 +171,15 @@ function loadPublicationForm() {
 
 $(document).ready(function () {
 
-  console.log(MyApp);
-
   //  Render all content
   getExhibitions();
   getPublications();
   getContent();
   getCollection();
   getCollectionContent();
+
+  // Get meta
+  getMeta();
 
   // Load forms
   loadImageForm();
@@ -186,19 +204,18 @@ $(document).ready(function () {
     $(this).datepicker();
   });
 
-  
+
   /*
    *
    *  Slide out for edit form
    *
    */
-  
-  $(document).on("click", ".list-group-item", function (e) {
+
+  $(document).on("click", ".slider", function (e) {
     e.preventDefault();
     var container = $(this).next(".editContainer");
     container.slideToggle();
   });
-
 
   /*
    *

@@ -108,7 +108,8 @@ article:hover {
 
 .clicked {
   img {
-    visibility: hidden;
+    filter: grayscale(100%);
+    opacity: 0.5;
   }
 }
 

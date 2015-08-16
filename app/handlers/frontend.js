@@ -11,7 +11,8 @@ var requestIp = require('request-ip'),
   SolarCalc = require('solar-calc'),
   Container = require('../models/Container.js'),
   Content = require('../models/Content.js'),
-  Collection = require('../models/Collection.js');
+  Collection = require('../models/Collection.js'),
+  Meta = require('../models/Meta.js');
 
 /*
  *
@@ -45,17 +46,17 @@ exports.index = function (req, res) {
       var now = new Date(),
         night = false;
 
-      var solar = new SolarCalc(now, serverLat, serverLong);
+      var solar = new SolarCalc(now, lat, long);
 
-//      console.log(solar);
-//      console.log(solar.sunrise);
-//      console.log(solar.sunset);
+      console.log(solar);
+      console.log(solar.sunrise);
+      console.log(solar.sunset);
 
       if (now >= solar.sunset && now <= solar.sunrise) {
         night = true;
       }
-      
-//      console.log(night);
+
+      //      console.log(night);
 
       Container.find().sort({
         start_date: -1
@@ -63,23 +64,29 @@ exports.index = function (req, res) {
         Content.find().sort({
           year: -1
         }).exec(function (err, data_content) {
-          var ctx = {
-            night: night,
-            distance: distance,
-            container: data_container,
-            content: data_content,
-            helpers: {
-              space: function () {
-                var s = "";
-                var i;
-                for (i = 0; i < (distance / 500); i++) {
-                  s += '<div class="space">*</div>';
+          Meta.findOne().exec(function (err, data_meta) {
+
+            var ctx = {
+              night: night,
+              meta: data_meta,
+              distance: distance,
+              container: data_container,
+              content: data_content,
+              helpers: {
+                space: function () {
+                  var s = "";
+                  var i;
+                  for (i = 0; i < (distance / 500); i++) {
+                    s += '<div class="space">*</div>';
+                  }
+                  return s;
                 }
-                return s;
               }
-            }
-          };
-          res.render('index', ctx);
+            };
+
+            res.render('index', ctx);
+
+          });
         });
       });
     }

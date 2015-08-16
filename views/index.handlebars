@@ -8,24 +8,31 @@
 
 <div class="container-fluid">
 
+  {{!-- ***** START UP SOUND ***** --}}
+
   <audio class="player" id="startUpSound">
-    <source src="sweeep.mp3">
+    <source src="sweep.mp3">
   </audio>
 
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
+
+  {{!-- ***** COL1: META and ROUTE ***** --}}
+
+  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
     <article class="exhibition">
       <div class="title ">N. Canell
         <br> R. Watkins </div>
-      <a href="mailto:info@canellwatkins.org" class="title ">info@canellwatkins.org</a>
+      <a href="mailto:{{meta.email}}" class="title ">{{meta.email}}</a>
     </article>
     <div class="space">*</div>
-    <div class="title">{{distance}} km from server to client</div>
+    <div class="title">{{distance}} km from client to server</div>
     <div class='space'>*</div>
     <div class="title ">Route</div>
     <div id="trace-container"></div>
   </div>
 
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
+  {{!-- ***** COL2: EXHIBITIONS ***** --}}
+
+  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
     <article class="exhibition">
       <div class="title">Exhibitions</div>
     </article>
@@ -38,7 +45,9 @@
   {{#if this.link}}</a>{{/if}} {{/if}} {{/each}} {{{space}}}
   </div>
 
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
+  {{!-- ***** COL3: PUBLICATIONS ***** --}}
+
+  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
     <article class="exhibition">
       <div class="title ">Publications</div>
     </article>
@@ -51,7 +60,9 @@
     {{/if}} {{/each}} {{{space}}}
   </div>
 
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
+  {{!-- ***** COL4: IMAGES ***** --}}
+
+  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
     <article class="exhibition">
       <div class="title ">Images</div>
     </article>
@@ -68,7 +79,9 @@
     {{/if}} {{/if}} {{/each}} {{{space}}}
   </div>
 
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
+  {{!-- ***** COL5: TEXT ***** --}}
+
+  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
     <article class="exhibition">
       <div class="title ">Texts</div>
     </article>

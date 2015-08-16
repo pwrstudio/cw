@@ -25,9 +25,9 @@ $.fn.preload = function () {
  */
 
 function compare(a, b) {
-  if (a.index < b.index)
-    return -1;
   if (a.index > b.index)
+    return -1;
+  if (a.index < b.index)
     return 1;
   return 0;
 }
@@ -134,6 +134,7 @@ $(document).ready(function () {
   });
 
   $('.lightBox').on('click', function (e) {
+    $(".thumb-container").removeClass("clicked");
     $(this).parent().addClass("clicked");
     var largeLink = '<img src="' + $(this).data("large") + '">';
     $("#overlay").html(largeLink);

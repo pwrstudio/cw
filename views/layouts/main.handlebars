@@ -5,22 +5,20 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>canell / watkins</title>
-  <meta name="description" content="Page description." />
+  <title>{{meta.title}}</title>
+  <meta name="description" content="{{meta.description}}" />
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="@pwr_studio">
-  <meta name="twitter:title" content="serf.club:{{id}}">
-  <meta name="twitter:description" content="Page description less than 200 characters">
-  <meta name="twitter:creator" content="@pwr_studio">
+  <meta name="twitter:title" content="{{meta.title}}">
+  <meta name="twitter:description" content="{{meta.description}}">
   <meta name="twitter:image" content="http://serf.club{{url}}">
 
   <meta property="og:title" content="serf.club:{{id}}" />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="http://serf.club/{{id}}" />
+  <meta property="og:url" content="http://www.canellwatkins.org/" />
   <meta property="og:image" content="http://serf.club{{url}}" />
-  <meta property="og:description" content="Description Here" />
-  <meta property="og:site_name" content="serf.club" />
+  <meta property="og:description" content="{{meta.description}}" />
+  <meta property="og:site_name" content="{{meta.title}}" />
 
   {{#if night}}<link rel="stylesheet" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/dist/css/front-night.css">
   {{else}}<link rel="stylesheet" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/dist/css/front-day.css">{{/if}}
