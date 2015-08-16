@@ -8,7 +8,7 @@
 
   function trace(host, opts, cb) {
     if (!opts.cycles) {
-      opts.cycles = 3;
+      opts.cycles = 1;
     }
     var mtr = spawn('mtr', ['--raw', '--report-cycles', opts.cycles, host]);
     mtr.stderr.on('data', function (data) {

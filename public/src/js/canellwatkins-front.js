@@ -1,5 +1,14 @@
 /*
  *
+ *  Global
+ *
+ */
+
+var traceResults = [];
+
+
+/*
+ *
  *  Preload images
  *
  */
@@ -7,6 +16,68 @@
 $.fn.preload = function () {
   $('<img/>')[0].src = this;
 };
+
+
+/*
+ *
+ *  Compare
+ *
+ */
+
+function compare(a, b) {
+  if (a.index < b.index)
+    return -1;
+  if (a.index > b.index)
+    return 1;
+  return 0;
+}
+
+
+/*
+ *
+ *  Count-up to distance
+ *
+ */
+
+function startTimer(distance) {
+  var i = 0;
+  var counter = setInterval(function () {
+
+    //    if ((i % 2) == 0) {
+    //      $("#distance").text(i);
+    //    } else {
+    //      $("#distance").text("*");
+    //    }
+
+    $("#distance").text(i);
+
+
+    if ((i += 8) >= distance) {
+      $("#counterOverlay").hide();
+      $("#distance").text(distance);
+      clearInterval(counter);
+      $(".content-columns").show();
+      renderTraceQ();
+    }
+  }, 10);
+}
+
+/*
+ *
+ *  Render traceroute
+ *
+ */
+
+function renderTraceQ() {
+
+  traceResults.sort(compare);
+
+  traceResults.forEach(function (arrayItem) {
+    $("#trace-container").append(MyApp.templates.trace(arrayItem));
+  });
+
+}
+
 
 /*
  *
@@ -21,6 +92,15 @@ $.fn.preload = function () {
 $(document).ready(function () {
 
   /*
+   * Play Sound
+   */
+
+  var playerOne = document.getElementById("startUpSound");
+  playerOne.play();
+
+  $("#startUpOverlay").addClass("there");
+
+  /*
    *
    *  Sockets client
    *
@@ -30,9 +110,20 @@ $(document).ready(function () {
 
   socket.on('traced', function (msg) {
     if (msg !== null) {
-      $("#trace-container").append(MyApp.templates.trace(msg));
+      traceResults.push(msg);
+      $("#tracestart-container").html(MyApp.templates.tracestart(msg));
     }
   });
+
+  socket.on('tracedone', function (msg) {
+    setTimeout(function () {
+      $("#tracestart-container").html("Roundtrip time: " + msg.roundtrip + "ms")
+    }, 500);
+  });
+
+  console.log($("#distance").data("distance"));
+
+  startTimer($("#distance").data("distance"));
 
   $(document).on("click", ".image-link", function (e) {
     e.preventDefault();
@@ -43,6 +134,7 @@ $(document).ready(function () {
   });
 
   $('.lightBox').on('click', function (e) {
+    $(this).css('visibility', 'hidden');
     var largeLink = '<img src="' + $(this).data("large") + '">';
     $("#overlay").html(largeLink);
     $("#overlay").show();
@@ -50,6 +142,7 @@ $(document).ready(function () {
   });
 
   $('#overlay').on('click', function (e) {
+    $(".lightBox").css('visibility', 'visible');
     $("#overlay").hide();
     e.preventDefault();
   });

@@ -40,7 +40,7 @@ var cablesSchema = new mongoose.Schema({
 
 cablesSchema.statics.search = function (search, cb) {
   var qry = this.find();
-  console.log(search);
+//  console.log(search);
   if (search.loc) {
     qry.where('description.loc').near({
       center: {

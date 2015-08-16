@@ -1,42 +1,24 @@
 <div class="container-fluid">
 
-  <script id="trace-template" type="text/x-handlebars-template">
-    <div class='space'>*</div>
-    <article class='ping_container'>
-      <div>⟢ \{{ip}}</div>
-      \{{#if orgname}}
-      <div>\{{orgname}}</div>
-      \{{else}} \{{#if orgid}}
-      <div>\{{orgid}}</div>
-      \{{else}} \{{#if netname}}
-      <div>\{{netname}}</div>
-      \{{/if}} \{{/if}} \{{/if}}
-      <div>
-        \{{#if city}} \{{city}}, \{{/if}} \{{#if country}} \{{country}} \{{/if}}
-      </div>
-      <div>
-        <a href='http://geohash.org/\{{geohash}}' target=_blank>\{{geohash}}</a>
-      </div>
-    </article>
-    \{{#if cables}}
-    <div class='space'>*</div>
-    \{{#each cables}}
-    <div class="cableContainer space">∿ <a href="\{{this.url}}">\{{this.name}} [\{{this.owners}}]</a>
-    </div>
-    \{{/each}} \{{/if}}
-  </script>
+  <audio class="player" id="startUpSound">
+    <source src="sweep.mp3">
+  </audio>
 
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths">
+  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
     <article class="exhibition">
-      <div class="title ">canellwatkins.org</div>
+      <div class="title ">N. Canell
+        <br> R. Watkins </div>
+      <a href="mailto:info@canellwatkins.org" class="title ">info@canellwatkins.org</a>
     </article>
     <div class="space">*</div>
-    <div class="title ">{{distance}} km from server to client</div>
+    <div class="title">{{distance}} km from server to client</div>
+    <div class='space'>*</div>
+    <div class="title ">Route</div>
+    <div class='space'>*</div>
     <div id="trace-container"></div>
-    {{{space}}}
   </div>
 
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths">
+  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
     <article class="exhibition">
       <div class="title">Exhibitions</div>
     </article>
@@ -49,7 +31,7 @@
   {{#if this.link}}</a>{{/if}} {{/if}} {{/each}} {{{space}}}
   </div>
 
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths">
+  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
     <article class="exhibition">
       <div class="title ">Publications</div>
     </article>
@@ -62,7 +44,7 @@
     {{/if}} {{/each}} {{{space}}}
   </div>
 
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths">
+  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
     <article class="exhibition">
       <div class="title ">Images</div>
     </article>
@@ -79,7 +61,7 @@
     {{/if}} {{/if}} {{/each}} {{{space}}}
   </div>
 
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths">
+  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
     <article class="exhibition">
       <div class="title ">Texts</div>
     </article>

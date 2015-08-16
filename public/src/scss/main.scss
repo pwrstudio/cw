@@ -74,9 +74,11 @@ strong {
 
 .container-fluid {
   margin-bottom: 6 * $baseline;
-  margin-left: 2 * $baseline;
-  margin-top: 2 * $baseline;
+  margin-left: 1 * $baseline;
+  margin-top: 1 * $baseline;
+  width: 100%;
   padding: 0;
+  display: inline-block;
 }
 
 .margin_bottom {
@@ -111,7 +113,11 @@ article:hover {
 }
 
 .cableContainer {
-  color: $highlight;
+  //  color: $highlight;
+}
+
+.content-columns {
+  display: none;
 }
 
 .thumb-container {
@@ -146,6 +152,57 @@ article:hover {
     transform: translateY(-50%);
     pointer-events: visible;
   }
+}
+
+#counterOverlay {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#distance {
+  position: absolute;
+  text-align: center;
+  font-size: 40vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+#tracestart-container {
+  position: absolute;
+  text-align: left;
+  display: block;
+  top: 1 * $baseline;
+  left: 1 * $baseline;
+}
+
+#startUpOverlay {
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  position: fixed;
+  z-index: 10000;
+  background: black;
+  pointer-events: none;
+  transition: width 8.5s cubic-bezier(0.445, 0.05, 0.55, 0.95), height 8.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.here {
+  width: 100%;
+  height: 100%;
+}
+
+.there {
+  width: 0%;
+  height: 0%;
 }
 
 // Extended columns

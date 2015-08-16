@@ -1,0 +1,7 @@
+{{#if ip}}
+<div id="org">
+  {{#if orgname}} {{orgname}} {{else}} {{#if orgid}} {{orgid}} {{else}} {{#if netname}} {{netname}} {{/if}} {{/if}} {{/if}}
+<br>
+  {{#if city}} {{city}}, {{/if}} {{#if country}} {{country}} {{/if}}
+</div>
+{{/if}}
