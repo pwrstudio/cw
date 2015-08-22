@@ -4,7 +4,8 @@
  *
  */
 
-var Meta = require('../models/Meta.js');
+var Meta = require('../models/Meta.js'),
+  formidable = require('formidable');
 
 /*
  *
@@ -30,12 +31,11 @@ exports.get_meta = function (req, res) {
 
 exports.set_meta = function (req, res) {
 
-
   var form = new formidable.IncomingForm();
 
   form.parse(req, function (err, fields, files) {
 
-    Content.findOne(req.params.id, function (err, meta) {
+    Meta.findOne(req.params.id, function (err, meta) {
       if (err) {
         res.send(err);
       }
@@ -44,7 +44,7 @@ exports.set_meta = function (req, res) {
       meta.description = fields.description;
       meta.email = fields.email;
 
-      content.save(function (err) {
+      meta.save(function (err) {
         res.json({
           result: 'meta'
         });

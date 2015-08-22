@@ -500,6 +500,13 @@ $(document).ready(function () {
           });
           getContent();
           $('a[href="#content_list"]').tab('show');
+        } else if (data.result == "meta") {
+          $.notify({
+            message: 'Meta updated'
+          }, {
+            type: 'success'
+          });
+          getMeta();
         }
         formObj.parent(".editContainer").slideToggle();
       },

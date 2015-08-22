@@ -6,7 +6,8 @@
 
 var phantom = require('phantom'),
   Collection = require('../models/Collection.js'),
-  Content = require('../models/Content.js');
+  Content = require('../models/Content.js'),
+  slug = require('slug');
 
 /*
  *
@@ -34,7 +35,8 @@ exports.generatePdf = function (req, res) {
               orientation: 'landscape'
             }, function () {
               page.render('./public/file.pdf', function () {
-                res.download('./public/file.pdf');
+                var filenamn = collection.slug + "_" + slug(new Date()) + "_canell-watkins.pdf";
+                  res.download('./public/file.pdf', filenamn);
                 ph.exit();
               });
             });

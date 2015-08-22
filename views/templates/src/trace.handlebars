@@ -12,15 +12,14 @@
   <div>
     {{#if city}} {{city}}, {{/if}} {{#if country}} {{country}} {{/if}}
   </div>
-  <div>
-    <a href='http://geohash.org/{{geohash}}' target=_blank>{{geohash}}</a>
-  </div>
+  <a href='http://geohash.org/{{geohash}}' target=_blank>
+    <div>{{geohash}}</div>
+  </a>
 </article>
 {{#if cables}}
 <div class='space'>*</div>
 {{#each cables}}
-<div class="cableContainer space">∿ <a href="{{this.url}}">{{this.name}} [{{this.owners}}]</a>
-</div>
-{{/each}} {{/if}}
-{{/if}}
-
+<a href="{{this.url}}">
+  <div class="cableContainer space">∿ {{this.name}} [{{this.owners}}]</div>
+</a>
+{{/each}} {{/if}} {{/if}}

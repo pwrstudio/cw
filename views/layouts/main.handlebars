@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>{{meta.title}}</title>
+
+  <script type="text/javascript">
+    var timerStart = Date.now();
+  </script>
+
   <meta name="description" content="{{meta.description}}" />
 
   <meta name="twitter:card" content="summary">
@@ -18,17 +23,16 @@
   <meta property="og:url" content="http://www.canellwatkins.org/" />
   <meta property="og:image" content="http://serf.club{{url}}" />
   <meta property="og:description" content="{{meta.description}}" />
-  <meta property="og:site_name" content="{{meta.title}}" />
-
-  {{#if night}}<link rel="stylesheet" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/dist/css/front-night.css">
-  {{else}}<link rel="stylesheet" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/dist/css/front-day.css">{{/if}}
+  <meta property="og:site_name" content="{{meta.title}}" /> {{#if night}}
+  <link rel="stylesheet" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/dist/css/front-night.css"> {{else}}
+  <link rel="stylesheet" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/dist/css/front-day.css">{{/if}}
 
 </head>
 
 <body>
 
-  
- {{{body}}}
+
+  {{{body}}}
 
 
   <script src="./libs/handlebars/handlebars.runtime.min.js"></script>

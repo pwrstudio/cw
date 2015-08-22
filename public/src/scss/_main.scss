@@ -11,6 +11,7 @@
 * {
   -webkit-touch-callout: none;
   user-select: none;
+  box-sizing: border-box;
 }
 
 //
@@ -44,7 +45,7 @@ a:active {
 
 a:hover {
   color: inherit;
-  text-decoration: underline;
+  visibility: hidden;
 }
 
 img {
@@ -97,6 +98,7 @@ article:hover {
 
 .content-columns {
   display: none;
+  padding-right: 20px;
 }
 
 .thumb-container {
@@ -130,6 +132,7 @@ article:hover {
   pointer-events: none;
   img {
     max-width: 80%;
+    max-height: 80%;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -137,6 +140,7 @@ article:hover {
     top: 50%;
     transform: translateY(-50%);
     pointer-events: visible;
+    cursor: pointer;
   }
 }
 
@@ -148,18 +152,6 @@ article:hover {
   position: fixed;
   z-index: 1000;
   pointer-events: none;
-}
-
-#distance {
-  position: absolute;
-  text-align: center;
-  font-size: 40vw;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  top: 50%;
-  left: 50%;
-  transform: translateY(-50%) translateX(-50%);
 }
 
 #tracestart-container {
@@ -178,7 +170,8 @@ article:hover {
   z-index: 10000;
   background: $main-color;
   pointer-events: none;
-  transition: width 8.5s cubic-bezier(0.445, 0.05, 0.55, 0.95), height 8.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  transition-property: width, height;
+  transition-timing-function: cubic-bezier(.445, .05, .55, .95)
 }
 
 .here {

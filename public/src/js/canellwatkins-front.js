@@ -40,26 +40,15 @@ function compare(a, b) {
  */
 
 function startTimer(distance) {
-  var i = 0;
-  var counter = setInterval(function () {
-
-    //    if ((i % 2) == 0) {
-    //      $("#distance").text(i);
-    //    } else {
-    //      $("#distance").text("*");
-    //    }
-
-    $("#distance").text(i);
-
-
-    if ((i += 8) >= distance) {
-      $("#counterOverlay").hide();
-      $("#distance").text(distance);
-      clearInterval(counter);
-      $(".content-columns").show();
-      renderTraceQ();
-    }
-  }, 10);
+  console.log(distance);
+  $("#startUpOverlay").css("transition-duration", distance + "ms");
+  $("#startUpOverlay").css("-webkit-transition-duration", distance + "ms");
+  var counter = setTimeout(function () {
+    clearInterval(counter);
+    renderTraceQ();
+    $("#counterOverlay").hide();
+    $(".content-columns").show();
+  }, distance);
 }
 
 /*
@@ -90,6 +79,8 @@ function renderTraceQ() {
  */
 
 $(document).ready(function () {
+
+  $(".loadtime").text("Document loaded in " + (Date.now() - timerStart) + "ms");
 
   /*
    * Play Sound
@@ -122,7 +113,6 @@ $(document).ready(function () {
   });
 
   console.log($("#distance").data("distance"));
-
   startTimer($("#distance").data("distance"));
 
   $(document).on("click", ".image-link", function (e) {
@@ -134,8 +124,8 @@ $(document).ready(function () {
   });
 
   $('.lightBox').on('click', function (e) {
-    $(".thumb-container").removeClass("clicked");
-    $(this).parent().addClass("clicked");
+    $(".thumb-container").addClass("clicked");
+    //    $(this).parent().addClass("clicked");
     var largeLink = '<img src="' + $(this).data("large") + '">';
     $("#overlay").html(largeLink);
     $("#overlay").show();
