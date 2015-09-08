@@ -15,7 +15,18 @@ var containerSchema = new mongoose.Schema({
   end_date_pretty: String,
   link: String,
   publisher: String,
-  tags: [String]
+  tags: [String],
+  image: {
+    url: String,
+    thumb: String,
+    small: String,
+    large: String,
+    size: Number
+  },
+  sound: {
+    url: String,
+    size: Number
+  }
 });
 
 module.exports = mongoose.model('container', containerSchema);

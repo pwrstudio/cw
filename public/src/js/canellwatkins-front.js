@@ -6,6 +6,72 @@
 
 var traceResults = [];
 
+/*
+ *
+ *  Set up sounds
+ *
+ */
+
+var contextClass = (window.AudioContext ||
+  window.webkitAudioContext ||
+  window.mozAudioContext ||
+  window.oAudioContext ||
+  window.msAudioContext);
+
+
+if (contextClass) {
+  // Web Audio API is available.
+  var context = new contextClass();
+  var gainValue = 0.1;
+  var gainNode;
+  var oscillator;
+
+  console.log(context);
+
+} else {
+  alert("error");
+}
+
+
+/*
+ *
+ *  Frequency sweep
+ *
+ */
+
+function sweep(freq1, freq2, duration) {
+
+  currTime = context.currentTime;
+
+  oscillator = context.createOscillator();
+  gainNode = context.createGain ? context.createGain() : context.createGainNode();
+
+  oscillator.frequency.value = freq1;
+
+  oscillator.connect(gainNode);
+  gainNode.connect(context.destination);
+
+  oscillator.type = "sine";
+  oscillator.start ? oscillator.start(0) : oscillator.noteOn(0);
+
+  vol1 = 0.5;
+  vol2 = 0;
+
+  vol1 = Math.min(vol1, 0.5);
+  vol2 = Math.min(vol2, 0.5);
+
+  gainNode.gain.value = vol1;
+
+  oscillator.frequency.linearRampToValueAtTime(freq1, currTime);
+  gainNode.gain.linearRampToValueAtTime(vol1, currTime);
+  oscillator.frequency.linearRampToValueAtTime(freq2, currTime + duration * 1);
+  gainNode.gain.linearRampToValueAtTime(vol2, currTime + duration * 1);
+
+
+  oscillator.stop ? oscillator.stop(currTime + duration * 1) : oscillator.noteOff(currTime + duration * 1);
+
+};
+
 
 /*
  *
@@ -41,14 +107,17 @@ function compare(a, b) {
 
 function startTimer(distance) {
   console.log(distance);
-  $("#startUpOverlay").css("transition-duration", distance + "ms");
-  $("#startUpOverlay").css("-webkit-transition-duration", distance + "ms");
+  var timeInSeconds = distance / 2000;
+  console.log(timeInSeconds);
+  sweep(1, 15000, timeInSeconds);
+  $("#startUpOverlay").css("transition-duration", timeInSeconds + "s");
+  $("#startUpOverlay").css("-webkit-transition-duration", timeInSeconds + "s");
   var counter = setTimeout(function () {
     clearInterval(counter);
     renderTraceQ();
     $("#counterOverlay").hide();
     $(".content-columns").show();
-  }, distance);
+  }, (timeInSeconds * 1000));
 }
 
 /*
@@ -80,14 +149,9 @@ function renderTraceQ() {
 
 $(document).ready(function () {
 
+
   $(".loadtime").text("Document loaded in " + (Date.now() - timerStart) + "ms");
 
-  /*
-   * Play Sound
-   */
-
-  var playerOne = document.getElementById("startUpSound");
-  playerOne.play();
 
   $("#startUpOverlay").addClass("there");
 
@@ -109,6 +173,7 @@ $(document).ready(function () {
   socket.on('tracedone', function (msg) {
     setTimeout(function () {
       $("#tracestart-container").html("Roundtrip time: " + msg.roundtrip + "ms")
+      $("#roundtrip").html(msg.roundtrip + "ms")
     }, 500);
   });
 

@@ -9,26 +9,8 @@ var formidable = require('formidable'),
   rimraf = require('rimraf'),
   easyimg = require('easyimage'),
   validator = require('validator'),
-  Content = require('../models/Content.js');
-
-
-/*
- *
- *  Initialize data directory
- *
- */
-
-var dataDir = '/public/data',
-  fullDir = appRoot + dataDir;
-
-fs.existsSync(fullDir) || fs.mkdirSync(fullDir);
-
-
-/*
- *
- *  Resize images
- *
- */
+  Content = require('../models/Content.js'),
+  easyimg = require('easyimage');
 
 function resizeContent(newPath, dir, fileName) {
 
@@ -71,6 +53,19 @@ function resizeContent(newPath, dir, fileName) {
     }
   );
 }
+
+
+/*
+ *
+ *  Initialize data directory
+ *
+ */
+
+var dataDir = '/public/data',
+  fullDir = appRoot + dataDir;
+
+fs.existsSync(fullDir) || fs.mkdirSync(fullDir);
+
 
 
 /*

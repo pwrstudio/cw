@@ -5,7 +5,67 @@
  */
 
 var formidable = require('formidable'),
-  Container = require('../models/Container.js');
+  Container = require('../models/Container.js'),
+  rimraf = require('rimraf'),
+  fs = require('fs'),
+  rimraf = require('rimraf'),
+  validator = require('validator'),
+  easyimg = require('easyimage');
+
+function resizeContent(newPath, dir, fileName) {
+
+  // Thumbnail
+  easyimg.resize({
+    src: newPath,
+    dst: dir + '/' + "thumbnail-" + fileName,
+    width: 300,
+    height: 300,
+    quality: 70,
+  }).then(
+    function (err) {
+      console.log("large: " + err);
+    }
+  );
+
+  // Large
+  easyimg.resize({
+    src: newPath,
+    dst: dir + '/' + "large-" + fileName,
+    width: 800,
+    height: 800,
+    quality: 80,
+  }).then(
+    function (err) {
+      console.log("large: " + err);
+    }
+  );
+
+  // Small
+  easyimg.resize({
+    src: newPath,
+    dst: dir + '/' + "small-" + fileName,
+    width: 450,
+    height: 450,
+    quality: 80,
+  }).then(
+    function (err) {
+      console.log("thumb: " + err);
+    }
+  );
+}
+
+
+/*
+ *
+ *  Initialize data directory
+ *
+ */
+
+var dataDir = '/public/data',
+  fullDir = appRoot + dataDir;
+
+fs.existsSync(fullDir) || fs.mkdirSync(fullDir);
+
 
 
 /*
@@ -34,7 +94,11 @@ exports.get_publication = function (req, res) {
 
 exports.post_publication = function (req, res) {
 
-  var form = new formidable.IncomingForm();
+  var form = new formidable.IncomingForm(),
+    now = Date.now(),
+    dir = fullDir + '/' + now;
+
+  fs.mkdirSync(dir);
 
   form.parse(req, function (err, fields, files) {
 
@@ -44,6 +108,45 @@ exports.post_publication = function (req, res) {
     publication.publisher = fields.publisher;
     publication.start_date = fields.start_date;
     publication.start_date_pretty = fields.start_date;
+
+    console.log(files);
+
+    if (files.pic.size !== 0) {
+
+      var fullFilePath = '/data/' + now + '/' + files.pic.name;
+
+      var newPath = dir + '/' + files.pic.name;
+
+      fs.renameSync(files.pic.path, newPath);
+
+      resizeContent(newPath, dir, files.pic.name);
+
+      var stats = fs.statSync(newPath);
+      var fileSizeInKilobytes = stats.size / 1000.0;
+
+      publication.image.size = fileSizeInKilobytes;
+      publication.image.url = fullFilePath;
+      publication.image.thumb = '/data/' + now + '/' + "thumbnail-" + files.pic.name;
+      publication.image.large = '/data/' + now + '/' + "large-" + files.pic.name;
+      publication.image.small = '/data/' + now + '/' + "small-" + files.pic.name;
+
+    }
+
+    if (files.sound.size !== 0) {
+
+      var fullSndPath = '/data/' + now + '/' + files.sound.name;
+
+      var newSndPath = dir + '/' + files.sound.name;
+
+      fs.renameSync(files.sound.path, newSndPath);
+      var stats = fs.statSync(newSndPath);
+      var sndSizeInKilobytes = stats.size / 1000.0;
+
+      publication.sound.url = fullSndPath;
+      publication.sound.size = sndSizeInKilobytes;
+    }
+
+    console.log(publication);
 
     publication.save(function (err) {
       if (err) {

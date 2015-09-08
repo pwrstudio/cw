@@ -17,19 +17,27 @@
   {{!-- ***** COL1: META and ROUTE ***** --}}
 
   <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+    <div class="title" id="distance" data-distance="{{distance}}">{{distance}} km from client to server</div>
+    <div class='space'>*</div>
+        <div class="title" id="distance" data-distance="{{distance}}">Roundtrip time: <span id="roundtrip"></span></div>
+    <div class='space'>*</div>
+    <div class="title ">Cable Route:</div>
+    <div id="trace-container"></div>
+  </div>
+  
+    {{!-- ***** COL5: TEXT ***** --}}
+
+  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
     <article class="exhibition">
       <div class="title ">Nina Canell
         <br> Robin Watkins </div>
-      <a href="mailto:{{meta.email}}" class="title "><div>{{meta.email}}</div></a>
+      <a href="mailto:{{meta.email}}" class="title ">
+        <div>{{meta.email}}</div>
+      </a>
     </article>
-    <div class="space">*</div>
-    <div class="loadtime"></div>
-    <div class="space">*</div>
-    <div class="title" id="distance" data-distance="{{distance}}">{{distance}} km from client to server</div>
-    <div class='space'>*</div>
-    <div class="title ">Route</div>
-    <div id="trace-container"></div>
+    {{{space}}}
   </div>
+
 
   {{!-- ***** COL2: EXHIBITIONS ***** --}}
 
@@ -54,13 +62,14 @@
     </article>
     {{#each container}} {{#if this.publisher}} {{{space}}}
     <a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
-    <article class="exhibition light ">
-      <div class="title">{{this.title}}</div>
-      <div class="date">{{this.start_date_pretty}}</div>
-      <div class="publisher">{{this.publisher}}</div>
-    </article></a>
+      <article class="exhibition light ">
+        <div class="title">{{this.title}}</div>
+        <div class="date">{{this.start_date_pretty}}</div>
+        <div class="publisher">{{this.publisher}}</div>
+      </article>
+    </a>
     <div class="thumb-container">
-        <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
+      <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
     </div>
     {{/if}} {{/each}} {{{space}}}
   </div>
@@ -69,7 +78,7 @@
 
   <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
     <article class="exhibition">
-      <div class="title ">Images</div>
+      <div class="title ">Images / Text</div>
     </article>
     {{#each content}} {{#if this.public }} {{#if this.image.large}} {{{space}}}
     <article class="exhibition light ">
@@ -81,16 +90,8 @@
         <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
       </div>
     </article>
-    {{/if}} {{/if}} {{/each}} {{{space}}}
-  </div>
-
-  {{!-- ***** COL5: TEXT ***** --}}
-
-  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
-    <article class="exhibition">
-      <div class="title ">Texts</div>
-    </article>
-    {{#each content}} {{#if this.public }} {{#if this.text.author}} {{{space}}}
+    {{/if}} 
+    {{#if this.text.author}} {{{space}}}
 
     <a href="{{this.text.title}}">
       <article class="exhibition light ">
@@ -98,7 +99,9 @@
         <div class="date">{{this.text.author}}</div>
       </article>
     </a>
-    {{/if}} {{/if}} {{/each}} {{{space}}}
-
+    {{/if}}
+    {{/if}} {{/each}} {{{space}}}
   </div>
+
+
 </div>

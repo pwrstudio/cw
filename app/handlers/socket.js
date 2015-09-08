@@ -36,8 +36,6 @@ module.exports = function (app, io) {
     // Trace the route from server to client
     mtr.trace_raw(ip, {}, function (data, d) {
 
-//      console.log(d);
-
       if (d[0] == 'h') {
 
 
@@ -122,38 +120,27 @@ module.exports = function (app, io) {
       if (d[0] == 'x') {
 
         var ms = 74;
+        
+        var session = ping.createSession();
 
-
-        //        var session = ping.createSession();
-        //
-        //        session.pingHost(ip, function (error, target, sent, rcvd) {
-        //          var ms = rcvd - sent;
-        //          if (error)
-        //            console.log(target + ": " + error.toString());
-        //          else
-        //            console.log(target + ": Alive (ms=" + ms + ")");
-        if (io.sockets.connected[id]) {
-          var point = {
-            roundtrip: ms
-          };
-          io.sockets.connected[id].emit('tracedone', point);
-        }
-        //        });
+        session.pingHost(ip, function (error, target, sent, rcvd) {
+          var ms = rcvd - sent;
+          if (error)
+            console.log(target + ": " + error.toString());
+          else
+            console.log(target + ": Alive (ms=" + ms + ")");
+          if (io.sockets.connected[id]) {
+            var point = {
+              roundtrip: ms
+            };
+            io.sockets.connected[id].emit('tracedone', point);
+          }
+        });
 
       }
 
     });
 
-    //      io.on('disconnect', function (socket) {
-    //        console.log("dis: " + id);
-    //        console.log("disconnect");
-    //        delete socket;
-    //      });
-
   });
-
-
-
-
 
 }
