@@ -39,6 +39,26 @@
           </div>
         </div>
 
+        {{#if image.thumb}}
+          <div class="form-group">
+            <label for="link">Image</label>
+            <img src="{{image.thumb}}" class="thumbnail">
+            <label for="text">New image</label>
+            <input type="file" class="input-sm form-control" name="pic" accept="image/*">
+          </div>
+        {{/if}}
+        
+        {{#if sound.url}}
+          <div class="form-group">
+            <label for="link">Sound</label>
+            <audio controls>
+              <source src="{{sound.url}}">  
+            </audio>
+            <label for="text">New sound</label>
+            <input type="file" class="input-sm form-control" name="sound">
+        </div>
+        {{/if}}
+
         <div class="form-group">
           <div>
             <button id="" name="" class="btn btn-primary">Update</button>

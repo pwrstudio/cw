@@ -119,23 +119,23 @@ module.exports = function (app, io) {
 
       if (d[0] == 'x') {
 
-        var ms = 74;
-        
-        var session = ping.createSession();
-
-        session.pingHost(ip, function (error, target, sent, rcvd) {
-          var ms = rcvd - sent;
-          if (error)
-            console.log(target + ": " + error.toString());
-          else
-            console.log(target + ": Alive (ms=" + ms + ")");
-          if (io.sockets.connected[id]) {
-            var point = {
-              roundtrip: ms
-            };
-            io.sockets.connected[id].emit('tracedone', point);
-          }
-        });
+//        var ms = 74;
+//        
+//        var session = ping.createSession();
+//
+//        session.pingHost(ip, function (error, target, sent, rcvd) {
+//          var ms = rcvd - sent;
+//          if (error)
+//            console.log(target + ": " + error.toString());
+//          else
+//            console.log(target + ": Alive (ms=" + ms + ")");
+//          if (io.sockets.connected[id]) {
+//            var point = {
+//              roundtrip: ms
+//            };
+//            io.sockets.connected[id].emit('tracedone', point);
+//          }
+//        });
 
       }
 
