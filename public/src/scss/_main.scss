@@ -82,12 +82,17 @@ article {
   cursor: inherit;
 }
 
-.audio-play {
-  font-size: 33px;
+.audio-control {
   display: block;
   margin-top: 2 * $baseline;
   margin-bottom: 2 * $baseline;
+  cursor: pointer;
 }
+
+//.audio-play:hover {
+////  visibility: hidden;
+//  text-decoration: underline;
+//}
 
 article:hover {
   text-decoration: none;
@@ -251,7 +256,7 @@ form,
 }
 
 audio {
-  max-width: 100%;
+  width: 100% !important;
 }
 
 //
