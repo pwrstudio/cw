@@ -69,7 +69,7 @@ exports.index = function (req, res) {
             var ctx = {
               night: night,
               meta: data_meta,
-              distance: distance,
+//              distance: distance,
               container: data_container,
               content: data_content,
               helpers: {
@@ -144,4 +144,153 @@ exports.collection = function (req, res) {
 
 exports.fallback = function (req, res) {
   res.render('404', {});
+};
+
+
+//
+
+exports.intro1 = function (req, res) {
+
+  var clientIp = requestIp.getClientIp(req).replace("::ffff:", "");
+
+  var clientGeo = geoip.lookup(clientIp);
+
+  if (clientGeo != undefined && clientGeo != null) {
+
+    var lat = clientGeo.ll[0],
+      long = clientGeo.ll[1];
+
+    var serverGeo = geoip.lookup("52.5.9.41");
+
+    if (serverGeo != undefined && serverGeo != null) {
+
+      var serverLat = serverGeo.ll[0],
+        serverLong = serverGeo.ll[1];
+
+      var server = new geopoint(serverLat, serverLong),
+        client = new geopoint(lat, long);
+
+      var distance = Math.round(server.distanceTo(client, true));
+
+      var now = new Date(),
+        night = false;
+
+      var solar = new SolarCalc(now, lat, long);
+
+      console.log(now.getHours());
+      console.log(solar.sunset);
+      console.log(solar.sunrise);
+
+      if (now > solar.sunset) {
+        night = true;
+      }
+
+      console.log(night);
+
+      Container.find().sort({
+        start_date: -1
+      }).exec(function (err, data_container) {
+        Content.find().sort({
+          year: -1
+        }).exec(function (err, data_content) {
+          Meta.findOne().exec(function (err, data_meta) {
+
+            var ctx = {
+              night: night,
+              meta: data_meta,
+              distance: distance,
+              container: data_container,
+              content: data_content,
+              helpers: {
+                space: function () {
+                  var s = "";
+                  var i;
+                  for (i = 0; i < (distance / 500); i++) {
+                    s += '<div class="space">*</div>';
+                  }
+                  return s;
+                }
+              }
+            };
+
+            res.render('index1', ctx);
+
+          });
+        });
+      });
+    }
+  }
+};
+
+exports.intro2 = function (req, res) {
+
+  var clientIp = requestIp.getClientIp(req).replace("::ffff:", "");
+
+  var clientGeo = geoip.lookup(clientIp);
+
+  if (clientGeo != undefined && clientGeo != null) {
+
+    var lat = clientGeo.ll[0],
+      long = clientGeo.ll[1];
+
+    var serverGeo = geoip.lookup("52.5.9.41");
+
+    if (serverGeo != undefined && serverGeo != null) {
+
+      var serverLat = serverGeo.ll[0],
+        serverLong = serverGeo.ll[1];
+
+      var server = new geopoint(serverLat, serverLong),
+        client = new geopoint(lat, long);
+
+      var distance = Math.round(server.distanceTo(client, true));
+
+      var now = new Date(),
+        night = false;
+
+      var solar = new SolarCalc(now, lat, long);
+
+      console.log(now.getHours());
+      console.log(solar.sunset);
+      console.log(solar.sunrise);
+
+      if (now > solar.sunset) {
+        night = true;
+      }
+
+      console.log(night);
+
+      Container.find().sort({
+        start_date: -1
+      }).exec(function (err, data_container) {
+        Content.find().sort({
+          year: -1
+        }).exec(function (err, data_content) {
+          Meta.findOne().exec(function (err, data_meta) {
+
+            var ctx = {
+              night: night,
+              meta: data_meta,
+              distance: distance,
+              container: data_container,
+              content: data_content,
+              helpers: {
+                space: function () {
+                  var s = "";
+                  var i;
+                  for (i = 0; i < (distance / 500); i++) {
+                    s += '<div class="space">*</div>';
+                  }
+                  return s;
+                }
+              }
+            };
+
+            res.render('index2', ctx);
+
+          });
+        });
+      });
+    }
+  }
 };

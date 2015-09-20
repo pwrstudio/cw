@@ -1,5 +1,7 @@
 {{#if ip}}
 <div class='space'>*</div>
+{{distance}} km
+<div class='space'>*</div>
 <article class='ping_container'>
   <div>⟢ {{ip}}</div>
   {{#if orgname}}
@@ -16,8 +18,8 @@
     <div>{{geohash}}</div>
   </a>
 </article>
-{{#if cables}}
 <div class='space'>*</div>
+{{#if cables}}
 {{#each cables}}
 <a href="{{this.url}}">
   <div class="cableContainer space">∿ {{this.name}} [{{this.owners}}]</div>

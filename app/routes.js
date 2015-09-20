@@ -134,6 +134,11 @@
 
     app.get('/infra', auth.isLoggedIn, frontend.infra);
     app.get('/', frontend.index);
+
+    // TEMP
+    app.get('/intro1', frontend.intro1);
+    app.get('/intro2', frontend.intro2);
+
     app.get('/collection/:slug', frontend.collection);
     app.get('*', frontend.fallback);
 
