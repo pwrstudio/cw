@@ -81,23 +81,22 @@ article {
   cursor: inherit;
 }
 
-a:hover > .char {
-  color: red;
-}
-
 .audio-control {
   display: block;
-  margin-top: 2 * $baseline;
-  margin-bottom: 2 * $baseline;
+  padding-top: 2 * $baseline;
+  padding-bottom: 2 * $baseline;
   cursor: pointer;
+  width: 100%;
+}
+
+audio {
+  display: none;
 }
 
 //.audio-play:hover {
 ////  visibility: hidden;
 //  text-decoration: underline;
 //}
-
-
 .space {
   line-height: 2 * $baseline;
   margin-bottom: $baseline;
@@ -167,7 +166,6 @@ a:hover > .char {
   background-size: cover;
   background-position: center;
 }
-
 
 #tracestart-container {
   position: absolute;
@@ -258,6 +256,11 @@ form,
   position: relative;
 }
 
+label {
+  font-weight: bold !important;
+  text-transform: uppercase;
+}
+
 audio {
   width: 100% !important;
 }
@@ -296,6 +299,12 @@ audio {
 //
 //
 //
+@media (max-width: 768px) {
+  .hidden-sm {
+    display: none;
+  }
+}
+
 @media (min-width: 768px) {
   .col-sm-5ths {
     width: 20%;

@@ -77,7 +77,6 @@ function renderTraceQ() {
     $("#trace-container").append(MyApp.templates.trace(arrayItem));
   });
   $("a div").lettering();
-  $("a div").lettering();
 }
 
 
@@ -93,8 +92,8 @@ function renderTraceQ() {
 
 $(document).ready(function () {
 
-  oscillator.start();
-
+  oscillator[oscillator.start ? 'start' : 'noteOn'](0);
+  
   /*
    *
    *  Sockets client
@@ -107,7 +106,7 @@ $(document).ready(function () {
     setTimeout(function () {
       $("#tracestart-container").html(MyApp.templates.tracestart(msg));
       setTimeout(function () {
-        oscillator.stop();
+        oscillator.stop(0);
         renderTraceQ();
         $("#counterOverlay").hide();
         $(".content-columns").show();
@@ -120,7 +119,6 @@ $(document).ready(function () {
   socket.on('traced', function (msg) {
     console.log("traced");
     if (msg !== null) {
-      console.log(msg);
       traceResults.push(msg);
       $("#tracestart-container").html(MyApp.templates.tracestart(msg));
     }
@@ -135,7 +133,7 @@ $(document).ready(function () {
   $(document).on("click", ".image-link", function (e) {
     e.preventDefault();
     var container = $(this).next(".thumb-container");
-    container.slideToggle(1000);
+    container.slideToggle(700);
     var large = container.children("img").data("large");
     $('<img/>')[0].src = large;
   });

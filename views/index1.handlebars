@@ -8,7 +8,7 @@
 
   {{!-- ***** COL1: META and ROUTE ***** --}}
 
-  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+  <div class="col-md-5ths col-sm-5ths hidden-sm hidden-xs content-columns">
     <div class="title" id="distance" data-distance="{{distance}}">Approx. Cable length: <span id="cable-length"></span> km</div>
     <div class='space'>*</div>
     <div class="title ">Route:</div>
@@ -94,7 +94,7 @@
       <div class="title ">Images / Text</div>
     </article>
     {{#each content}} {{#if this.public }} {{#if this.image.large}} {{{space}}}
-    <a class="image-link">
+    <a href="" class="image-link">
     <article class="exhibition light ">
         <div class="title">{{this.title}}</div>
         <div class="title">{{this.image.size}}kb</div>

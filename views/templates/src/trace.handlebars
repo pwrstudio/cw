@@ -21,7 +21,7 @@
 <div class='space'>*</div>
 {{#if cables}}
 {{#each cables}}
-<a href="{{this.url}}">
-  <div class="cableContainer space">∿ {{this.name}} [{{this.owners}}]</div>
-</a>
+{{#if this.url}}<a href="{{this.url}}" target="_blank">{{/if}}
+<div class="cableContainer space">∿ {{this.name}} [{{this.owners}}]</div>
+{{#if this.url}}</a>{{/if}}
 {{/each}} {{/if}} {{/if}}

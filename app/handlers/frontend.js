@@ -48,16 +48,9 @@ exports.index = function (req, res) {
 
       var solar = new SolarCalc(now, lat, long);
 
-      console.log(now.getHours());
-      console.log(solar.sunset);
-      console.log(solar.sunrise);
-
       if (now > solar.sunset) {
         night = true;
       }
-
-      console.log(night);
-
       Container.find().sort({
         start_date: -1
       }).exec(function (err, data_container) {
@@ -69,7 +62,6 @@ exports.index = function (req, res) {
             var ctx = {
               night: night,
               meta: data_meta,
-//              distance: distance,
               container: data_container,
               content: data_content,
               helpers: {
