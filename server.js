@@ -7,7 +7,7 @@
 var express = require('express'),
   app = express(),
   http = require('http').Server(app),
-  port = process.env.PORT || 80,
+  port = process.env.PORT || 8080,
   server = app.listen(port),
   io = require('socket.io').listen(server);
 
@@ -32,8 +32,7 @@ var mongoose = require('mongoose'),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   morgan = require('morgan'),
-  favicon = require('serve-favicon'),
-  Segfault = require('segfault');
+  favicon = require('serve-favicon');
 
 /*
  *
@@ -48,8 +47,6 @@ require('./config/passport')(passport);
 global.appRoot = path.resolve(__dirname);
 
 app.use(morgan('dev')); // Debug
-
-Segfault.registerHandler("/home/ubuntu/seg.log"); // Debug
 
 /*
  *
