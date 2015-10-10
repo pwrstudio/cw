@@ -5,7 +5,7 @@
  */
 
 var Meta = require('../models/Meta.js'),
-  formidable = require('formidable');
+    formidable = require('formidable');
 
 /*
  *
@@ -14,12 +14,12 @@ var Meta = require('../models/Meta.js'),
  */
 
 exports.get_meta = function (req, res) {
-  Meta.findOne().exec(function (err, meta) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(meta);
-  });
+    Meta.findOne().exec(function (err, meta) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(meta);
+    });
 };
 
 
@@ -31,26 +31,26 @@ exports.get_meta = function (req, res) {
 
 exports.set_meta = function (req, res) {
 
-  var form = new formidable.IncomingForm();
+    var form = new formidable.IncomingForm();
 
-  form.parse(req, function (err, fields, files) {
+    form.parse(req, function (err, fields, files) {
 
-    Meta.findOne(req.params.id, function (err, meta) {
-      if (err) {
-        res.send(err);
-      }
+        Meta.findOne("", function (err, meta) {
+            if (err) {
+                res.send(err);
+            }
 
-      meta.title = fields.title;
-      meta.description = fields.description;
-      meta.email = fields.email;
+            meta.title = fields.title;
+            meta.description = fields.description;
+            meta.email = fields.email;
 
-      meta.save(function (err) {
-        res.json({
-          result: 'meta'
+            meta.save(function (err) {
+                res.json({
+                    result: 'meta'
+                });
+            });
         });
-      });
-    });
 
-  });
+    });
 
 }

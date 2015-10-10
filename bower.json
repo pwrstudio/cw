@@ -5,6 +5,9 @@
         "bootstrap": "latest",
         "handlebars": "2.0.0-beta.1",
         "fontawesome": "latest",
+        "jquery-validation": "latest",
+        "remarkable-bootstrap-notify": "latest",
+        "bootstrap-datepicker": "latest",
         "letteringjs": "latest"
     }
 }
