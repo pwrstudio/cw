@@ -1,26 +1,26 @@
 <div class="list-group">
-  {{#each this}}
-  <div id="{{_id}}" class="list-group-item slider" data-toggle="collapse-next">
-    {{this.title}}</a>
-  </div>
-  <div class="collapse editContainer">
-    <form class="ajaxFormUpdate" enctype="multipart/form-data" action="/api/update/exhibition" data-post-id="{{_id}}">
-      <fieldset>
+    {{#each this}}
+    <div id="{{_id}}" class="list-group-item slider" data-toggle="collapse-next">
+        {{this.title}}</a>
+    </div>
+    <div class="collapse editContainer">
+        <form class="ajaxFormUpdate" enctype="multipart/form-data" action="/api/update/exhibition" data-post-id="{{_id}}">
+            <fieldset>
 
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" value="{{title}}" required>
-        </div>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" value="{{title}}" required>
+                </div>
 
-        <div class="form-group">
-          <a class="btn btn-primary">Update</a>
-          <a class="btn btn-primary" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/collection/{{this.slug}}" target=_blank>View</a>
-          <a href="http://ec2-52-5-9-41.compute-1.amazonaws.com/pdf/{{this.slug}}" class="btn btn-primary">Make pdf</a>
-          <a class="btn btn-danger delete collection" data-id="{{_id}}">Delete</a>
-        </div>
+                <div class="form-group">
+                    <a class="btn btn-primary">Update</a>
+                    <a class="btn btn-primary" href="http://ec2-52-5-9-41.compute-1.amazonaws.com/collection/{{this.slug}}" target=_blank>View</a>
+                    <a href="http://ec2-52-5-9-41.compute-1.amazonaws.com/pdf/{{this.slug}}" class="btn btn-primary">Make pdf</a>
+                    <a class="btn btn-danger delete collection" data-id="{{_id}}">Delete</a>
+                </div>
 
-      </fieldset>
-    </form>
-  </div>
-  {{/each}}
+            </fieldset>
+        </form>
+    </div>
+    {{/each}}
 </div>

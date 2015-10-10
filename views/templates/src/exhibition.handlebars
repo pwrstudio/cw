@@ -1,49 +1,49 @@
 <div class="list-group">
-  {{#each this}} {{#if location}}
-  <a href="#" id="{{_id}}" class="list-group-item slider" data-toggle="collapse-next">
-    <div><strong>{{title}}</strong>
+    {{#each this}} {{#if location}}
+    <a href="#" id="{{_id}}" class="list-group-item slider" data-toggle="collapse-next">
+        <div><strong>{{title}}</strong>
+        </div>
+        <div><em>{{location}}</em>
+        </div>
+        <div>{{start_date_pretty}} – {{end_date_pretty}}</div>
+    </a>
+    <div class="collapse editContainer">
+        <form class="ajaxFormUpdate" enctype="multipart/form-data" action="/api/update/exhibition" data-post-id="{{_id}}">
+            <fieldset>
+
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" value="{{title}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input id="location" name="location" type="text" placeholder="Location" value="{{location}}" class="input-sm form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="link">Link</label>
+                    <input id="link" name="link" type="url" placeholder="Link" value="{{link}}" class="input-sm form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="datepicker">Start and end date</label>
+                    <div class="input-daterange input-group datepicker_recurring_start" id="datepicker">
+                        <input type="text" class="input-sm form-control" name="start_date" required value="{{start_date_pretty}}">
+                        <span class="input-group-addon">to</span>
+                        <input type="text" class="input-sm form-control" name="end_date" required value="{{end_date_pretty}}">
+                    </div>
+                </div>
+
+                Button
+                <div class="form-group">
+                    <label for=""></label>
+                    <button id="" name="" class="btn btn-primary">Update</button>
+                    <div class="btn btn-danger delete cont" data-id="{{_id}}">Delete</div>
+                </div>
+
+            </fieldset>
+        </form>
     </div>
-    <div><em>{{location}}</em>
-    </div>
-    <div>{{start_date_pretty}} – {{end_date_pretty}}</div>
-  </a>
-  <div class="collapse editContainer">
-    <form class="ajaxFormUpdate" enctype="multipart/form-data" action="/api/update/exhibition" data-post-id="{{_id}}">
-      <fieldset>
-
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" value="{{title}}" required>
-        </div>
-
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input id="location" name="location" type="text" placeholder="Location" value="{{location}}" class="input-sm form-control" required>
-        </div>
-
-        <div class="form-group">
-          <label for="link">Link</label>
-          <input id="link" name="link" type="url" placeholder="Link" value="{{link}}" class="input-sm form-control">
-        </div>
-
-        <div class="form-group">
-          <label for="datepicker">Start and end date</label>
-          <div class="input-daterange input-group datepicker_recurring_start" id="datepicker">
-            <input type="text" class="input-sm form-control" name="start_date" required value="{{start_date_pretty}}">
-            <span class="input-group-addon">to</span>
-            <input type="text" class="input-sm form-control" name="end_date" required value="{{end_date_pretty}}">
-          </div>
-        </div>
-
-        Button
-        <div class="form-group">
-          <label for=""></label>
-          <button id="" name="" class="btn btn-primary">Update</button>
-          <div class="btn btn-danger delete cont" data-id="{{_id}}">Delete</div>
-        </div>
-
-      </fieldset>
-    </form>
-  </div>
-  {{/if}} {{/each}}
+    {{/if}} {{/each}}
 </div>

@@ -42,13 +42,11 @@
     "iso-3166-1-alpha-2": "^1.0.0",
     "latlon-geohash": "^1.0.1",
     "method-override": "~2.0.2",
-    "mongodb": "~2.0.45",
     "mongoose": "~3.8.0",
     "mongoose-random": "^0.1.1",
     "mongoose-session": "0.0.4",
     "morgan": "^1.5.3",
     "mtr": "^0.2.1",
-    "net-ping": "^1.1.12",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
     "phantom": "^0.7.2",
@@ -56,11 +54,10 @@
     "request-ip": "^1.1.3",
     "rimraf": "^2.3.4",
     "serve-favicon": "^2.2.1",
-    "slug": "^0.9.1",
     "socket.io": "^1.3.5",
-    "solar-calc": "^1.0.3",
     "traceroute": "0.0.3",
     "validator": "^3.40.1",
-    "whois-ux": "0.0.2"
+    "whois-ux": "0.0.2",
+    "mongodb": "~2.0.45"
   }
 }
