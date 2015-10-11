@@ -19,9 +19,11 @@ var contentSchema = new mongoose.Schema({
     caption: String,
     url: String,
     thumb: String,
+    pinky: String,
     small: String,
     large: String,
-    size: Number
+    size: Number,
+    frontpage: Boolean
   },
   date: Date,
   year: Number,

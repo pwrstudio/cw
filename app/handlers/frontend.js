@@ -5,13 +5,13 @@
  */
 
 var requestIp = require('request-ip'),
-  geoip = require('geoip-lite'),
-  geopoint = require('geopoint'),
-  SolarCalc = require('solar-calc'),
-  Container = require('../models/Container.js'),
-  Content = require('../models/Content.js'),
-  Collection = require('../models/Collection.js'),
-  Meta = require('../models/Meta.js');
+    geoip = require('geoip-lite'),
+    geopoint = require('geopoint'),
+    SolarCalc = require('solar-calc'),
+    Container = require('../models/Container.js'),
+    Content = require('../models/Content.js'),
+    Collection = require('../models/Collection.js'),
+    Meta = require('../models/Meta.js');
 
 /*
  *
@@ -21,67 +21,73 @@ var requestIp = require('request-ip'),
 
 exports.index = function (req, res) {
 
-  var clientIp = requestIp.getClientIp(req).replace("::ffff:", "");
+    var clientIp = requestIp.getClientIp(req).replace("::ffff:", "");
 
-  var clientGeo = geoip.lookup(clientIp);
+    var clientGeo = geoip.lookup(clientIp);
 
-  if (clientGeo != undefined && clientGeo != null) {
+    if (clientGeo != undefined && clientGeo != null) {
 
-    var lat = clientGeo.ll[0],
-      long = clientGeo.ll[1];
+        var lat = clientGeo.ll[0],
+            long = clientGeo.ll[1];
 
-    var serverGeo = geoip.lookup("85.214.100.3");
+        var serverGeo = geoip.lookup("85.214.100.3");
 
-    if (serverGeo != undefined && serverGeo != null) {
+        if (serverGeo != undefined && serverGeo != null) {
 
-      var serverLat = serverGeo.ll[0],
-        serverLong = serverGeo.ll[1];
+            var serverLat = serverGeo.ll[0],
+                serverLong = serverGeo.ll[1];
 
-      var server = new geopoint(serverLat, serverLong),
-        client = new geopoint(lat, long);
+            var server = new geopoint(serverLat, serverLong),
+                client = new geopoint(lat, long);
 
-      var distance = Math.round(server.distanceTo(client, true));
+            var distance = Math.round(server.distanceTo(client, true));
 
-      var now = new Date(),
-        night = false;
+            var now = new Date(),
+                night = false;
 
-      var solar = new SolarCalc(now, lat, long);
+            var solar = new SolarCalc(now, lat, long);
 
-      if (now > solar.sunset) {
-        night = true;
-      }
-      Container.find().sort({
-        start_date: -1
-      }).exec(function (err, data_container) {
-        Content.find().sort({
-          year: -1
-        }).exec(function (err, data_content) {
-          Meta.findOne().exec(function (err, data_meta) {
+            if (now > solar.sunset) {
+                night = true;
+            }
 
-            var ctx = {
-              night: night,
-              meta: data_meta,
-              container: data_container,
-              content: data_content,
-              helpers: {
-                space: function () {
-                  var s = "";
-                  var i;
-                  for (i = 0; i < (distance / 500); i++) {
-                    s += '<div class="space">*</div>';
-                  }
-                  return s;
-                }
-              }
-            };
+            console.log("nightXXXX");
+            console.log(night);
 
-            res.render('index', ctx);
+            Container.find().sort({
+                start_date: -1
+            }).exec(function (err, data_container) {
+                Content.find().sort({
+                    year: -1
+                }).exec(function (err, data_content) {
+                    Meta.findOne().exec(function (err, data_meta) {
+                        var query = Content.where({
+                            "image.frontpage": true
+                        });
+                        query.findOne().exec(function (err, frontpage) {
 
-          });
-        });
-      });
+                            console.log(frontpage.image.url);
+                            console.log(frontpage.image.thumb);
+
+                            var ctx = {
+                                night: night,
+                                frontpage: {
+                                    full: frontpage.image.url,
+                                    pinky: frontpage.image.pinky
+                                },
+                                meta: data_meta,
+                                container: data_container,
+                                content: data_content
+                            };
+
+                            res.render('index', ctx);
+
+                        });
+                    });
+                });
+            });
+        }
     }
-  }
 };
 
 
@@ -92,9 +98,9 @@ exports.index = function (req, res) {
  */
 
 exports.infra = function (req, res) {
-  res.render('infra', {
-    layout: "backend"
-  });
+    res.render('infra', {
+        layout: "backend"
+    });
 };
 
 
@@ -106,24 +112,24 @@ exports.infra = function (req, res) {
 
 exports.collection = function (req, res) {
 
-  // Find collection by slug
-  Collection.findOne({
-    slug: req.params.slug
-  }).exec(function (err, collection) {
-    var objects = [];
+    // Find collection by slug
+    Collection.findOne({
+        slug: req.params.slug
+    }).exec(function (err, collection) {
+        var objects = [];
 
-    for (var i = 0; i < collection.content.length; i++) {
-      Content.findById(collection.content[i], function (err, item) {
-        objects.push(item);
-      });
-    }
+        for (var i = 0; i < collection.content.length; i++) {
+            Content.findById(collection.content[i], function (err, item) {
+                objects.push(item);
+            });
+        }
 
-    var data = {
-      collection: collection,
-      objects: objects
-    }
-    res.render('collection', data);
-  });
+        var data = {
+            collection: collection,
+            objects: objects
+        }
+        res.render('collection', data);
+    });
 };
 
 
@@ -134,5 +140,5 @@ exports.collection = function (req, res) {
  */
 
 exports.fallback = function (req, res) {
-  res.render('404', {});
+    res.render('404', {});
 };

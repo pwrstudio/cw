@@ -3,54 +3,54 @@
 
 <head>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{{meta.title}}</title>
+    <title>{{meta.title}}</title>
 
-  <script type="text/javascript">
-    var timerStart = Date.now();
-  </script>
+    <script type="text/javascript">
+        var timerStart = Date.now();
+    </script>
 
-  <meta name="description" content="{{meta.description}}" />
+    <meta name="description" content="{{meta.description}}" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="{{meta.title}}">
-  <meta name="twitter:description" content="{{meta.description}}">
-  <meta name="twitter:image" content="http://serf.club{{url}}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{meta.title}}">
+    <meta name="twitter:description" content="{{meta.description}}">
+    <meta name="twitter:image" content="http://serf.club{{url}}">
 
-  <meta property="og:title" content="{{meta.title}}" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="http://www.canellwatkins.org/" />
-  <meta property="og:image" content="http://canellwatkins.org" />
-  <meta property="og:description" content="{{meta.description}}" />
-  <meta property="og:site_name" content="{{meta.title}}" /> {{#if night}}
-  <link rel="stylesheet" href="dist/css/front-night.css"> {{else}}
-  <link rel="stylesheet" href="dist/css/front-day.css">{{/if}}
+    <meta property="og:title" content="{{meta.title}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://www.canellwatkins.org/" />
+    <meta property="og:image" content="http://canellwatkins.org" />
+    <meta property="og:description" content="{{meta.description}}" />
+    <meta property="og:site_name" content="{{meta.title}}" /> 
+    {{#if night}}
+        <link rel="stylesheet" href="dist/css/front-night.css"> 
+    {{else}}
+        <link rel="stylesheet" href="dist/css/front-day.css">
+    {{/if}}
 
 
-  <style>
-    a:hover .char {
-      background: #fff;
-    }
-    
-    article {
-      display: inline-block;
-    }
-    
-    a:hover article .location::after {
-      display: inline;
-      content: "  (external)";
-    }
-    
-    
-  </style>
+    <style>
+        a:hover .char {
+            background: #fff;
+        }
+        
+        article {
+            display: inline-block;
+        }
+        
+        a:hover article .location::after {
+            display: inline;
+            content: "  (external)";
+        }
+    </style>
 
 </head>
 
 <body>
 
-
-  {{{body}}}
+    {{{body}}}
 
 
 </body>

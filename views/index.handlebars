@@ -1,118 +1,143 @@
 <div id="overlay"></div>
-<div id="counterOverlay" style="background-image: url(data/1444441456018/Nina%20Canells-Perpetuum-Mobile.jpg), url(data/1440975637634/thumbnail-Nina%20Canells-Perpetuum-Mobile.jpg), url(data/test/pinkynail-Nina%20Canells-Perpetuum-Mobile.jpg);">
-  <div id="tracestart-container">
-  </div>
+
+<div id="counterOverlay" style="background-image: url({{frontpage.full}}), url({{frontpage.pinky}});">
+    <div id="tracestart-container"></div>
+</div>
+
+<div class="menu-bar">
+
+    <div class="col-md-5ths col-sm-5ths hidden-sm hidden-xs content-columns">
+        <div class="title strong">Approx. Cable length: <span id="cable-length"></span> km</div>
+    </div>
+
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+        <div class="title strong">Nina Canell / Robin Watkins </div>
+    </div>
+
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+        <div class="title strong">Exhibitions</div>
+    </div>
+
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+        <div class="title strong">Publications</div>
+    </div>
+
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+        <div class="title strong">Images / Text</div>
+    </div>
+
 </div>
 
 <div class="container-fluid">
 
-  {{!-- ***** COL1: META and ROUTE ***** --}}
+    {{!-- ***** COL1: META and ROUTE ***** --}}
 
-  <div class="col-md-5ths col-sm-5ths hidden-sm hidden-xs content-columns">
-    <div class="title" id="distance" data-distance="{{distance}}">Approx. Cable length: <span id="cable-length"></span> km</div>
-    <div class='space'>*</div>
-    <div class="title ">Route:</div>
-    <div id="trace-container"></div>
-  </div>
+    <div class="col-md-5ths col-sm-5ths hidden-sm hidden-xs content-columns">
+        <div class='space'>*</div>
+        <div class="title ">Route:</div>
+        <div class='space'>*</div>
+        <div id="trace-container"></div>
+        <article class='ping_container'>
+            <div>85.214.100.3</div>
+            <div>canellwatkins.org</div>
+            <div>Berlin, Germany</div>
+            <div><a href="http://geohash.org/u33dbbmefwkn">u33dbbmefwkn</a></div>
+        </article>
+        <div class='space'>*</div>
+    </div>
 
-  {{!-- ***** COL5: TEXT ***** --}}
+    {{!-- ***** COL5: TEXT ***** --}}
 
-  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
-    <article class="exhibition">
-      <div class="title ">Nina Canell
-        <br> Robin Watkins </div>
-      <a href="mailto:{{meta.email}}" class="title ">
-        <div>{{meta.email}}</div>
-      </a>
-    </article>
-    {{{space}}}
-  </div>
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+        <a href="mailto:{{meta.email}}" class="title ">
+            <div>{{meta.email}}</div>
+        </a>
+        <div class='space'>*</div>
+    </div>
 
 
-  {{!-- ***** COL2: EXHIBITIONS ***** --}}
+    {{!-- ***** COL2: EXHIBITIONS ***** --}}
 
-  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
-    <article class="exhibition">
-      <div class="title">Exhibitions</div>
-    </article>
-    {{#each container}} {{#if this.location}} {{{space}}} {{#if this.link}}
-    <a href="{{this.link}}" target=_blank>{{/if}}
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+        {{#each container}} {{#if this.location}}
+        <div class='space'>*</div> {{#if this.link}}
+        <a href="{{this.link}}" target=_blank>{{/if}}
   <article class="exhibition light">
     <div class="title">{{this.title}}</div>
     <div class="date">{{this.start_date_pretty}} — {{this.end_date_pretty}}</div>
     <div class="location">{{this.location}}</div>
   </article>
-  {{#if this.link}}</a>{{/if}} {{/if}} {{/each}} {{{space}}}
-  </div>
-
-  {{!-- ***** COL3: PUBLICATIONS ***** --}}
-
-  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
-    <article class="exhibition">
-      <div class="title ">Publications</div>
-    </article>
-    {{#each container}} {{#if this.publisher}} {{{space}}} {{#if this.image.thumb}}
-    <a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
-      <article class="exhibition light ">
-        <div class="title">{{this.title}}</div>
-        <div class="date">{{this.start_date_pretty}}</div>
-        <div class="publisher">{{this.publisher}}</div>
-      </article>
-    </a>
-    {{else}} {{#if this.sound.url}}
-    <a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
-      <article class="exhibition light ">
-        <div class="title">{{this.title}}</div>
-        <div class="date">{{this.start_date_pretty}}</div>
-        <div class="publisher">{{this.publisher}}</div>
-      </article>
-    </a>
-    {{else}}
-    <article class="exhibition light ">
-      <div class="title">{{this.title}}</div>
-      <div class="date">{{this.start_date_pretty}}</div>
-      <div class="publisher">{{this.publisher}}</div>
-    </article>
-    {{/if}} {{/if}} {{#if this.sound.url}}
-    <div class="thumb-container">
-      <div class="audio-control play">▶ {{this.sound.size}} kb</div>
-      <audio>
-        <source src="{{this.sound.url}}">
-      </audio>
+  {{#if this.link}}</a>{{/if}} {{/if}} {{/each}}
+        <div class='space'>*</div>
     </div>
-    {{/if}} {{#if this.image.thumb}}
-    <div class="thumb-container">
-      <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
+
+    {{!-- ***** COL3: PUBLICATIONS ***** --}}
+
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+        {{#each container}} {{#if this.publisher}}
+        <div class='space'>*</div> {{#if this.image.thumb}}
+        <a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
+            <article class="exhibition light ">
+                <div class="title">{{this.title}}</div>
+                <div class="date">{{this.start_date_pretty}}</div>
+                <div class="publisher">{{this.publisher}}</div>
+            </article>
+        </a>
+        {{else}} {{#if this.sound.url}}
+        <a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
+            <article class="exhibition light ">
+                <div class="title">{{this.title}}</div>
+                <div class="date">{{this.start_date_pretty}}</div>
+                <div class="publisher">{{this.publisher}}</div>
+            </article>
+        </a>
+        {{else}}
+        <article class="exhibition light ">
+            <div class="title">{{this.title}}</div>
+            <div class="date">{{this.start_date_pretty}}</div>
+            <div class="publisher">{{this.publisher}}</div>
+        </article>
+        {{/if}} {{/if}} {{#if this.sound.url}}
+        <div class="thumb-container">
+            <div class="audio-control play">▶ {{this.sound.size}} kb</div>
+            <audio>
+                <source src="{{this.sound.url}}">
+            </audio>
+        </div>
+        {{/if}} {{#if this.image.thumb}}
+        <div class="thumb-container">
+            <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
+        </div>
+        {{/if}} {{/if}} {{/each}}
+        <div class='space'>*</div>
     </div>
-    {{/if}} {{/if}} {{/each}} {{{space}}}
-  </div>
 
-  {{!-- ***** COL4: IMAGES ***** --}}
+    {{!-- ***** COL4: IMAGES ***** --}}
 
-  <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
-    <article class="exhibition">
-      <div class="title ">Images / Text</div>
-    </article>
-    {{#each content}} {{#if this.public }} {{#if this.image.large}} {{{space}}}
-    <a href="" class="image-link">
-    <article class="exhibition light ">
-        <div class="title">{{this.title}}</div>
-        <div class="title">{{this.image.size}}kb</div>
-    </article>
-    </a>
-      <div class="thumb-container">
-        <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
-      </div>
-    {{/if}} {{#if this.text.author}} {{{space}}}
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+        {{#each content}} {{#if this.public }} {{#if this.image.large}}
+        <div class='space'>*</div>
+        <a href="" class="image-link">
+            <article class="exhibition light ">
+                <div class="title">{{this.title}}</div>
+                <div class="title">{{this.image.size}}kb</div>
+            </article>
+        </a>
+        <div class="thumb-container">
+            <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
+        </div>
+        {{/if}} {{#if this.text.author}}
+        <div class='space'>*</div>
 
-    <a href="{{this.text.title}}">
-      <article class="exhibition light ">
-        <div class="title">{{this.title}}</div>
-        <div class="date">{{this.text.author}}</div>
-      </article>
-    </a>
-    {{/if}} {{/if}} {{/each}} {{{space}}}
-  </div>
+        <a href="{{this.text.title}}">
+            <article class="exhibition light ">
+                <div class="title">{{this.title}}</div>
+                <div class="date">{{this.text.author}}</div>
+            </article>
+        </a>
+        {{/if}} {{/if}} {{/each}}
+        <div class='space'>*</div>
+    </div>
 
 
 </div>
@@ -120,6 +145,5 @@
 <script src="./libs/handlebars/handlebars.runtime.min.js"></script>
 <script src="socket.io/socket.io.js"></script>
 <script src="./libs/jquery/dist/jquery.min.js"></script>
-<script src="./libs/letteringjs/jquery.lettering.js"></script>
 <script src="./dist/js/handlebars/templates.js"></script>
 <script src="./src/js/canellwatkins-front.js"></script>
