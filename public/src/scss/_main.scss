@@ -45,7 +45,11 @@ a:active {
 
 a:hover {
     color: inherit;
-    text-decoration: udnerline;
+    border-bottom: 1px dotted $main-color;
+    text-decoration: underline;
+    * {
+        text-decoration: underline;
+    }
 }
 
 img {
@@ -100,8 +104,7 @@ audio {
     padding-left: $baseline;
     margin-left: 0;
     left: 0;
-    width: 100%;
-    background: $background;
+    width: calc(100% + 8px);
     color: $main-color;
     z-index: 999;
     height: 2 * $baseline;
@@ -109,6 +112,9 @@ audio {
     text-overflow: ellipsis;
 }
 
+//.menu-col {
+//    margin-right: 1px;
+//}
 .space {
     line-height: 2 * $baseline;
     margin-bottom: $baseline;
@@ -125,6 +131,8 @@ audio {
 }
 
 .thumb-container {
+    position: fixed;
+    z-index: 999;
     display: none;
     margin: 0;
     padding: 0;
@@ -134,7 +142,6 @@ audio {
 .clicked {
     img {
         filter: grayscale(100%);
-        opacity: 0.5;
     }
 }
 

@@ -91,7 +91,7 @@ gulp.task('watch', function () {
   // Watch .js files
   gulp.watch('public/src/js/*.js', ['backend', 'frontend']);
   // Watch .scss files
-  gulp.watch('public/src/scss/main.scss', ['sass']);
+  gulp.watch('public/src/scss/*.scss', ['sass']);
   // Watch templates
   gulp.watch('views/templates/src/*.handlebars', ['templates']);
 });

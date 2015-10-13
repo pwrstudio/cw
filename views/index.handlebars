@@ -1,28 +1,28 @@
 <div id="overlay"></div>
 
 <div id="counterOverlay" style="background-image: url({{frontpage.full}}), url({{frontpage.pinky}});">
-    <div id="tracestart-container"></div>
+    <div id="tracestart-container" class="strong"></div>
 </div>
 
 <div class="menu-bar">
 
-    <div class="col-md-5ths col-sm-5ths hidden-sm hidden-xs content-columns">
+    <div class="col-md-5ths col-sm-5ths hidden-sm hidden-xs content-columns menu-col">
         <div class="title strong">Approx. Cable length: <span id="cable-length"></span> km</div>
     </div>
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns menu-col">
         <div class="title strong">Nina Canell / Robin Watkins </div>
     </div>
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns menu-col">
         <div class="title strong">Exhibitions</div>
     </div>
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns menu-col">
         <div class="title strong">Publications</div>
     </div>
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns menu-col">
         <div class="title strong">Images / Text</div>
     </div>
 
@@ -117,14 +117,14 @@
     <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
         {{#each content}} {{#if this.public }} {{#if this.image.large}}
         <div class='space'>*</div>
-        <a href="" class="image-link">
+        <a href="" class="image-link hidden">
             <article class="exhibition light ">
                 <div class="title">{{this.title}}</div>
                 <div class="title">{{this.image.size}}kb</div>
             </article>
         </a>
         <div class="thumb-container">
-            <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
+            <img src="{{this.image.thumb}}" alt="{{this.image.caption}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
         </div>
         {{/if}} {{#if this.text.author}}
         <div class='space'>*</div>
