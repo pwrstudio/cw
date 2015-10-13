@@ -148,7 +148,7 @@ $(document).ready(function () {
         $(this).addClass("shown");
         var container = $(this).next(".thumb-container");
         container.css("left", getRandomInt(0, 80) + "%");
-        container.css("top", getRandomInt(0, 80) + "%");
+        container.css("top", getRandomInt(0, 75) + "%");
         container.slideToggle(700);
         var large = container.children("img").data("large");
         $('<img/>')[0].src = large;
@@ -159,6 +159,14 @@ $(document).ready(function () {
         $(this).removeClass("shown");
         $(this).addClass("hidden");
         $(this).next(".thumb-container").slideToggle(700);
+    });
+
+    $(document).on("click", ".menu-col", function (e) {
+        e.preventDefault();
+        $('body').animate({
+            scrollTop: 0
+        }, 'slow');
+        return false;
     });
 
     $('.lightBox').on('click', function (e) {

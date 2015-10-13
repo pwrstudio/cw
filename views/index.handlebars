@@ -6,23 +6,23 @@
 
 <div class="menu-bar">
 
-    <div class="col-md-5ths col-sm-5ths hidden-sm hidden-xs content-columns menu-col">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths hidden-xs content-columns menu-col">
         <div class="title strong">Approx. Cable length: <span id="cable-length"></span> km</div>
     </div>
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns menu-col">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
         <div class="title strong">Nina Canell / Robin Watkins </div>
     </div>
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns menu-col">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
         <div class="title strong">Exhibitions</div>
     </div>
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns menu-col">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
         <div class="title strong">Publications</div>
     </div>
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns menu-col">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
         <div class="title strong">Images / Text</div>
     </div>
 
@@ -32,7 +32,7 @@
 
     {{!-- ***** COL1: META and ROUTE ***** --}}
 
-    <div class="col-md-5ths col-sm-5ths hidden-sm hidden-xs content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
         <div class='space'>*</div>
         <div class="title ">Route:</div>
         <div class='space'>*</div>
@@ -48,7 +48,7 @@
 
     {{!-- ***** COL5: TEXT ***** --}}
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
         <a href="mailto:{{meta.email}}" class="title ">
             <div>{{meta.email}}</div>
         </a>
@@ -58,7 +58,7 @@
 
     {{!-- ***** COL2: EXHIBITIONS ***** --}}
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
         {{#each container}} {{#if this.location}}
         <div class='space'>*</div> {{#if this.link}}
         <a href="{{this.link}}" target=_blank>{{/if}}
@@ -73,7 +73,7 @@
 
     {{!-- ***** COL3: PUBLICATIONS ***** --}}
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
         {{#each container}} {{#if this.publisher}}
         <div class='space'>*</div> {{#if this.image.thumb}}
         <a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
@@ -114,7 +114,7 @@
 
     {{!-- ***** COL4: IMAGES ***** --}}
 
-    <div class="col-md-5ths col-sm-5ths col-xs-12 content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
         {{#each content}} {{#if this.public }} {{#if this.image.large}}
         <div class='space'>*</div>
         <a href="" class="image-link hidden">

@@ -43,9 +43,12 @@ a:active {
     text-decoration: none;
 }
 
+.menu-col {
+    cursor: pointer;
+}
+
 a:hover {
     color: inherit;
-    border-bottom: 1px dotted $main-color;
     text-decoration: underline;
     * {
         text-decoration: underline;
@@ -108,8 +111,6 @@ audio {
     color: $main-color;
     z-index: 999;
     height: 2 * $baseline;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 //.menu-col {
