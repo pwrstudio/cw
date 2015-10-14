@@ -10,9 +10,7 @@ var requestIp = require('request-ip'),
     SolarCalc = require('solar-calc'),
     Container = require('../models/Container.js'),
     Content = require('../models/Content.js'),
-    Collection = require('../models/Collection.js'),
-    Meta = require('../models/Meta.js');
-
+    Collection = require('../models/Collection.js');
 /*
  *
  *  Render index page

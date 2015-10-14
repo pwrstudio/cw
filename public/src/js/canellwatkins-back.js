@@ -5,26 +5,10 @@
  */
 
 function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
-/*
- *
- *  Meta render
- *
- */
-
-function getMeta() {
-  $.ajax({
-    type: 'GET',
-    url: '/api/meta',
-    dataType: 'json',
-    success: function (data) {
-      $("#meta-container").html(MyApp.templates.meta(data));
-    }
-  });
-}
 
 /*
  *
@@ -33,17 +17,17 @@ function getMeta() {
  */
 
 function getExhibitions() {
-  $.ajax({
-    type: 'GET',
-    url: '/api/exhibition',
-    dataType: 'json',
-    success: function (data) {
-      $('#exhibition-container').fadeOut(function () {
-        $("#exhibition-container").html(MyApp.templates.exhibition(data));
-        $('#exhibition-container').fadeIn();
-      });
-    }
-  });
+    $.ajax({
+        type: 'GET',
+        url: '/api/exhibition',
+        dataType: 'json',
+        success: function (data) {
+            $('#exhibition-container').fadeOut(function () {
+                $("#exhibition-container").html(MyApp.templates.exhibition(data));
+                $('#exhibition-container').fadeIn();
+            });
+        }
+    });
 }
 
 
@@ -54,17 +38,17 @@ function getExhibitions() {
  */
 
 function getPublications() {
-  $.ajax({
-    type: 'GET',
-    url: '/api/publication',
-    dataType: 'json',
-    success: function (data) {
-      $('#publication-container').fadeOut(function () {
-        $("#publication-container").html(MyApp.templates.publication(data));
-        $('#publication-container').fadeIn();
-      });
-    }
-  });
+    $.ajax({
+        type: 'GET',
+        url: '/api/publication',
+        dataType: 'json',
+        success: function (data) {
+            $('#publication-container').fadeOut(function () {
+                $("#publication-container").html(MyApp.templates.publication(data));
+                $('#publication-container').fadeIn();
+            });
+        }
+    });
 }
 
 
@@ -75,17 +59,17 @@ function getPublications() {
  */
 
 function getContent() {
-  $.ajax({
-    type: 'GET',
-    url: '/api/content/get/-1',
-    dataType: 'json',
-    success: function (data) {
-      $('#content-container').fadeOut(function () {
-        $("#content-container").html(MyApp.templates.content(data));
-        $('#content-container').fadeIn();
-      });
-    }
-  });
+    $.ajax({
+        type: 'GET',
+        url: '/api/content/get/-1',
+        dataType: 'json',
+        success: function (data) {
+            $('#content-container').fadeOut(function () {
+                $("#content-container").html(MyApp.templates.content(data));
+                $('#content-container').fadeIn();
+            });
+        }
+    });
 }
 
 
@@ -96,17 +80,17 @@ function getContent() {
  */
 
 function getCollection() {
-  $.ajax({
-    type: 'GET',
-    url: '/api/collection/',
-    dataType: 'json',
-    success: function (data) {
-      $('#collection-container').fadeOut(function () {
-        $("#collection-container").html(MyApp.templates.collection(data));
-        $("#collection-container").fadeIn();
-      });
-    }
-  });
+    $.ajax({
+        type: 'GET',
+        url: '/api/collection/',
+        dataType: 'json',
+        success: function (data) {
+            $('#collection-container').fadeOut(function () {
+                $("#collection-container").html(MyApp.templates.collection(data));
+                $("#collection-container").fadeIn();
+            });
+        }
+    });
 }
 
 
@@ -117,17 +101,17 @@ function getCollection() {
  */
 
 function getCollectionContent() {
-  $.ajax({
-    type: 'GET',
-    url: '/api/content/get/-1',
-    dataType: 'json',
-    success: function (data) {
-      $('#collection-content-container').fadeOut(function () {
-        $("#collection-content-container").html(MyApp.templates.collectioncontent(data));
-        $("#collection-content-container").fadeIn();
-      });
-    }
-  });
+    $.ajax({
+        type: 'GET',
+        url: '/api/content/get/-1',
+        dataType: 'json',
+        success: function (data) {
+            $('#collection-content-container').fadeOut(function () {
+                $("#collection-content-container").html(MyApp.templates.collectioncontent(data));
+                $("#collection-content-container").fadeIn();
+            });
+        }
+    });
 }
 
 
@@ -138,23 +122,23 @@ function getCollectionContent() {
  */
 
 function loadImageForm() {
-  $("#image-form-container").html(MyApp.templates.imageform());
+    $("#image-form-container").html(MyApp.templates.imageform());
 }
 
 function loadTextForm() {
-  $("#text-form-container").html(MyApp.templates.textform());
+    $("#text-form-container").html(MyApp.templates.textform());
 }
 
 function loadCollectionForm() {
-  $("#collection-form-container").html(MyApp.templates.collectionform());
+    $("#collection-form-container").html(MyApp.templates.collectionform());
 }
 
 function loadExhibitionForm() {
-  $("#exhibition-form-container").html(MyApp.templates.exhibitionform());
+    $("#exhibition-form-container").html(MyApp.templates.exhibitionform());
 }
 
 function loadPublicationForm() {
-  $("#publication-form-container").html(MyApp.templates.publicationform());
+    $("#publication-form-container").html(MyApp.templates.publicationform());
 }
 
 
@@ -171,348 +155,338 @@ function loadPublicationForm() {
 
 $(document).ready(function () {
 
-  //  Render all content
-  getExhibitions();
-  getPublications();
-  getContent();
-  getCollection();
-  getCollectionContent();
+    //  Render all content
+    getExhibitions();
+    getPublications();
+    getContent();
+    getCollection();
+    getCollectionContent();
 
-  // Get meta
-  getMeta();
-
-  // Load forms
-  loadImageForm();
-  loadTextForm();
-  loadCollectionForm();
-  loadExhibitionForm();
-  loadPublicationForm();
+    // Load forms
+    loadImageForm();
+    loadTextForm();
+    loadCollectionForm();
+    loadExhibitionForm();
+    loadPublicationForm();
 
 
-  /*
-   *
-   *  Initialize datepicker
-   *
-   */
-    
-  $('.input-daterange, .input-group.date').datepicker({
-    autoclose: true,
-    format: 'yyyy/mm/dd'
-  });
+    /*
+     *
+     *  Initialize datepicker
+     *
+     */
 
-  $('body').on('focus', ".datepicker_recurring_start", function () {
-    $(this).datepicker();
-  });
-
-
-  /*
-   *
-   *  Slide out for edit form
-   *
-   */
-
-  $(document).on("click", ".slider", function (e) {
-    e.preventDefault();
-    var container = $(this).next(".editContainer");
-    container.slideToggle();
-  });
-
-  /*
-   *
-   *  DELETE image click
-   *
-   */
-
-  $(document).on('click', '.delete.image', function () {
-    $.ajax({
-      type: 'DELETE',
-      url: '/api/content/del/image/' + $(this).data('id'),
-      dataType: 'json',
-      success: function (data) {
-        $.notify({
-          message: 'Image deleted'
-        }, {
-          type: 'success'
-        });
-        getContent();
-        getCollectionContent();
-      }
+    $('.input-daterange, .input-group.date').datepicker({
+        autoclose: true,
+        format: 'yyyy/mm/dd'
     });
-  });
 
-
-  /*
-   *
-   *  DELETE text click
-   *
-   */
-
-  $(document).on('click', '.delete.text', function () {
-    $.ajax({
-      type: 'DELETE',
-      url: '/api/content/del/text/' + $(this).data('id'),
-      dataType: 'json',
-      success: function (data) {
-        $.notify({
-          message: 'Text deleted'
-        }, {
-          type: 'success'
-        });
-        getContent();
-        getCollectionContent();
-      }
+    $('body').on('focus', ".datepicker_recurring_start", function () {
+        $(this).datepicker();
     });
-  });
 
 
-  /*
-   *
-   *  DELETE Container click
-   *
-   */
+    /*
+     *
+     *  Slide out for edit form
+     *
+     */
 
-  $(document).on('click', '.delete.cont', function () {
-    $.ajax({
-      type: 'DELETE',
-      url: '/api/container/' + $(this).data('id'),
-      dataType: 'json',
-      success: function (data) {
-        $.notify({
-          message: 'Item deleted'
-        }, {
-          type: 'success'
-        });
-        getExhibitions();
-        getPublications();
-      }
+    $(document).on("click", ".slider", function (e) {
+        e.preventDefault();
+        var container = $(this).next(".editContainer");
+        container.slideToggle();
     });
-  });
 
+    /*
+     *
+     *  DELETE image click
+     *
+     */
 
-  /*
-   *
-   *  DELETE Collection click
-   *
-   */
-
-  $(document).on('click', '.delete.collection', function () {
-    $.ajax({
-      type: 'DELETE',
-      url: '/api/collection/del/' + $(this).data('id'),
-      dataType: 'json',
-      success: function (data) {
-        $.notify({
-          message: 'Item deleted'
-        }, {
-          type: 'success'
+    $(document).on('click', '.delete.image', function () {
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/content/del/image/' + $(this).data('id'),
+            dataType: 'json',
+            success: function (data) {
+                $.notify({
+                    message: 'Image deleted'
+                }, {
+                    type: 'success'
+                });
+                getContent();
+                getCollectionContent();
+            }
         });
-        getCollection();
-      }
     });
-  });
 
 
-  /*
-   *
-   *  Mark selected content for collection
-   *
-   */
+    /*
+     *
+     *  DELETE text click
+     *
+     */
 
-  $(document).on('click', '.collection-select-button', function () {
-    var container = $(this).parent(".list-group-item");
-    if (container.hasClass("selected")) {
-      $(this).text("Add to collection");
-    } else {
-      $(this).text("Remove from collection");
-    }
-    $(this).parent(".list-group-item").toggleClass("selected");
-  });
+    $(document).on('click', '.delete.text', function () {
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/content/del/text/' + $(this).data('id'),
+            dataType: 'json',
+            success: function (data) {
+                $.notify({
+                    message: 'Text deleted'
+                }, {
+                    type: 'success'
+                });
+                getContent();
+                getCollectionContent();
+            }
+        });
+    });
 
 
-  /*
-   *
-   *  Submit new collection
-   *
-   */
+    /*
+     *
+     *  DELETE Container click
+     *
+     */
 
-  $(document).on('submit', '.collection-form', function (e) {
+    $(document).on('click', '.delete.cont', function () {
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/container/' + $(this).data('id'),
+            dataType: 'json',
+            success: function (data) {
+                $.notify({
+                    message: 'Item deleted'
+                }, {
+                    type: 'success'
+                });
+                getExhibitions();
+                getPublications();
+            }
+        });
+    });
 
-    e.preventDefault();
 
-    $(this).validate({
-      rules: {
-        year: {
-          required: true,
-          date: true
+    /*
+     *
+     *  DELETE Collection click
+     *
+     */
+
+    $(document).on('click', '.delete.collection', function () {
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/collection/del/' + $(this).data('id'),
+            dataType: 'json',
+            success: function (data) {
+                $.notify({
+                    message: 'Item deleted'
+                }, {
+                    type: 'success'
+                });
+                getCollection();
+            }
+        });
+    });
+
+
+    /*
+     *
+     *  Mark selected content for collection
+     *
+     */
+
+    $(document).on('click', '.collection-select-button', function () {
+        var container = $(this).parent(".list-group-item");
+        if (container.hasClass("selected")) {
+            $(this).text("Add to collection");
+        } else {
+            $(this).text("Remove from collection");
         }
-      }
+        $(this).parent(".list-group-item").toggleClass("selected");
     });
 
-    var formObj = $(this);
-    var spinner = $(this).parent().find(".spinner");
-    spinner.show();
-    formObj.hide();
-    var formURL = formObj.attr("action");
 
-    var selected = [];
+    /*
+     *
+     *  Submit new collection
+     *
+     */
 
-    $(".selected").each(function () {
-      selected.push($(this).attr("id"));
-    });
+    $(document).on('submit', '.collection-form', function (e) {
 
-    formData = {
-      title: $("#main-title").val(),
-      selected: selected
-    };
+        e.preventDefault();
 
-    $.ajax({
-      url: formURL,
-      type: 'POST',
-      data: formData,
-      success: function (data, textStatus, jqXHR) {
-        $.notify({
-          message: 'Collection sucessfully created'
-        }, {
-          type: 'success'
+        $(this).validate({
+            rules: {
+                year: {
+                    required: true,
+                    date: true
+                }
+            }
         });
-        getCollection();
-        getCollectionContent();
-        loadCollectionForm();
-        $('a[href="#collections"]').tab('show');
-        spinner.hide();
-      },
-      error: function (jqXHR, textStatus, errorThrown) {}
+
+        var formObj = $(this);
+        var spinner = $(this).parent().find(".spinner");
+        spinner.show();
+        formObj.hide();
+        var formURL = formObj.attr("action");
+
+        var selected = [];
+
+        $(".selected").each(function () {
+            selected.push($(this).attr("id"));
+        });
+
+        formData = {
+            title: $("#main-title").val(),
+            selected: selected
+        };
+
+        $.ajax({
+            url: formURL,
+            type: 'POST',
+            data: formData,
+            success: function (data, textStatus, jqXHR) {
+                $.notify({
+                    message: 'Collection sucessfully created'
+                }, {
+                    type: 'success'
+                });
+                getCollection();
+                getCollectionContent();
+                loadCollectionForm();
+                $('a[href="#collections"]').tab('show');
+                spinner.hide();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {}
+        });
     });
-  });
 
 
-  /*
-   *
-   *  Submit ajax form
-   *
-   */
+    /*
+     *
+     *  Submit ajax form
+     *
+     */
 
-  $(document).on('submit', '.ajaxForm', function (e) {
-    $(".ajaxForm").validate({
-      rules: {
-        year: {
-          required: true,
-          date: true
-        }
-      }
+    $(document).on('submit', '.ajaxForm', function (e) {
+        $(".ajaxForm").validate({
+            rules: {
+                year: {
+                    required: true,
+                    date: true
+                }
+            }
+        });
+        var formObj = $(this);
+        var spinner = $(this).parent().find(".spinner");
+        spinner.show();
+        formObj.hide();
+        var formURL = formObj.attr("action");
+        var formData = new FormData(this);
+        $.ajax({
+            url: formURL,
+            type: 'POST',
+            data: formData,
+            dataType: "json",
+            mimeType: "multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (data, textStatus, jqXHR) {
+                formObj.find("input").val('');
+                if (data.result == "publication") {
+                    $.notify({
+                        message: 'Sucessfully added'
+                    }, {
+                        type: 'success'
+                    });
+                    getPublications();
+                    loadPublicationForm();
+                    $('a[href="#publication_list"]').tab('show');
+                } else if (data.result == "exhibition") {
+                    $.notify({
+                        message: 'Sucessfully added'
+                    }, {
+                        type: 'success'
+                    });
+                    getExhibitions();
+                    loadExhibitionForm();
+                    $('a[href="#exhibition_list"]').tab('show');
+                } else if (data.result == "content") {
+                    $.notify({
+                        message: 'Sucessfully added'
+                    }, {
+                        type: 'success'
+                    });
+                    getContent();
+                    loadImageForm();
+                    loadTextForm();
+                    $('a[href="#content_list"]').tab('show');
+                }
+                spinner.hide();
+                formObj.show();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {}
+        });
+        e.preventDefault();
     });
-    var formObj = $(this);
-    var spinner = $(this).parent().find(".spinner");
-    spinner.show();
-    formObj.hide();
-    var formURL = formObj.attr("action");
-    var formData = new FormData(this);
-    $.ajax({
-      url: formURL,
-      type: 'POST',
-      data: formData,
-      dataType: "json",
-      mimeType: "multipart/form-data",
-      contentType: false,
-      cache: false,
-      processData: false,
-      success: function (data, textStatus, jqXHR) {
-        formObj.find("input").val('');
-        if (data.result == "publication") {
-          $.notify({
-            message: 'Sucessfully added'
-          }, {
-            type: 'success'
-          });
-          getPublications();
-          loadPublicationForm();
-          $('a[href="#publication_list"]').tab('show');
-        } else if (data.result == "exhibition") {
-          $.notify({
-            message: 'Sucessfully added'
-          }, {
-            type: 'success'
-          });
-          getExhibitions();
-          loadExhibitionForm();
-          $('a[href="#exhibition_list"]').tab('show');
-        } else if (data.result == "content") {
-          $.notify({
-            message: 'Sucessfully added'
-          }, {
-            type: 'success'
-          });
-          getContent();
-          loadImageForm();
-          loadTextForm();
-          $('a[href="#content_list"]').tab('show');
-        }
-        spinner.hide();
-        formObj.show();
-      },
-      error: function (jqXHR, textStatus, errorThrown) {}
+
+
+    /*
+     *
+     *  Submit ajax form for updating
+     *
+     */
+
+    $(document).on('submit', '.ajaxFormUpdate', function (e) {
+        var formObj = $(this);
+        var formURL = formObj.attr("action") + "/" + formObj.data("post-id");
+        var formData = new FormData(this);
+        $.ajax({
+            url: formURL,
+            type: 'POST',
+            data: formData,
+            dataType: "json",
+            mimeType: "multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (data, textStatus, jqXHR) {
+                if (data.result == "publication") {
+                    $.notify({
+                        message: 'Publication updated'
+                    }, {
+                        type: 'success'
+                    });
+                    getPublications();
+                    $('a[href="#publication_list"]').tab('show');
+                } else if (data.result == "exhibition") {
+                    $.notify({
+                        message: 'Exhibition updated'
+                    }, {
+                        type: 'success'
+                    });
+                    getExhibitions();
+                    $('a[href="#exhibition_list"]').tab('show');
+                } else if (data.result == "content") {
+                    $.notify({
+                        message: 'Post updated'
+                    }, {
+                        type: 'success'
+                    });
+                    getContent();
+                    $('a[href="#content_list"]').tab('show');
+                }
+                formObj.parent(".editContainer").slideToggle();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {}
+        });
+        e.preventDefault();
     });
-    e.preventDefault();
-  });
-
-
-  /*
-   *
-   *  Submit ajax form for updating
-   *
-   */
-
-  $(document).on('submit', '.ajaxFormUpdate', function (e) {
-    var formObj = $(this);
-    var formURL = formObj.attr("action") + "/" + formObj.data("post-id");
-    var formData = new FormData(this);
-    $.ajax({
-      url: formURL,
-      type: 'POST',
-      data: formData,
-      dataType: "json",
-      mimeType: "multipart/form-data",
-      contentType: false,
-      cache: false,
-      processData: false,
-      success: function (data, textStatus, jqXHR) {
-        if (data.result == "publication") {
-          $.notify({
-            message: 'Publication updated'
-          }, {
-            type: 'success'
-          });
-          getPublications();
-          $('a[href="#publication_list"]').tab('show');
-        } else if (data.result == "exhibition") {
-          $.notify({
-            message: 'Exhibition updated'
-          }, {
-            type: 'success'
-          });
-          getExhibitions();
-          $('a[href="#exhibition_list"]').tab('show');
-        } else if (data.result == "content") {
-          $.notify({
-            message: 'Post updated'
-          }, {
-            type: 'success'
-          });
-          getContent();
-          $('a[href="#content_list"]').tab('show');
-        } else if (data.result == "meta") {
-          $.notify({
-            message: 'Meta updated'
-          }, {
-            type: 'success'
-          });
-          getMeta();
-        }
-        formObj.parent(".editContainer").slideToggle();
-      },
-      error: function (jqXHR, textStatus, errorThrown) {}
-    });
-    e.preventDefault();
-  });
 
 });

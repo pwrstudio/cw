@@ -30,7 +30,7 @@
 
 <div class="container-fluid">
 
-    {{!-- ***** COL1: META and ROUTE ***** --}}
+    {{!-- ***** COL1: ROUTE ***** --}}
 
     <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
         <div class='space'>*</div>
@@ -46,11 +46,12 @@
         <div class='space'>*</div>
     </div>
 
-    {{!-- ***** COL5: TEXT ***** --}}
+    {{!-- ***** COL2: META ***** --}}
 
     <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
-        <a href="mailto:{{meta.email}}" class="title ">
-            <div>{{meta.email}}</div>
+        <div class='space'>*</div>
+        <a href="mailto:info@canellwatkins.org" class="title ">
+            <div>info@canellwatkins.org</div>
         </a>
         <div class='space'>*</div>
     </div>
@@ -85,14 +86,12 @@
         </a>
         <div class="thumb-container static">
             {{#if this.sound.size}}
-                <div class="audio-control play"><span class="play-icon">▶</span><span class="stop-icon">◼</span> {{this.sound.size}} kb</div>
-                <audio loop>
-                    <source src="{{this.sound.url}}">
-                </audio>
-            {{/if}}
-            {{#if this.image.thumb}}
-                <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
-            {{/if}}
+            <div class="audio-control play"><span class="play-icon">▶</span><span class="stop-icon">◼</span> {{this.sound.size}} kb</div>
+            <audio loop>
+                <source src="{{this.sound.url}}">
+            </audio>
+            {{/if}} {{#if this.image.thumb}}
+            <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox"> {{/if}}
         </div>
         {{/if}} {{/each}}
         <div class='space'>*</div>
@@ -116,24 +115,20 @@
         <div class='space'>*</div>
 
         {{#if this.text.file}}
-            <a href="{{this.text.file}}">
-                <article class="exhibition light">
-                    <div class="title">{{this.title}}</div>
-                    <div class="author">{{this.text.author}}</div>
-                </article>
-            </a>  
-        {{/if}}
-        
-        {{#if this.text.link}}
+        <a href="{{this.text.file}}">
+            <article class="exhibition light">
+                <div class="title">{{this.title}}</div>
+                <div class="author">{{this.text.author}}</div>
+            </article>
+        </a>
+        {{/if}} {{#if this.text.link}}
         <a href="{{this.text.link}}" target=_blank>
             <article class="exhibition light">
                 <div class="title">{{this.title}}</div>
                 <div class="author external">{{this.text.author}}</div>
             </article>
         </a>
-        {{/if}}
-        
-        {{/if}} {{/if}} {{/each}}
+        {{/if}} {{/if}} {{/if}} {{/each}}
         <div class='space'>*</div>
     </div>
 
