@@ -161,6 +161,12 @@ $(document).ready(function () {
         $(this).next(".thumb-container").slideToggle(700);
     });
 
+    $(document).on("click", ".slide-down-link", function (e) {
+        e.preventDefault();
+        $(this).next(".thumb-container").slideToggle(700);
+    });
+
+
     $(document).on("click", ".menu-col", function (e) {
         e.preventDefault();
         $('body').animate({
@@ -170,7 +176,7 @@ $(document).ready(function () {
     });
 
     $('.lightBox').on('click', function (e) {
-        $(this).parent(".thumb-container").hide();
+        $(this).parent(".thumb-container.fluid").hide();
         $(".thumb-container").addClass("clicked");
         var largeLink = '<img src="' + $(this).data("large") + '"><div class="caption-container strong">' + $(this).attr("alt") + '</div>';
         $("#overlay").html(largeLink);

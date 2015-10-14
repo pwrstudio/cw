@@ -39,11 +39,10 @@
                     Public {{#if public}}
                     <input type="checkbox" name="public" value="public" checked> {{/if}} {{#unless public}}
                     <input type="checkbox" name="public" value="public"> {{/unless}}
-                </div>                
-                
+                </div>
+
                 <div class="form-group">
-                    Frontpage image
-                    {{#if image.frontpage}}
+                    Frontpage image {{#if image.frontpage}}
                     <input type="checkbox" name="frontpage" value="frontpage" checked> {{/if}} {{#unless image.frontpage}}
                     <input type="checkbox" name="frontpage" value="frontpage"> {{/unless}}
                 </div>
@@ -76,15 +75,21 @@
                     <input class="input-sm form-control" type="text" name="year" value="{{year}}" required>
                 </div>
 
+                {{#if text.file}}
                 <div class="form-group">
-                    <label for="text">Upload text file</label>
-                    <input type="file" name="text" accept="text">
+                    <div>
+                        <label for="link">Textfile</label>
+                    </div>
+                    <a href="{{text.file}}" target=_blank>{{text.file}}</a>
                 </div>
-
+                {{/if}} {{#if text.link}}
                 <div class="form-group">
-                    <label for="link">Link to text</label>
-                    <input id="link" name="link" type="url" placeholder="Link" value="{{text.link}}" class="input-sm form-control">
+                    <div>
+                        <label for="link">Link to text</label>
+                    </div>
+                    <a href="{{text.link}}" target=_blank>{{text.link}}</a>
                 </div>
+                {{/if}}
 
                 <div class="form-group">
                     Public {{#if public}}

@@ -65,7 +65,7 @@
   <article class="exhibition light">
     <div class="title">{{this.title}}</div>
     <div class="date">{{this.start_date_pretty}} — {{this.end_date_pretty}}</div>
-    <div class="location">{{this.location}}</div>
+    <div class="location external">{{this.location}}</div>
   </article>
   {{#if this.link}}</a>{{/if}} {{/if}} {{/each}}
         <div class='space'>*</div>
@@ -75,40 +75,26 @@
 
     <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
         {{#each container}} {{#if this.publisher}}
-        <div class='space'>*</div> {{#if this.image.thumb}}
-        <a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
+        <div class='space'>*</div>
+        <a href="" class="slide-down-link">
             <article class="exhibition light ">
                 <div class="title">{{this.title}}</div>
                 <div class="date">{{this.start_date_pretty}}</div>
                 <div class="publisher">{{this.publisher}}</div>
             </article>
         </a>
-        {{else}} {{#if this.sound.url}}
-        <a href="{{this.image.thumb}}" data-large="{{this.image.large}}" class="image-link">
-            <article class="exhibition light ">
-                <div class="title">{{this.title}}</div>
-                <div class="date">{{this.start_date_pretty}}</div>
-                <div class="publisher">{{this.publisher}}</div>
-            </article>
-        </a>
-        {{else}}
-        <article class="exhibition light ">
-            <div class="title">{{this.title}}</div>
-            <div class="date">{{this.start_date_pretty}}</div>
-            <div class="publisher">{{this.publisher}}</div>
-        </article>
-        {{/if}} {{/if}} {{#if this.sound.url}}
-        <div class="thumb-container">
-            <div class="audio-control play">▶ {{this.sound.size}} kb</div>
-            <audio>
-                <source src="{{this.sound.url}}">
-            </audio>
+        <div class="thumb-container static">
+            {{#if this.sound.size}}
+                <div class="audio-control play">▶ {{this.sound.size}} kb</div>
+                <audio>
+                    <source src="{{this.sound.url}}">
+                </audio>
+            {{/if}}
+            {{#if this.image.thumb}}
+                <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
+            {{/if}}
         </div>
-        {{/if}} {{#if this.image.thumb}}
-        <div class="thumb-container">
-            <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
-        </div>
-        {{/if}} {{/if}} {{/each}}
+        {{/if}} {{/each}}
         <div class='space'>*</div>
     </div>
 
@@ -123,18 +109,30 @@
                 <div class="title">{{this.image.size}}kb</div>
             </article>
         </a>
-        <div class="thumb-container">
+        <div class="thumb-container fluid">
             <img src="{{this.image.thumb}}" alt="{{this.image.caption}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
         </div>
         {{/if}} {{#if this.text.author}}
         <div class='space'>*</div>
 
-        <a href="{{this.text.title}}">
-            <article class="exhibition light ">
+        {{#if this.text.file}}
+            <a href="{{this.text.file}}">
+                <article class="exhibition light">
+                    <div class="title">{{this.title}}</div>
+                    <div class="author">{{this.text.author}}</div>
+                </article>
+            </a>  
+        {{/if}}
+        
+        {{#if this.text.link}}
+        <a href="{{this.text.link}}" target=_blank>
+            <article class="exhibition light">
                 <div class="title">{{this.title}}</div>
-                <div class="date">{{this.text.author}}</div>
+                <div class="author external">{{this.text.author}}</div>
             </article>
         </a>
+        {{/if}}
+        
         {{/if}} {{/if}} {{/each}}
         <div class='space'>*</div>
     </div>

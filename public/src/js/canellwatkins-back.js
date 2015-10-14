@@ -194,7 +194,7 @@ $(document).ready(function () {
    *  Initialize datepicker
    *
    */
-
+    
   $('.input-daterange, .input-group.date').datepicker({
     autoclose: true,
     format: 'yyyy/mm/dd'
