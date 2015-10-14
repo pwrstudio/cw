@@ -91,10 +91,27 @@ article {
     cursor: pointer;
     width: 100%;
 }
+
+.audio-control.play .play-icon {
+    display: inline-block;
+}
+
+.audio-control.play .stop-icon {
+    display: none;
+}
+
+.audio-control.pause .play-icon {
+    display: none;
+}
+
+.audio-control.pause .stop-icon {
+    display: inline-block;
+}
+
+
 audio {
     display: none;
-    width: 100%;
-    max-width: 100%;
+
 }
 .menu-bar {
     position: fixed;
@@ -143,6 +160,9 @@ audio {
 }
 .thumbnail {
     cursor: pointer;
+}
+.stop-icon {
+    display: none;
 }
 // Lightbox 
 #overlay {

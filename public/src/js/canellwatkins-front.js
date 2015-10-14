@@ -193,14 +193,12 @@ $(document).ready(function () {
     $(document).on('click', '.play', function (e) {
         e.preventDefault();
         $(this).removeClass("play").addClass("pause");
-        console.log("play");
         $(this).next("audio")[0].play();
     });
 
     $(document).on('click', '.pause', function (e) {
         e.preventDefault();
         $(this).removeClass("pause").addClass("play");
-        console.log("pause");
         $(this).next("audio")[0].pause();
         $(this).next("audio")[0].currentTime = 0;
     });

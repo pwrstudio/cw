@@ -85,8 +85,8 @@
         </a>
         <div class="thumb-container static">
             {{#if this.sound.size}}
-                <div class="audio-control play">▶ {{this.sound.size}} kb</div>
-                <audio>
+                <div class="audio-control play"><span class="play-icon">▶</span><span class="stop-icon">◼</span> {{this.sound.size}} kb</div>
+                <audio loop>
                     <source src="{{this.sound.url}}">
                 </audio>
             {{/if}}
