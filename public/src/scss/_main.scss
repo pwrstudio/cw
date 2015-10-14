@@ -42,16 +42,18 @@ a:active {
 }
 .menu-col {
     cursor: pointer;
+    .title {
+        max-width: 70%;
+    }
 }
 a:hover {
-    color: inherit;
-    font-weight: bold;
+    color: #00F;
     * {
-        font-weight: bold;
+        color: #00F;
     }
 }
 img {
-    max-width: 95%;
+    max-width: 85%;
 }
 .strong {
     font-weight: bold;
@@ -91,27 +93,20 @@ article {
     cursor: pointer;
     width: 100%;
 }
-
 .audio-control.play .play-icon {
     display: inline-block;
 }
-
 .audio-control.play .stop-icon {
     display: none;
 }
-
 .audio-control.pause .play-icon {
     display: none;
 }
-
 .audio-control.pause .stop-icon {
     display: inline-block;
 }
-
-
 audio {
     display: none;
-
 }
 .menu-bar {
     position: fixed;
@@ -194,8 +189,6 @@ audio {
     bottom: 0;
     left: 0;
     height: 2 * $baseline;
-    background: $background;
-    color: $main-color;
 }
 #counterOverlay {
     width: 100%;

@@ -5,7 +5,7 @@
  */
 
 var formidable = require('formidable'),
-  Container = require('../models/Container.js');
+    Container = require('../models/Container.js');
 
 /*
  *
@@ -14,14 +14,14 @@ var formidable = require('formidable'),
  */
 
 exports.get_exhibition = function (req, res) {
-  Container.find().sort({
-    start_date: -1
-  }).exec(function (err, exhibitions) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(exhibitions);
-  });
+    Container.find().sort({
+        start_date: -1
+    }).exec(function (err, exhibitions) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(exhibitions);
+    });
 };
 
 
@@ -33,30 +33,38 @@ exports.get_exhibition = function (req, res) {
 
 exports.post_exhibition = function (req, res) {
 
-  var form = new formidable.IncomingForm();
+    var form = new formidable.IncomingForm();
 
-  form.parse(req, function (err, fields, files) {
+    form.parse(req, function (err, fields, files) {
 
-    var exhibition = new Container();
-    exhibition.title = fields.title;
-    exhibition.location = fields.location;
-    exhibition.link = fields.link;
-    exhibition.start_date = fields.start_date;
-    exhibition.end_date = fields.end_date;
-    exhibition.start_date_pretty = fields.start_date;
-    exhibition.end_date_pretty = fields.end_date;
+        console.log(fields);
 
-    exhibition.save(function (err) {
-      if (err) {
-        res.json(err);
-      } else {
-        res.json({
-          result: "exhibition"
+        var exhibition = new Container();
+        exhibition.title = fields.title;
+        exhibition.location = fields.location;
+        exhibition.link = fields.link;
+        exhibition.start_date = fields.start_date;
+        exhibition.end_date = fields.end_date;
+        exhibition.start_date_pretty = fields.start_date;
+        exhibition.end_date_pretty = fields.end_date;
+        if (fields.radios == "solo") {
+            exhibition.solo = true;
+        }
+        if (fields.radios == "group") {
+            exhibition.group = true;
+        }
+
+        exhibition.save(function (err) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json({
+                    result: "exhibition"
+                });
+            }
         });
-      }
-    });
 
-  });
+    });
 
 };
 
@@ -69,35 +77,43 @@ exports.post_exhibition = function (req, res) {
 
 exports.update_exhibition = function (req, res) {
 
-  var form = new formidable.IncomingForm();
+    var form = new formidable.IncomingForm();
 
-  form.parse(req, function (err, fields, files) {
+    form.parse(req, function (err, fields, files) {
 
-    Container.findById(req.params.id, function (err, exhibition) {
-      if (err) {
-        res.send(err);
-      }
+        console.log(fields);
 
-      exhibition.title = fields.title;
-      exhibition.location = fields.location;
-      exhibition.link = fields.link;
-      exhibition.start_date = fields.start_date;
-      exhibition.end_date = fields.end_date;
-      exhibition.start_date_pretty = fields.start_date;
-      exhibition.end_date_pretty = fields.end_date;
+        Container.findById(req.params.id, function (err, exhibition) {
+            if (err) {
+                res.send(err);
+            }
 
-      exhibition.save(function (err) {
-        if (err) {
-          res.json(err);
-        } else {
-          res.json({
-            result: "exhibition"
-          });
-        }
-      });
+            exhibition.title = fields.title;
+            exhibition.location = fields.location;
+            exhibition.link = fields.link;
+            exhibition.start_date = fields.start_date;
+            exhibition.end_date = fields.end_date;
+            exhibition.start_date_pretty = fields.start_date;
+            exhibition.end_date_pretty = fields.end_date;
+            if (fields.radios == "solo") {
+                exhibition.solo = true;
+            }
+            if (fields.radios == "group") {
+                exhibition.group = true;
+            }
+
+            exhibition.save(function (err) {
+                if (err) {
+                    res.json(err);
+                } else {
+                    res.json({
+                        result: "exhibition"
+                    });
+                }
+            });
+
+        });
 
     });
-
-  });
 
 };

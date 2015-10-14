@@ -15,14 +15,9 @@
       publication = require('./handlers/publication.js'),
       frontend = require('./handlers/frontend.js'),
       container = require('./handlers/container.js'),
-      pdf = require('./handlers/pdf.js'),
-      meta = require('./handlers/meta.js');
-
+      pdf = require('./handlers/pdf.js');
 
   module.exports = function (app, io) {
-
-
-      console.log(pdf);
 
       /*
        *
@@ -117,14 +112,6 @@
        */
       app.get('/pdf/:slug', pdf.generatePdf);
 
-
-      /*
-       *
-       *  Metadata
-       *
-       */
-      app.get('/api/meta', meta.get_meta);
-      app.post('/api/meta', meta.set_meta);
 
       /*
        *

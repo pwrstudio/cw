@@ -58,7 +58,6 @@ exports.index = function (req, res) {
                 Content.find().sort({
                     year: -1
                 }).exec(function (err, data_content) {
-                    Meta.findOne().exec(function (err, data_meta) {
                         var query = Content.where({
                             "image.frontpage": true
                         });
@@ -73,7 +72,6 @@ exports.index = function (req, res) {
                                     full: frontpage.image.url,
                                     pinky: frontpage.image.pinky
                                 },
-                                meta: data_meta,
                                 container: data_container,
                                 content: data_content
                             };
@@ -81,7 +79,6 @@ exports.index = function (req, res) {
                             res.render('index', ctx);
 
                         });
-                    });
                 });
             });
         }

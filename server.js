@@ -5,11 +5,11 @@
  */
 
 var express = require('express'),
-  app = express(),
-  http = require('http').Server(app),
-  port = process.env.PORT || 8080,
-  server = app.listen(port),
-  io = require('socket.io').listen(server);
+    app = express(),
+    http = require('http').Server(app),
+    port = process.env.PORT || 8080,
+    server = app.listen(port),
+    io = require('socket.io').listen(server);
 
 console.log('Server running on ' + port); // DEV
 
@@ -22,17 +22,16 @@ console.log('Server running on ' + port); // DEV
 
 
 var mongoose = require('mongoose'),
-  bodyParser = require('body-parser'),
-  path = require('path'),
-  exphbs = require('express3-handlebars'),
-  cookieParser = require('cookie-parser'),
-  session = require('express-session'),
-  methodOverride = require('method-override'),
-  flash = require('connect-flash'),
-  passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy,
-  morgan = require('morgan'),
-  favicon = require('serve-favicon');
+    bodyParser = require('body-parser'),
+    path = require('path'),
+    exphbs = require('express-handlebars'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
+    methodOverride = require('method-override'),
+    flash = require('connect-flash'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy,
+    morgan = require('morgan');
 
 /*
  *
@@ -55,7 +54,7 @@ app.use(morgan('dev')); // Debug
  */
 
 app.engine('handlebars', exphbs({
-  defaultLayout: 'main'
+    defaultLayout: 'main'
 }));
 
 app.set('view engine', 'handlebars');
@@ -71,11 +70,11 @@ mongoose.connect(db.url);
 
 app.use(bodyParser.json());
 app.use(bodyParser.json({
-  type: 'application/vnd.api+json'
+    type: 'application/vnd.api+json'
 }));
 
 app.use(bodyParser.urlencoded({
-  extended: true
+    extended: true
 }));
 
 
@@ -90,11 +89,11 @@ app.use(cookieParser());
 var oneYear = 31557600000;
 
 app.use(session({
-  secret: 'ilovescotchscotchyscotchscotch',
-  cookie: {
-    maxAge: 2629743830
-  },
-  store: require('mongoose-session')(mongoose)
+    secret: 'ilovescotchscotchyscotchscotch',
+    cookie: {
+        maxAge: 2629743830
+    },
+    store: require('mongoose-session')(mongoose)
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -109,17 +108,8 @@ app.use(methodOverride('X-HTTP-Method-Override'));
  */
 
 app.use(express.static(__dirname + '/public', {
-  maxAge: oneYear
+    maxAge: oneYear
 }));
-
-
-/*
- *
- *  Favicon
- *
- */
-
-app.use(favicon(__dirname + '/public/favicon.ico'));
 
 
 /*
