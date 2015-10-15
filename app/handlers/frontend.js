@@ -21,75 +21,69 @@ exports.index = function (req, res) {
 
     var clientIp = requestIp.getClientIp(req).replace("::ffff:", "");
 
-    var clientGeo = geoip.lookup(clientIp);
+    var serverGeo = geoip.lookup("85.214.100.3");
 
-    if (clientGeo != undefined && clientGeo != null) {
+    if (serverGeo != undefined && serverGeo != null) {
 
-        var lat = clientGeo.ll[0],
-            long = clientGeo.ll[1];
+        var lat = serverGeo.ll[0],
+            long = serverGeo.ll[1];
 
-        var serverGeo = geoip.lookup("85.214.100.3");
+        var now = new Date(),
+            night = false;
 
-        if (serverGeo != undefined && serverGeo != null) {
+        var solar = new SolarCalc(now, lat, long);
+        
+        
+        console.log(now.getHours());
+        console.log(solar.sunset.getHours());
+        console.log(solar.sunrise.getHours());
 
-            var serverLat = serverGeo.ll[0],
-                serverLong = serverGeo.ll[1];
+        if (now > solar.sunset) {
+            night = true;
+        }
+        else if (now.getHours() > 0 && now.getHours() < solar.sunrise.getHours()) {
+            night = true;
+        }
 
-            var server = new geopoint(serverLat, serverLong),
-                client = new geopoint(lat, long);
+        console.log(night);
 
-            var distance = Math.round(server.distanceTo(client, true));
+        Container.find().sort({
+            start_date: -1
+        }).exec(function (err, data_container) {
+            Content.find().sort({
+                year: -1
+            }).exec(function (err, data_content) {
+                var query = Content.where({
+                    "image.frontpage": true
+                });
+                query.findOne().exec(function (err, frontpage) {
 
-            var now = new Date(),
-                night = false;
+                    console.log(frontpage);
 
-            var solar = new SolarCalc(now, lat, long);
+                    if (frontpage != null && frontpage != "undefined") {
+                        var ctx = {
+                            night: night,
+                            frontpage: {
+                                full: frontpage.image.url,
+                                pinky: frontpage.image.pinky
+                            },
+                            container: data_container,
+                            content: data_content
+                        };
+                    } else {
+                        var ctx = {
+                            night: night,
+                            container: data_container,
+                            content: data_content
+                        };
 
-            if (now > solar.sunset) {
-                night = true;
-            }
+                    }
 
-            console.log("nightXXXX");
-            console.log(night);
+                    res.render('index', ctx);
 
-            Container.find().sort({
-                start_date: -1
-            }).exec(function (err, data_container) {
-                Content.find().sort({
-                    year: -1
-                }).exec(function (err, data_content) {
-                    var query = Content.where({
-                        "image.frontpage": true
-                    }); 
-                    query.findOne().exec(function (err, frontpage) {
-                        
-                        console.log(frontpage);
-
-                        if (frontpage != null && frontpage != "undefined") {
-                            var ctx = {
-                                night: night,
-                                frontpage: {
-                                    full: frontpage.image.url,
-                                    pinky: frontpage.image.pinky
-                                },
-                                container: data_container,
-                                content: data_content
-                            };
-                        } else {
-                            var ctx = {
-                                night: night,
-                                container: data_container,
-                                content: data_content
-                            };
-
-                        }
-
-                        res.render('index', ctx);
-
-                    });
                 });
             });
-        }
+        });
     }
 };
 
