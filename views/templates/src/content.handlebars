@@ -1,20 +1,29 @@
 <div class="list-group">
     {{#each this}}
+    
     <a href="#" id="{{_id}}" class="list-group-item slider">
-{{#if image}}
-      <p><i class="fa fa-file-image-o"></i> <strong>{{title}}</strong></p>
-      <img src="{{image.thumb}}">
-      {{/if}} {{#if text}}
-                      <p><i class="fa fa-file-text-o"></i> <strong>{{title}}</strong>
- {{#if text.link}}
-      <p>{{text.link}}</p>
-      {{/if}} {{#if text.url}}
-      <p>{{text.url}}</p>
+    
+        {{#if image}}
+            <p><i class="fa fa-file-image-o"></i> <strong>{{title}}</strong></p>
+            <img src="{{image.thumb}}">
+        {{/if}} 
 
-      {{/if}} {{/if}}
-       {{#if public}}<span class="label label-text"><i class="fa fa-eye"></i> Public</span>{{/if}} 
+        {{#if text}}
+            <p><i class="fa fa-file-text-o"></i> <strong>{{title}}</strong>
+
+            {{#if text.link}}
+                <p>{{text.link}}</p>
+            {{/if}} 
+
+            {{#if text.url}}
+                <p>{{text.url}}</p>
+            {{/if}} 
+
+        {{/if}}
+       
     </a>
     <div class="editContainer">
+        
         {{#if image}}
 
         <form action="/api/content/update/image" class="ajaxFormUpdate" method="POST" enctype="multipart/form-data" data-post-id="{{_id}}">
@@ -36,15 +45,30 @@
                 </div>
 
                 <div class="form-group">
-                    Public {{#if public}}
-                    <input type="checkbox" name="public" value="public" checked> {{/if}} {{#unless public}}
-                    <input type="checkbox" name="public" value="public"> {{/unless}}
+                    
+                    Public 
+                    
+                    {{#if public}}
+                        <input type="checkbox" name="public" value="public" checked>
+                    {{/if}} 
+                    
+                    {{#unless public}}
+                        <input type="checkbox" name="public" value="public"> 
+                    {{/unless}}
                 </div>
 
                 <div class="form-group">
-                    Frontpage image {{#if image.frontpage}}
-                    <input type="checkbox" name="frontpage" value="frontpage" checked> {{/if}} {{#unless image.frontpage}}
-                    <input type="checkbox" name="frontpage" value="frontpage"> {{/unless}}
+                    
+                    Frontpage image 
+                    
+                    {{#if image.frontpage}}
+                        <input type="checkbox" name="frontpage" value="frontpage" checked> 
+                    {{/if}} 
+                    
+                    {{#unless image.frontpage}}
+                        <input type="checkbox" name="frontpage" value="frontpage">
+                    {{/unless}}
+                    
                 </div>
 
                 <div class="form-group">
@@ -55,7 +79,9 @@
             </fieldset>
         </form>
 
-        {{/if}} {{#if text}}
+        {{/if}} 
+        
+        {{#if text}}
 
         <form class="ajaxFormUpdate" role="form" method="PUT" enctype="multipart/form-data" action="/api/content/update/text" data-post-id="{{_id}}">
             <fieldset>
@@ -76,13 +102,15 @@
                 </div>
 
                 {{#if text.file}}
-                <div class="form-group">
-                    <div>
-                        <label for="link">Textfile</label>
+                    <div class="form-group">
+                        <div>
+                            <label for="link">Textfile</label>
+                        </div>
+                        <a href="{{text.file}}" target=_blank>{{text.file}}</a>
                     </div>
-                    <a href="{{text.file}}" target=_blank>{{text.file}}</a>
-                </div>
-                {{/if}} {{#if text.link}}
+                {{/if}} 
+                
+                {{#if text.link}}
                 <div class="form-group">
                     <div>
                         <label for="link">Link to text</label>

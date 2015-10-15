@@ -130,9 +130,11 @@
                     {{#if this.image.thumb}}
                         <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox"> 
                     {{/if}} 
-
+                    
                     {{#if this.link}}
-                        <div><a src="{{this.link}}">External link</a></div>
+                        <div class='link-container'>
+                            <a href="{{this.link}}"> >> External link << </a>
+                        </div>
                     {{/if}}
                     
                 </div>

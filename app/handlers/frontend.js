@@ -58,14 +58,14 @@ exports.index = function (req, res) {
                 Content.find().sort({
                     year: -1
                 }).exec(function (err, data_content) {
-                        var query = Content.where({
-                            "image.frontpage": true
-                        });
-                        query.findOne().exec(function (err, frontpage) {
+                    var query = Content.where({
+                        "image.frontpage": true
+                    }); 
+                    query.findOne().exec(function (err, frontpage) {
+                        
+                        console.log(frontpage);
 
-                            console.log(frontpage.image.url);
-                            console.log(frontpage.image.thumb);
-
+                        if (frontpage != null && frontpage != "undefined") {
                             var ctx = {
                                 night: night,
                                 frontpage: {
@@ -75,10 +75,18 @@ exports.index = function (req, res) {
                                 container: data_container,
                                 content: data_content
                             };
+                        } else {
+                            var ctx = {
+                                night: night,
+                                container: data_container,
+                                content: data_content
+                            };
 
-                            res.render('index', ctx);
+                        }
 
-                        });
+                        res.render('index', ctx);
+
+                    });
                 });
             });
         }
