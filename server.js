@@ -4,14 +4,20 @@
  *
  */
 
+/*
+ *
+ *  PRODUCTION MODE
+ *
+ */
+
+process.env.NODE_ENV = 'production';
+
 var express = require('express'),
     app = express(),
     http = require('http').Server(app),
     port = process.env.PORT || 8080,
     server = app.listen(port),
     io = require('socket.io').listen(server);
-
-console.log('Server running on ' + port); // DEV
 
 
 /*
@@ -30,8 +36,8 @@ var mongoose = require('mongoose'),
     methodOverride = require('method-override'),
     flash = require('connect-flash'),
     passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
-    morgan = require('morgan');
+    LocalStrategy = require('passport-local').Strategy;
+//    morgan = require('morgan');
 
 /*
  *
@@ -45,7 +51,7 @@ require('./config/passport')(passport);
 
 global.appRoot = path.resolve(__dirname);
 
-app.use(morgan('dev')); // Debug
+//app.use(morgan('dev')); // Debug
 
 /*
  *
@@ -118,7 +124,7 @@ app.use(express.static(__dirname + '/public', {
  *
  */
 
-require('./app/routes')(app, passport, io);
+require('./app/routes')(app);
 
 /*
  *

@@ -8,7 +8,6 @@ var formidable = require('formidable'),
     fs = require('fs'),
     rimraf = require('rimraf'),
     easyimg = require('easyimage'),
-    validator = require('validator'),
     Content = require('../models/Content.js'),
     easyimg = require('easyimage');
 
@@ -21,12 +20,8 @@ function resizeContent(newPath, dir, fileName) {
         width: 300,
         height: 300,
         quality: 70,
-    }).then(
-        function (err) {
-            console.log("thumbnail: " + err);
-        }
-    );  
-    
+    });
+
     // Pinkynail
     easyimg.resize({
         src: newPath,
@@ -34,11 +29,7 @@ function resizeContent(newPath, dir, fileName) {
         width: 64,
         height: 64,
         quality: 20,
-    }).then(
-        function (err) {
-            console.log("pinky: " + err);
-        }
-    );
+    });
 
     // Large
     easyimg.resize({
@@ -47,11 +38,7 @@ function resizeContent(newPath, dir, fileName) {
         width: 800,
         height: 800,
         quality: 80,
-    }).then(
-        function (err) {
-            console.log("large: " + err);
-        }
-    );
+    });
 
     // Small
     easyimg.resize({
@@ -60,11 +47,7 @@ function resizeContent(newPath, dir, fileName) {
         width: 450,
         height: 450,
         quality: 80,
-    }).then(
-        function (err) {
-            console.log("small: " + err);
-        }
-    );
+    });
 }
 
 
@@ -104,9 +87,6 @@ exports.get_content = function (req, res) {
 
 exports.get_content_by_id = function (req, res) {
     Content.findById(req.params.id, function (err, content) {
-        if (err) {
-            res.send(err);
-        }
         res.json(content);
     });
 };
@@ -151,7 +131,6 @@ exports.post_image_content = function (req, res) {
         content.image.pinky = '/data/' + now + '/' + "pinkynail-" + files.pic.name;
         content.title = fields.title;
         content.image.caption = fields.caption;
-        content.user = req.user.email;
 
         content.save(function (err) {
             res.json({
@@ -172,24 +151,25 @@ exports.update_image_content = function (req, res) {
 
     var form = new formidable.IncomingForm();
 
-    form.parse(req, function (err, fields, files) {
+    form.parse(req, function (err, fields) {
 
         Content.findById(req.params.id, function (err, content) {
-            if (err) {
-                res.send(err);
-            }
 
-            content.year = fields.year;
-            content.public = fields.public;
-            content.image.frontpage = fields.frontpage;
-            content.title = fields.title;
-            content.image.caption = fields.caption;
+            if (content != null && content != undefined) {
 
-            content.save(function (err) {
-                res.json({
-                    result: 'content'
+                content.year = fields.year;
+                content.public = fields.public;
+                content.image.frontpage = fields.frontpage;
+                content.title = fields.title;
+                content.image.caption = fields.caption;
+
+                content.save(function (err) {
+                    res.json({
+                        result: 'content'
+                    });
                 });
-            });
+
+            }
         });
 
     });
@@ -206,7 +186,7 @@ exports.post_text_content = function (req, res) {
 
     var form = new formidable.IncomingForm();
 
-    form.parse(req, function (err, fields, files) {
+    form.parse(req, function (err, fields) {
 
         var content = new Content();
         content.public = fields.public;
@@ -239,27 +219,26 @@ exports.update_text_content = function (req, res) {
 
     var form = new formidable.IncomingForm();
 
-    form.parse(req, function (err, fields, files) {
-
+    form.parse(req, function (err, fields) {
 
         Content.findById(req.params.id, function (err, content) {
-            if (err) {
-                res.send(err);
-            }
 
-            content.public = fields.public;
-            content.year = fields.year;
-            content.text.body = fields.text;
-            content.title = fields.title;
-            content.text.author = fields.author;
-            content.text.link = fields.link;
-            content.user = req.user.email;
+            if (content != null && content != undefined) {
 
-            content.save(function (err) {
-                res.json({
-                    result: 'content'
+                content.public = fields.public;
+                content.year = fields.year;
+                content.text.body = fields.text;
+                content.title = fields.title;
+                content.text.author = fields.author;
+                content.text.link = fields.link;
+                content.user = req.user.email;
+
+                content.save(function (err) {
+                    res.json({
+                        result: 'content'
+                    });
                 });
-            });
+            }
         });
 
     });
@@ -275,23 +254,19 @@ exports.update_text_content = function (req, res) {
 
 exports.delete_image_content = function (req, res) {
     Content.findById(req.params.id, function (err, content) {
-        if (err) {
-            res.send(err);
+        if (content != null && content != undefined) {
+            var p = content.image.url.split('/');
+            rimraf(fullDir + '/' + p[2], function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
         }
-        var p = content.image.url.split('/');
-        rimraf(fullDir + '/' + p[2], function (err) {
-            if (err) {
-                console.log(err);
-            }
-        });
     });
 
     Content.remove({
         _id: req.params.id
     }, function (err, content) {
-        if (err) {
-            res.send(err);
-        }
         res.json({
             message: 'Success'
         });
@@ -309,9 +284,6 @@ exports.delete_text_content = function (req, res) {
     Content.remove({
         _id: req.params.id
     }, function (err, content) {
-        if (err) {
-            res.send(err);
-        }
         res.json({
             message: 'Success'
         });

@@ -4,8 +4,7 @@
  *
  */
 
-var requestIp = require('request-ip'),
-    geoip = require('geoip-lite'),
+var geoip = require('geoip-lite'),
     geopoint = require('geopoint'),
     SolarCalc = require('solar-calc'),
     Container = require('../models/Container.js'),
@@ -19,33 +18,21 @@ var requestIp = require('request-ip'),
 
 exports.index = function (req, res) {
 
-    var clientIp = requestIp.getClientIp(req).replace("::ffff:", "");
-
     var serverGeo = geoip.lookup("85.214.100.3");
 
     if (serverGeo != undefined && serverGeo != null) {
 
         var lat = serverGeo.ll[0],
-            long = serverGeo.ll[1];
-
-        var now = new Date(),
-            night = false;
-
-        var solar = new SolarCalc(now, lat, long);
-        
-        
-        console.log(now.getHours());
-        console.log(solar.sunset.getHours());
-        console.log(solar.sunrise.getHours());
+            long = serverGeo.ll[1],
+            now = new Date(),
+            night = false,
+            solar = new SolarCalc(now, lat, long);
 
         if (now > solar.sunset) {
             night = true;
-        }
-        else if (now.getHours() > 0 && now.getHours() < solar.sunrise.getHours()) {
+        } else if (now.getHours() > 0 && now.getHours() < solar.sunrise.getHours()) {
             night = true;
         }
-
-        console.log(night);
 
         Container.find().sort({
             start_date: -1
@@ -57,8 +44,6 @@ exports.index = function (req, res) {
                     "image.frontpage": true
                 });
                 query.findOne().exec(function (err, frontpage) {
-
-                    console.log(frontpage);
 
                     if (frontpage != null && frontpage != "undefined") {
                         var ctx = {
@@ -76,7 +61,6 @@ exports.index = function (req, res) {
                             container: data_container,
                             content: data_content
                         };
-
                     }
 
                     res.render('index', ctx);
@@ -107,27 +91,27 @@ exports.infra = function (req, res) {
  *
  */
 
-exports.collection = function (req, res) {
-
-    // Find collection by slug
-    Collection.findOne({
-        slug: req.params.slug
-    }).exec(function (err, collection) {
-        var objects = [];
-
-        for (var i = 0; i < collection.content.length; i++) {
-            Content.findById(collection.content[i], function (err, item) {
-                objects.push(item);
-            });
-        }
-
-        var data = {
-            collection: collection,
-            objects: objects
-        }
-        res.render('collection', data);
-    });
-};
+//exports.collection = function (req, res) {
+//
+//    // Find collection by slug
+//    Collection.findOne({
+//        slug: req.params.slug
+//    }).exec(function (err, collection) {
+//        var objects = [];
+//
+//        for (var i = 0; i < collection.content.length; i++) {
+//            Content.findById(collection.content[i], function (err, item) {
+//                objects.push(item);
+//            });
+//        }
+//
+//        var data = {
+//            collection: collection,
+//            objects: objects
+//        }
+//        res.render('collection', data);
+//    });
+//};
 
 
 /*

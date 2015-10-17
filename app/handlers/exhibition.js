@@ -17,9 +17,6 @@ exports.get_exhibition = function (req, res) {
     Container.find().sort({
         start_date: -1
     }).exec(function (err, exhibitions) {
-        if (err) {
-            res.send(err);
-        }
         res.json(exhibitions);
     });
 };
@@ -35,34 +32,31 @@ exports.post_exhibition = function (req, res) {
 
     var form = new formidable.IncomingForm();
 
-    form.parse(req, function (err, fields, files) {
+    form.parse(req, function (err, fields) {
 
-        console.log(fields);
+        if (fields != undefined && fields != null) {
 
-        var exhibition = new Container();
-        exhibition.title = fields.title;
-        exhibition.location = fields.location;
-        exhibition.link = fields.link;
-        exhibition.start_date = fields.start_date;
-        exhibition.end_date = fields.end_date;
-        exhibition.start_date_pretty = fields.start_date;
-        exhibition.end_date_pretty = fields.end_date;
-        if (fields.radios == "solo") {
-            exhibition.solo = true;
-        }
-        if (fields.radios == "group") {
-            exhibition.group = true;
-        }
+            var exhibition = new Container();
+            exhibition.title = fields.title;
+            exhibition.location = fields.location;
+            exhibition.link = fields.link;
+            exhibition.start_date = fields.start_date;
+            exhibition.end_date = fields.end_date;
+            exhibition.start_date_pretty = fields.start_date;
+            exhibition.end_date_pretty = fields.end_date;
+            if (fields.radios == "solo") {
+                exhibition.solo = true;
+            }
+            if (fields.radios == "group") {
+                exhibition.group = true;
+            }
 
-        exhibition.save(function (err) {
-            if (err) {
-                res.json(err);
-            } else {
+            exhibition.save(function (err) {
                 res.json({
                     result: "exhibition"
                 });
-            }
-        });
+            });
+        }
 
     });
 
@@ -84,34 +78,29 @@ exports.update_exhibition = function (req, res) {
         console.log(fields);
 
         Container.findById(req.params.id, function (err, exhibition) {
-            if (err) {
-                res.send(err);
-            }
 
-            exhibition.title = fields.title;
-            exhibition.location = fields.location;
-            exhibition.link = fields.link;
-            exhibition.start_date = fields.start_date;
-            exhibition.end_date = fields.end_date;
-            exhibition.start_date_pretty = fields.start_date;
-            exhibition.end_date_pretty = fields.end_date;
-            if (fields.radios == "solo") {
-                exhibition.solo = true;
-            }
-            if (fields.radios == "group") {
-                exhibition.group = true;
-            }
+            if (exhibition != undefined && exhibition != null) {
 
-            exhibition.save(function (err) {
-                if (err) {
-                    res.json(err);
-                } else {
+                exhibition.title = fields.title;
+                exhibition.location = fields.location;
+                exhibition.link = fields.link;
+                exhibition.start_date = fields.start_date;
+                exhibition.end_date = fields.end_date;
+                exhibition.start_date_pretty = fields.start_date;
+                exhibition.end_date_pretty = fields.end_date;
+                if (fields.radios == "solo") {
+                    exhibition.solo = true;
+                }
+                if (fields.radios == "group") {
+                    exhibition.group = true;
+                }
+
+                exhibition.save(function (err) {
                     res.json({
                         result: "exhibition"
                     });
-                }
-            });
-
+                });
+            }
         });
 
     });

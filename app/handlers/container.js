@@ -5,7 +5,7 @@
  */
 
 var formidable = require('formidable'),
-  Container = require('../models/Container.js');
+    Container = require('../models/Container.js');
 
 
 /*
@@ -16,14 +16,12 @@ var formidable = require('formidable'),
 
 exports.delete = function (req, res) {
 
-  Container.remove({
-    _id: req.params.id
-  }, function (err, content) {
-    if (err) {
-      res.send(err);
-    }
-    res.json({
-      message: 'Success'
+    Container.remove({
+        _id: req.params.id
+    }, function (err, content) {
+        res.json({
+            message: 'Success'
+        });
     });
-  });
+
 };

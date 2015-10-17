@@ -10,14 +10,12 @@
 
   var auth = require('./handlers/auth.js'),
       content = require('./handlers/content.js'),
-      collection = require('./handlers/collection.js'),
       exhibition = require('./handlers/exhibition.js'),
       publication = require('./handlers/publication.js'),
       frontend = require('./handlers/frontend.js'),
-      container = require('./handlers/container.js'),
-      pdf = require('./handlers/pdf.js');
+      container = require('./handlers/container.js');
 
-  module.exports = function (app, io) {
+  module.exports = function (app) {
 
       /*
        *
@@ -99,10 +97,10 @@
        *
        */
 
-      app.delete('/api/collection/del/:id', collection.delete_collection);
-      app.get('/api/collection/', collection.get_collection);
-      app.get('/api/collection/single/:id', collection.get_collection_by_id);
-      app.post('/api/collection/', collection.make_collection);
+      //      app.delete('/api/collection/del/:id', collection.delete_collection);
+      //      app.get('/api/collection/', collection.get_collection);
+      //      app.get('/api/collection/single/:id', collection.get_collection_by_id);
+      //      app.post('/api/collection/', collection.make_collection);
 
 
       /*
@@ -110,7 +108,7 @@
        *  PDF
        *
        */
-      app.get('/pdf/:slug', pdf.generatePdf);
+      //      app.get('/pdf/:slug', pdf.generatePdf);
 
 
       /*
@@ -122,11 +120,7 @@
       app.get('/infra', auth.isLoggedIn, frontend.infra);
       app.get('/', frontend.index);
 
-      // TEMP
-      //    app.get('/intro1', frontend.intro1);
-      //    app.get('/intro2', frontend.intro2);
-
-      app.get('/collection/:slug', frontend.collection);
+      //      app.get('/collection/:slug', frontend.collection);
       app.get('*', frontend.fallback);
 
   };
