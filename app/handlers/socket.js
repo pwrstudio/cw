@@ -66,8 +66,8 @@ module.exports = function (app, io) {
                             // Update total distance
                             totalDistance = totalDistance + distance;
 
-                            console.log("distance: " + distance);
-                            console.log("total: " + totalDistance);
+                            //                            console.log("distance: " + distance);
+                            //                            console.log("total: " + totalDistance);
 
                         }
 

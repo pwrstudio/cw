@@ -106,6 +106,9 @@ exports.post_image_content = function (req, res) {
     fs.mkdirSync(dir);
 
     form.parse(req, function (err, fields, files) {
+        
+        console.log(fields);
+        console.log(files);
 
         var fullFilePath = '/data/' + now + '/' + files.pic.name;
 
