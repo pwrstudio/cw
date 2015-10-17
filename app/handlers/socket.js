@@ -6,13 +6,11 @@
 
 var whois = require('whois-ux'),
     geoip = require('geoip-lite'),
-    geolib = require('geolib'),
     geopoint = require('geopoint'),
     iso3311a2 = require('iso-3166-1-alpha-2'),
     Geohash = require('latlon-geohash'),
-    mtr = require('../helpers/mtr.js');
-
-var Cables = require('../models/Cables.js');
+    mtr = require('../helpers/mtr.js'),
+    Cables = require('../models/Cables.js');
 
 var prevGeo, prevPoint, thisPoint;
 var totalDistance = 0;
@@ -39,8 +37,10 @@ module.exports = function (app, io) {
         var id = socket.id;
 
         // Get clients location
-        prevGeo = geoip.lookup(ip);
-        prevPoint = new geopoint(prevGeo.ll[0], prevGeo.ll[1]);
+        //        prevGeo = geoip.lookup(ip);
+        //
+        //        // Set first geo-point
+        //        prevPoint = new geopoint(prevGeo.ll[0], prevGeo.ll[1]);
 
         // Trace the route from server to client
         mtr.trace_raw(ip, {}, function (data, d) {
@@ -51,41 +51,37 @@ module.exports = function (app, io) {
 
                     if (geo !== undefined && geo !== null) {
 
-                        var lat = geolib.decimal2sexagesimal(geo.ll[0]);
-                        var long = geolib.decimal2sexagesimal(geo.ll[1]);
-
-                        var thisPoint = new geopoint(geo.ll[0], geo.ll[1]);
-
-                        var distance = prevPoint.distanceTo(thisPoint, true);
-
-                        totalDistance = totalDistance + distance;
-
-                        console.log("distance: " + distance);
-                        console.log("total: " + totalDistance);
-
-                        prevPoint = thisPoint;
-
                         // Generate geohash
                         var geohash = Geohash.encode(geo.ll[0], geo.ll[1]);
 
-                        var find = 'NaN';
-                        var re = new RegExp(find, 'g');
+                        console.log(geohash);
 
-                        lat = lat.replace(re, "0");
-                        long = long.replace(re, "0");
+                        // Get current point    
+                        var thisPoint = new geopoint(geo.ll[0], geo.ll[1]);
+
+                        if (prevPoint != null) {
+                            // Calculate distance between previous point and current point
+                            var distance = prevPoint.distanceTo(thisPoint, true);
+
+                            // Update total distance
+                            totalDistance = totalDistance + distance;
+
+                            console.log("distance: " + distance);
+                            console.log("total: " + totalDistance);
+
+                        }
+
+                        // Make current point the new previous point
+                        prevPoint = thisPoint;
 
                         whois.whois(d[2], function (err, data) {
 
                             // Find nearby cable landing sites
                             var close = [];
-
                             Cables.search({
                                 loc: [geo.ll[1], geo.ll[0]],
                                 distance: 100
                             }, function (err, items) {
-                                if (err) {
-                                    console.log(err);
-                                }
 
                                 var arrayLength = items.length;
                                 for (var i = 1; i < arrayLength && i < 6; i++) {
@@ -97,6 +93,7 @@ module.exports = function (app, io) {
                                     close.push(newObject);
                                 }
 
+                                // Collect the data
                                 var point = {
                                     ip: d[2],
                                     index: d[1],
@@ -106,10 +103,10 @@ module.exports = function (app, io) {
                                     orgname: data.OrgName,
                                     orgid: data.OrgId,
                                     netname: data.netname,
-                                    cables: close,
-                                    distance: Math.round(distance)
+                                    cables: close
                                 };
 
+                                // Return the data
                                 if (io.sockets.connected[id]) {
                                     io.sockets.connected[id].emit('traced', point);
                                 }
@@ -129,6 +126,9 @@ module.exports = function (app, io) {
                     var point = {
                         total: Math.round(totalDistance)
                     };
+                    // Reset distance
+                    totalDistance = 0;
+                    prevPoint = null;
                     io.sockets.connected[id].emit('tracedone', point);
                 }
             }
