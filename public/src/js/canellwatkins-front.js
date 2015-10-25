@@ -38,7 +38,7 @@ if (contextClass) {
     oscillator = context.createOscillator();
     gainNode = context.createGain ? context.createGain() : context.createGainNode();
 
-    oscillator.frequency.value = getRandomInt(300, 15000);
+    oscillator.frequency.value = getRandomInt(500, 13500);
     console.log(oscillator.frequency.value);
     gainNode.gain.value = 0.05;
 
@@ -140,26 +140,16 @@ $(document).ready(function () {
      *
      */
 
-    $(document).on("click", ".image-link.hidden", function (e) {
+    $(document).on("click", ".image-link", function (e) {
         e.preventDefault();
-        $("#overlay").hide();
-        $(".thumb-container").removeClass("clicked");
-        $(this).removeClass("hidden");
-        $(this).addClass("shown");
-        var container = $(this).next(".thumb-container");
-        container.css("left", getRandomInt(0, 80) + "%");
-        container.css("top", getRandomInt(0, 75) + "%");
-        container.slideToggle(700);
-        var large = container.children("img").data("large");
-        $('<img/>')[0].src = large;
+        $(this).parent(".thumb-container.fluid").hide();
+        $(".thumb-container").addClass("clicked");
+        var largeLink = '<img src="' + $(this).data("large") + '" style="background-image: url(' + $(this).data("pinky") + ')"><div class="caption-container strong">' + $(this).attr("alt") + '</div>';
+        $("#overlay").html(largeLink);
+        $("#overlay").show();
+        e.preventDefault();
     });
 
-    $(document).on("click", ".image-link.shown", function (e) {
-        e.preventDefault();
-        $(this).removeClass("shown");
-        $(this).addClass("hidden");
-        $(this).next(".thumb-container").slideToggle(700);
-    });
 
     $(document).on("click", ".slide-down-link", function (e) {
         e.preventDefault();
@@ -175,14 +165,6 @@ $(document).ready(function () {
         return false;
     });
 
-    $('.lightBox').on('click', function (e) {
-        $(this).parent(".thumb-container.fluid").hide();
-        $(".thumb-container").addClass("clicked");
-        var largeLink = '<img src="' + $(this).data("large") + '"><div class="caption-container strong">' + $(this).attr("alt") + '</div>';
-        $("#overlay").html(largeLink);
-        $("#overlay").show();
-        e.preventDefault();
-    });
 
     $('#overlay').on('click', function (e) {
         $(".thumb-container").removeClass("clicked");

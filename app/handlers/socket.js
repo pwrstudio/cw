@@ -27,10 +27,16 @@ module.exports = function (app, io) {
 
     io.on('connection', function (socket) {
 
+//        console.log(socket.handshake.headers);
+//        console.log(socket.handshake);
+
         var ip = socket.handshake.headers["x-real-ip"];
 
         if (ip == null || ip == undefined) {
-            ip = "93.98.67.0";
+            ip = socket.handshake.address;
+            if (ip == null || ip == undefined) {
+                ip = "93.98.67.0";
+            }
         }
 
         ip = ip.replace("::ffff:", "");

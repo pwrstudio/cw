@@ -118,10 +118,10 @@
        */
 
       app.get('/infra', auth.isLoggedIn, frontend.infra);
-      app.get('/new', frontend.index);
-      app.get('/', function (req, res) {
-          res.render("temp");
-      });
+      app.get('/', frontend.index);
+//      app.get('/', function (req, res) {
+//          res.render("temp");
+//      });
 
       //      app.get('/collection/:slug', frontend.collection);
       app.get('*', frontend.fallback);

@@ -115,4 +115,4 @@ gulp.task('browser-sync', ['nodemon'], function () {
     });
 });
 
-gulp.task('default', ['nodemon', 'frontend', 'backend', 'sass', 'watch', 'templates']);
+gulp.task('default', ['frontend', 'backend', 'sass', 'watch', 'templates']);

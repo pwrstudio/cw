@@ -23,7 +23,7 @@
     </div>
 
     <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
-        <a class="title strong">Images / Text</a>
+        <a class="title strong">Works</a>
     </div>
 
 </div>
@@ -58,9 +58,9 @@
 
     <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
         <div class='space'>*</div>
-        <a href="mailto:info@canellwatkins.org">
-            <div>info@canellwatkins.org</div>
-        </a>
+        <div>
+            <a href="mailto:info@canellwatkins.org">info@canellwatkins.org</a>
+        </div>
         <div class='space'>*</div>
     </div>
 
@@ -83,9 +83,10 @@
                 {{/if}}
 
                 <article class="exhibition light">
-                    <div class="title">{{#if this.group}}<span class="group-icon">¬ </span>{{/if}}{{#if this.solo}}<span class="solo-icon">◊ {{/if}}{{this.title}}</div>
+                    <div class="title">{{this.title}}</div>
                     <div class="date">{{this.start_date_pretty}} — {{this.end_date_pretty}}</div>
                     <div class="location external">{{this.location}}</div>
+                    <div class="exhibition-type">{{#if this.group}}<span class="group-icon">Group</span>{{/if}}{{#if this.solo}}<span class="solo-icon">Solo{{/if}}</div>
                 </article>
 
                 {{#if this.link}}
@@ -128,7 +129,7 @@
                     {{/if}}
                     
                     {{#if this.image.thumb}}
-                        <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" class="thumbnail lightBox"> 
+                        <img src="{{this.image.thumb}}" data-large="{{this.image.large}}" data-pinky="{{this.image.pinkynail}}" class="thumbnail lightBox"> 
                     {{/if}} 
                     
                     {{#if this.link}}
@@ -158,15 +159,12 @@
             {{#if this.public }} 
                 {{#if this.image.large}}
                     <div class='space'>*</div>
-                    <a href="" class="image-link hidden">
+                    <a href="" class="image-link hidden" data-large="{{this.image.large}}" data-pinky="{{this.image.pinky}}">
                         <article class="exhibition light ">
                             <div class="title">{{this.title}}</div>
                             <div class="title">{{this.image.size}}kb</div>
                         </article>
                     </a>
-                    <div class="thumb-container fluid">
-                        <img src="{{this.image.thumb}}" alt="{{this.image.caption}}" data-large="{{this.image.large}}" class="thumbnail lightBox">
-                    </div>
                 {{/if}} 
         
                 {{#if this.text.author}}
@@ -205,8 +203,8 @@
 </div>
 
 <script src="./libs/handlebars/handlebars.runtime.min.js"></script>
-<!--<script src="socket.io/socket.io.js"></script>-->
-<script src="./libs/socket.io.min.js"></script>
+<script src="socket.io/socket.io.js"></script>
+<!--<script src="./libs/socket.io.min.js"></script>-->
 <script src="./libs/jquery/dist/jquery.min.js"></script>
 <script src="./dist/js/handlebars/templates.js"></script>
 <script src="./dist/js/canellwatkins-front.min.js"></script>
