@@ -6,6 +6,9 @@
 <div id="overlay"></div>
 
 {{!-- ***** COLUMN ONE ***** --}}
+{{!-- ***** COLUMN ONE ***** --}}
+{{!-- ***** COLUMN ONE ***** --}}
+{{!-- ***** COLUMN ONE ***** --}}
 
 <div class="col-md-6 col-sm-6 col-xs-6">
 
@@ -13,22 +16,39 @@
 
   <div role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
+      
+      {{!-- ***** LIST CONTENT BUTTON ***** --}}
+      
       <li role="presentation" class="active">
         <a href="#content_list" aria-controls="content_list" role="tab" data-toggle="tab">
           <i class="fa fa-list"></i> List
         </a>
       </li>
+      
+      {{!-- ***** ADD IMAGE ***** --}}
+      
       <li role="presentation">
         <a href="#add_image" aria-controls="add_image" role="tab" data-toggle="tab">
           <i class="fa fa-plus"></i> Add image
         </a>
+      </li>   
+      
+      {{!-- ***** ADD AUDIO ***** --}}
+      
+      <li role="presentation">
+        <a href="#add_audio" aria-controls="add_image" role="tab" data-toggle="tab">
+          <i class="fa fa-plus"></i> Add audio
+        </a>
+      </li>      
+      
+      {{!-- *****ADD VIDEO ***** --}}
+      
+      <li role="presentation">
+        <a href="#add_video" aria-controls="add_image" role="tab" data-toggle="tab">
+          <i class="fa fa-plus"></i> Add video
+        </a>
       </li>
-      <!--
-      <li role="presentation"><a href="#collections" aria-controls="collections" role="tab" data-toggle="tab"><i class="fa fa-folder"></i> Collections</a>
-      </li>
-      <li role="presentation"><a href="#make-collection" aria-controls="make-collection" role="tab" data-toggle="tab"><i class="fa fa-plus"></i> Make collection</a>
-      </li>
--->
+      
     </ul>
   </div>
 
@@ -51,33 +71,40 @@
 
       <div id="image-form-container"></div>
 
-    </div>
+    </div>   
+    
+    {{!-- ***** COL1: ADD AUDIO FORM ***** --}}
 
-<!--
-    {{!-- ***** COL1: LIST COLLECTIONS ***** --}}
-
-    <div role="tabpanel" class="tab-pane fade" id="collections">
-      <div id="collection-container"></div>
-    </div>
-
-
-    {{!-- ***** COL1: ADD COLLECTION FORM ***** --}}
-
-    <div role="tabpanel" class="tab-pane fade" id="make-collection">
+    <div role="tabpanel" class="tab-pane fade" id="add_audio">
 
       <div class="spinner">
         <i class="fa fa-spinner fa-spin fa-5x"></i>
       </div>
 
-      <div id="collection-form-container"></div>
+      <div id="audio-form-container"></div>
+
+    </div>    
+    
+    
+    {{!-- ***** COL1: ADD VIDEO FORM ***** --}}
+
+    <div role="tabpanel" class="tab-pane fade" id="add_video">
+
+      <div class="spinner">
+        <i class="fa fa-spinner fa-spin fa-5x"></i>
+      </div>
+
+      <div id="video-form-container"></div>
 
     </div>
--->
 
   </div>
 
 </div>
 
+{{!-- ***** COLUMN TWO ***** --}}
+{{!-- ***** COLUMN TWO ***** --}}
+{{!-- ***** COLUMN TWO ***** --}}
 {{!-- ***** COLUMN TWO ***** --}}
 
 <div class="col-md-3 col-sm-3 col-xs-3">
@@ -86,16 +113,23 @@
 
   <div role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
+      
+      {{!-- ***** LIST EXHIBITIONS ***** --}}
+      
       <li role="presentation" class="active">
         <a href="#exhibition_list" aria-controls="exhibition_list" role="tab" data-toggle="tab">
           <i class="fa fa-list"></i> List
         </a>
       </li>
+      
+      {{!-- ***** ADD EXHIBTION ***** --}}
+
       <li role="presentation">
         <a href="#add_exhibition" aria-controls="add_exhibition" role="tab" data-toggle="tab">
           <i class="fa fa-plus"></i> Add exhibition
         </a>
       </li>
+      
     </ul>
   </div>
 
@@ -124,6 +158,9 @@
 </div>
 
 {{!-- ***** COLUMN THREE ***** --}}
+{{!-- ***** COLUMN THREE ***** --}}
+{{!-- ***** COLUMN THREE ***** --}}
+{{!-- ***** COLUMN THREE ***** --}}
 
 <div class="col-md-3 col-sm-3 col-xs-3">
 
@@ -142,7 +179,7 @@
       {{!-- ***** COL3: ADD PUBLCIATION BUTTON ***** --}}
       <li role="presentation">
         <a href="#add_publication" aria-controls="add_publication" role="tab" data-toggle="tab">
-          <i class="fa fa-plus"></i> Add text
+          <i class="fa fa-plus"></i> Add publication
         </a>
       </li>
       
