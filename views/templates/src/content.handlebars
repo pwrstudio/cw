@@ -4,7 +4,9 @@
     <a href="#" id="{{_id}}" class="list-group-item slider">
     
         {{#if image}}
-            <p><i class="fa fa-file-image-o"></i> <strong>{{title}}</strong></p>
+            <p>
+              <i class="fa fa-file-image-o"></i> <strong>{{title}}</strong>
+            </p>
             <img src="{{image.thumb}}">
         {{/if}} 
 
@@ -25,8 +27,11 @@
     <div class="editContainer">
         
         {{#if image}}
-
+      
+        <a href="{{image.url}}" class='btn btn-primary full-size-image'>View full size image</a>
+      
         <form action="/api/content/update/image" class="ajaxFormUpdate" method="POST" enctype="multipart/form-data" data-post-id="{{_id}}">
+          
             <fieldset>
 
                 <div class="form-group">

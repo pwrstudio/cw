@@ -27,10 +27,8 @@ $main-color: #000;
 $highlight: #00f;
 $alert: #f00;
 $dark-gray: #ddd;
-$light-gray: lighten($dark-gray,
-40);
+$light-gray: lighten($dark-gray, 40);
 $baseline: 10px;
-
 //
 //
 //
@@ -40,5 +38,4 @@ $baseline: 10px;
 //
 //
 //
-
 @import 'main';
