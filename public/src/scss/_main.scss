@@ -24,7 +24,7 @@
 //
 html {
   color: $main-color;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 2 * $baseline;
 }
 
@@ -204,6 +204,7 @@ audio {
     transform: translateY(-50%);
     pointer-events: visible;
     cursor: pointer;
+    background-size: contain;
   }
 }
 
@@ -213,7 +214,6 @@ audio {
   position: fixed;
   bottom: $baseline;
   left: 0;
-  //  height: 2 * $baseline;
 }
 
 #counterOverlay {

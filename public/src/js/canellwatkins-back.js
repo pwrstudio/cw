@@ -4,15 +4,16 @@
 
   /*
    *
-   *  Random number generator
+   *  Initialize datepicker
    *
    */
 
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  function initDataPicker() {
+    $('.input-daterange, .input-group.date').datepicker({
+      autoclose: true,
+      format: 'yyyy/mm/dd'
+    });
   }
-
-
 
   /*
    *
@@ -30,11 +31,11 @@
           $(this)
             .html(MyApp.templates.exhibition(data))
             .fadeIn();
+          initDataPicker();
         });
       }
     });
   }
-
 
   /*
    *
@@ -56,7 +57,6 @@
       }
     });
   }
-
 
   /*
    *
@@ -82,50 +82,6 @@
 
   /*
    *
-   *  COLLECTIONS render
-   *
-   */
-
-  function getCollection() {
-    $.ajax({
-      type: 'GET',
-      url: '/api/collection/',
-      dataType: 'json',
-      success: function (data) {
-        $('#collection-container').fadeOut(function () {
-          $(this)
-            .html(MyApp.templates.collection(data))
-            .fadeIn();
-        });
-      }
-    });
-  }
-
-
-  /*
-   *
-   *  CONTENT in COLLECTION list render
-   *
-   */
-
-  function getCollectionContent() {
-    $.ajax({
-      type: 'GET',
-      url: '/api/content/get/-1',
-      dataType: 'json',
-      success: function (data) {
-        $('#collection-content-container').fadeOut(function () {
-          $(this)
-            .html(MyApp.templates.collectioncontent(data))
-            .fadeIn();
-        });
-      }
-    });
-  }
-
-
-  /*
-   *
    *  Load forms
    *
    */
@@ -134,22 +90,26 @@
     $("#image-form-container").html(MyApp.templates.imageform());
   }
 
+  function loadAudioForm() {
+    $("#audio-form-container").html(MyApp.templates.audioform());
+  }
+
+  function loadVideoForm() {
+    $("#video-form-container").html(MyApp.templates.videoform());
+  }
+
   function loadTextForm() {
     $("#text-form-container").html(MyApp.templates.textform());
   }
 
-  function loadCollectionForm() {
-    $("#collection-form-container").html(MyApp.templates.collectionform());
-  }
-
   function loadExhibitionForm() {
     $("#exhibition-form-container").html(MyApp.templates.exhibitionform());
+    initDataPicker();
   }
 
   function loadPublicationForm() {
     $("#publication-form-container").html(MyApp.templates.publicationform());
   }
-
 
   /*
    *
@@ -161,39 +121,20 @@
    *
    */
 
-
   $(document).ready(function () {
 
     //  Render all content
     getExhibitions();
     getPublications();
     getContent();
-    getCollection();
-    getCollectionContent();
 
     // Load forms
     loadImageForm();
     loadTextForm();
-    loadCollectionForm();
     loadExhibitionForm();
     loadPublicationForm();
-
-
-    /*
-     *
-     *  Initialize datepicker
-     *
-     */
-
-    $('.input-daterange, .input-group.date').datepicker({
-      autoclose: true,
-      format: 'yyyy/mm/dd'
-    });
-
-    $('body').on('focus', ".datepicker_recurring_start", function () {
-      $(this).datepicker();
-    });
-
+    loadAudioForm();
+    loadVideoForm();
 
     /*
      *
@@ -228,7 +169,7 @@
 
     /*
      *
-     *  DELETE image click
+     *  DELETE image
      *
      */
 
@@ -244,11 +185,9 @@
             type: 'success'
           });
           getContent();
-          getCollectionContent();
         }
       });
     });
-
 
     /*
      *
@@ -268,11 +207,9 @@
             type: 'success'
           });
           getContent();
-          getCollectionContent();
         }
       });
     });
-
 
     /*
      *
@@ -297,7 +234,6 @@
       });
     });
 
-
     /*
      *
      *  Submit ajax form
@@ -318,9 +254,7 @@
       });
 
       var formObj = $(this),
-        spinner = $(this)
-        .parent()
-        .find(".spinner"),
+        spinner = $(this).parent().find(".spinner"),
         formURL = formObj.attr("action"),
         formData = new FormData(this);
 
@@ -338,48 +272,45 @@
         processData: false,
         success: function (data, textStatus, jqXHR) {
 
-          formObj.find("input").val('');
 
-          if (data.result == "publication") {
-            $.notify({
-              message: 'Sucessfully added'
-            }, {
-              type: 'success'
-            });
+          $.notify({
+            message: 'Sucessfully added'
+          }, {
+            type: 'success'
+          });
+
+          if (data.result === "publication") {
 
             getPublications();
             loadPublicationForm();
+            loadTextForm();
             $('a[href="#publication_list"]').tab('show');
+            spinner.hide();
+            formObj.find("input").val('');
+            formObj.show();
 
-          } else if (data.result == "exhibition") {
-
-            $.notify({
-              message: 'Sucessfully added'
-            }, {
-              type: 'success'
-            });
+          } else if (data.result === "exhibition") {
 
             getExhibitions();
             loadExhibitionForm();
             $('a[href="#exhibition_list"]').tab('show');
+            spinner.hide();
+            formObj.find("input").val('');
+            formObj.show();
 
-          } else if (data.result == "content") {
-            $.notify({
-              message: 'Sucessfully added'
-            }, {
-              type: 'success'
-            });
+          } else if (data.result === "content") {
 
             getContent();
             loadImageForm();
-            loadTextForm();
+            loadVideoForm();
+            loadAudioForm();
 
             $('a[href="#content_list"]').tab('show');
+            spinner.hide();
+            formObj.find("input").val('');
+            formObj.show();
 
           }
-
-          spinner.hide();
-          formObj.show();
 
         },
 
@@ -388,7 +319,6 @@
       });
     });
 
-
     /*
      *
      *  Submit ajax form for updating
@@ -396,6 +326,8 @@
      */
 
     $(document).on('submit', '.ajaxFormUpdate', function (e) {
+
+      e.preventDefault();
 
       var formObj = $(this),
         formURL = formObj.attr("action") + "/" + formObj.data("post-id"),
@@ -411,36 +343,35 @@
         cache: false,
         processData: false,
         success: function (data, textStatus, jqXHR) {
-          if (data.result == "publication") {
-            $.notify({
-              message: 'Publication updated'
-            }, {
-              type: 'success'
-            });
+
+          $.notify({
+            message: 'Item updated'
+          }, {
+            type: 'success'
+          });
+
+          if (data.result === "publication") {
+
             getPublications();
             $('a[href="#publication_list"]').tab('show');
-          } else if (data.result == "exhibition") {
-            $.notify({
-              message: 'Exhibition updated'
-            }, {
-              type: 'success'
-            });
+
+          } else if (data.result === "exhibition") {
+
             getExhibitions();
             $('a[href="#exhibition_list"]').tab('show');
-          } else if (data.result == "content") {
-            $.notify({
-              message: 'Post updated'
-            }, {
-              type: 'success'
-            });
+
+          } else if (data.result === "content") {
+
             getContent();
             $('a[href="#content_list"]').tab('show');
+
           }
+
           formObj.parent(".editContainer").slideToggle();
+
         },
         error: function (jqXHR, textStatus, errorThrown) {}
       });
-      e.preventDefault();
     });
 
   });

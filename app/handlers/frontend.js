@@ -14,6 +14,7 @@
     Container = require('../models/Container.js'),
     Content = require('../models/Content.js'),
     Collection = require('../models/Collection.js');
+
   /*
    *
    *  Render index page
@@ -24,7 +25,7 @@
 
     var serverGeo = geoip.lookup("85.214.100.3");
 
-    if (serverGeo !== undefined && serverGeo !== null) {
+    if (serverGeo != null) {
 
       var lat = serverGeo.ll[0],
         long = serverGeo.ll[1],
@@ -34,7 +35,7 @@
 
       if (now > solar.sunset) {
         night = true;
-      } else if (now.getHours() > 0 && now.getHours() < solar.sunrise.getHours()) {
+      } else if (now.getHours() >= 0 && now.getHours() <= solar.sunrise.getHours()) {
         night = true;
       }
 
@@ -49,7 +50,7 @@
           });
           query.findOne().exec(function (err, frontpage) {
 
-            if (frontpage !== null && frontpage !== "undefined") {
+            if (frontpage != null) {
               var ctx = {
                 night: night,
                 frontpage: {

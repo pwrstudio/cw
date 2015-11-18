@@ -182,7 +182,7 @@
     });
 
 
-    // Clsoe image overlay
+    // Close image overlay
     $('#overlay').on('click', function (e) {
       e.preventDefault();
       $(".thumb-container").removeClass("clicked");
