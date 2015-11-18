@@ -13,45 +13,26 @@
 process.env.NODE_ENV = 'production';
 
 var express = require('express'),
-    app = express(),
-    http = require('http').Server(app),
-    port = process.env.PORT || 8080,
-    server = app.listen(port),
-    io = require('socket.io').listen(server);
-
-
-/*
- *
- *  Get the modules...
- *
- */
-
-
-var mongoose = require('mongoose'),
-    bodyParser = require('body-parser'),
-    path = require('path'),
-    exphbs = require('express-handlebars'),
-    cookieParser = require('cookie-parser'),
-    session = require('express-session'),
-    methodOverride = require('method-override'),
-    flash = require('connect-flash'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy;
-//    morgan = require('morgan');
-
-/*
- *
- *  Configuration
- *
- */
-
-var db = require('./config/db');
+  app = express(),
+  http = require('http').Server(app),
+  port = process.env.PORT || 8080,
+  server = app.listen(port),
+  io = require('socket.io').listen(server),
+  mongoose = require('mongoose'),
+  bodyParser = require('body-parser'),
+  path = require('path'),
+  exphbs = require('express-handlebars'),
+  cookieParser = require('cookie-parser'),
+  session = require('express-session'),
+  methodOverride = require('method-override'),
+  flash = require('connect-flash'),
+  passport = require('passport'),
+  LocalStrategy = require('passport-local').Strategy,
+  db = require('./config/db');
 
 require('./config/passport')(passport);
 
 global.appRoot = path.resolve(__dirname);
-
-//app.use(morgan('dev')); // Debug
 
 /*
  *
@@ -60,7 +41,7 @@ global.appRoot = path.resolve(__dirname);
  */
 
 app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
+  defaultLayout: 'main'
 }));
 
 app.set('view engine', 'handlebars');
@@ -76,11 +57,11 @@ mongoose.connect(db.url);
 
 app.use(bodyParser.json());
 app.use(bodyParser.json({
-    type: 'application/vnd.api+json'
+  type: 'application/vnd.api+json'
 }));
 
 app.use(bodyParser.urlencoded({
-    extended: true
+  extended: true
 }));
 
 
@@ -92,14 +73,12 @@ app.use(bodyParser.urlencoded({
 
 app.use(cookieParser());
 
-var oneYear = 31557600000;
-
 app.use(session({
-    secret: 'ilovescotchscotchyscotchscotch',
-    cookie: {
-        maxAge: 2629743830
-    },
-    store: require('mongoose-session')(mongoose)
+  secret: 'ilovescotchscotchyscotchscotch',
+  cookie: {
+    maxAge: 2629743830
+  },
+  store: require('mongoose-session')(mongoose)
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -114,7 +93,7 @@ app.use(methodOverride('X-HTTP-Method-Override'));
  */
 
 app.use(express.static(__dirname + '/public', {
-    maxAge: oneYear
+  maxAge: 31557600000
 }));
 
 
