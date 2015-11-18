@@ -63,5 +63,59 @@
             </fieldset>
         </form>
     </div>
+          {{#if text}}
+
+        <form class="ajaxFormUpdate" role="form" method="PUT" enctype="multipart/form-data" action="/api/content/update/text" data-post-id="{{_id}}">
+            <fieldset>
+
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input id="title" name="title" type="text" placeholder="Title" value="{{title}}" class="input-sm form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="author">Author</label>
+                    <input id="author" name="author" type="text" placeholder="Author" value="{{text.author}}" class="input-sm form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-group">Year</label>
+                    <input class="input-sm form-control" type="text" name="year" value="{{year}}" required>
+                </div>
+
+                {{#if text.file}}
+                    <div class="form-group">
+                        <div>
+                            <label for="link">Textfile</label>
+                        </div>
+                        <a href="{{text.file}}" target=_blank>{{text.file}}</a>
+                    </div>
+                {{/if}} 
+                
+                {{#if text.link}}
+                <div class="form-group">
+                    <div>
+                        <label for="link">Link to text</label>
+                    </div>
+                    <a href="{{text.link}}" target=_blank>{{text.link}}</a>
+                </div>
+                {{/if}}
+
+                <div class="form-group">
+                    Public {{#if public}}
+                    <input type="checkbox" name="public" value="public" checked> {{/if}} {{#unless public}}
+                    <input type="checkbox" name="public" value="public"> {{/unless}}
+                </div>
+
+                <div class="form-group">
+                    <button id="textSubmit" type="submit" class="btn btn-primary">Submit</button>
+                    <div class="btn btn-danger delete text" data-id="{{_id}}">Delete</div>
+                </div>
+
+            </fieldset>
+        </form>
+
+        {{/if}}
+  
     {{/if}} {{/each}}
 </div>

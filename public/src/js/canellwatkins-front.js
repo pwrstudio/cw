@@ -112,6 +112,8 @@
 
     oscillator[oscillator.start ? 'start' : 'noteOn'](0);
 
+//    $("#counterOverlay").addClass("focused");
+    
     /*
      *
      *  Sockets client
@@ -153,6 +155,7 @@
       $(this)
         .parent(".thumb-container.fluid")
         .hide();
+      $(".container-fluid").addClass("blurred");
       $(".thumb-container").addClass("clicked");
       $("#overlay")
         .html('<img src="' +
@@ -186,6 +189,7 @@
     $('#overlay').on('click', function (e) {
       e.preventDefault();
       $(".thumb-container").removeClass("clicked");
+      $(".container-fluid").removeClass("blurred");
       $("#overlay").hide();
     });
 

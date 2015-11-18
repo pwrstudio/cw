@@ -4,31 +4,37 @@
   <div id="tracestart-container" class="strong"></div>
 </div>
 
-<div class="menu-bar">
-
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths hidden-xs content-columns menu-col">
-    <a class="title strong">Cable length: <span id="cable-length"></span> km</a>
-  </div>
-
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
-    <a class="title strong">Nina Canell / Robin Watkins </a>
-  </div>
-
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
-    <a class="title strong">Exhibitions</a>
-  </div>
-
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
-    <a class="title strong">Texts</a>
-  </div>
-
-  <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
-    <a class="title strong">Works</a>
-  </div>
-
-</div>
-
 <div class="container-fluid">
+  
+    {{!-- ***** MENU ***** --}}
+    {{!-- ***** MENU ***** --}}
+    {{!-- ***** MENU ***** --}}
+    {{!-- ***** MENU ***** --}}
+
+    <div class="menu-bar">
+
+      <div class="col-md-5ths col-sm-5ths col-xs-5ths hidden-xs content-columns menu-col">
+        <a class="title strong">Cable length: <span id="cable-length"></span> km</a>
+      </div>
+
+      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
+        <a class="title strong">Nina Canell / Robin Watkins </a>
+      </div>
+
+      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
+        <a class="title strong">Exhibitions</a>
+      </div>
+
+      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
+        <a class="title strong">Texts</a>
+      </div>
+
+      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
+        <a class="title strong">Works</a>
+      </div>
+
+    </div>
+
 
     {{!-- ***** COL1: ROUTE ***** --}}
     {{!-- ***** COL1: ROUTE ***** --}}
@@ -106,52 +112,87 @@
     
     </div>
     
-    {{!-- ***** COL3: TEXTS ***** --}}
-    {{!-- ***** COL3: TEXTS ***** --}}
-    {{!-- ***** COL3: TEXTS ***** --}}
-    {{!-- ***** COL3: TEXTS ***** --}}
-    {{!-- ***** COL3: TEXTS ***** --}}
+    {{!-- ***** COL3: TEXTS / PUBLICATIONS ***** --}}
+    {{!-- ***** COL3: TEXTS / PUBLICATIONS ***** --}}
+    {{!-- ***** COL3: TEXTS / PUBLICATIONS ***** --}}
+    {{!-- ***** COL3: TEXTS / PUBLICATIONS ***** --}}
+    {{!-- ***** COL3: TEXTS / PUBLICATIONS ***** --}}
 
     <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
         {{#each container}} 
-            {{#if this.publisher}}
-                <div class='space'>*</div>
-                <a href="" class="slide-down-link">
-                    <article class="exhibition light ">
-                        <div class="title">{{this.title}}</div>
-                        <div class="author">{{this.author}}</div>
-                        <div class="publisher">{{this.publisher}}</div>
-                    </article>
-                </a>
-        
-                <div class="thumb-container static">
-                    
-                    {{#if this.sound.size}}
-                        <div class="audio-control play">
-                          <i class="fa fa-play play-icon"></i>
-                          <i class="fa fa-stop stop-icon"></i> {{this.sound.size}} kb
-                        </div>
-                        <audio loop>
-                            <source src="{{this.sound.url}}">
-                        </audio>
-                    {{/if}}
-                    
-                    {{#if this.image.thumb}}
-                        <img src="{{this.image.thumb}}"
-                             data-large="{{this.image.large}}"
-                             data-pinky="{{this.image.pinkynail}}"
-                             class="thumbnail lightBox"> 
-                    {{/if}} 
-                    
-                    {{#if this.link}}
-                        <div class='link-container'>
-                            <a href="{{this.link}}"> >> External link << </a>
-                        </div>
-                    {{/if}}
-                    
-                </div>
+      
+          {{!-- ***** PUBLICATION ***** --}}
+          {{!-- ***** PUBLICATION ***** --}}
+          {{!-- ***** PUBLICATION ***** --}}
+          {{!-- ***** PUBLICATION ***** --}}
+      
+          {{#if this.publisher}}
+            <div class='space'>*</div>
+            <a href="" class="slide-down-link">
+                <article class="exhibition light ">
+                    <div class="title">{{this.title}}</div>
+                    <div class="author">{{this.author}}</div>
+                    <div class="publisher">{{this.publisher}}</div>
+                </article>
+            </a>
+
+            <div class="thumb-container static">
+
+                {{#if this.sound.size}}
+                    <div class="audio-control play">
+                      <i class="fa fa-play play-icon"></i>
+                      <i class="fa fa-stop stop-icon"></i> {{this.sound.size}} kb
+                    </div>
+                    <audio loop>
+                        <source src="{{this.sound.url}}">
+                    </audio>
+                {{/if}}
+
+                {{#if this.image.thumb}}
+                    <img src="{{this.image.thumb}}"
+                         data-large="{{this.image.large}}"
+                         data-pinky="{{this.image.pinkynail}}"
+                         class="thumbnail lightBox"> 
+                {{/if}} 
+
+                {{#if this.link}}
+                    <div class='link-container'>
+                        <a href="{{this.link}}"> >> External link << </a>
+                    </div>
+                {{/if}}
+
+            </div>
         
             {{/if}} 
+      
+            {{!-- ***** TEXT ***** --}}
+            {{!-- ***** TEXT ***** --}}
+            {{!-- ***** TEXT ***** --}}
+            {{!-- ***** TEXT ***** --}}
+
+            {{#if this.text.author}}
+                
+              <div class='space'>*</div>
+
+              {{#if this.text.file}}
+                  <a href="{{this.text.file}}">
+                      <article class="exhibition light">
+                          <div class="title">{{this.title}}</div>
+                          <div class="author">{{this.text.author}}</div>
+                      </article>
+                  </a>
+              {{/if}} 
+
+              {{#if this.text.link}}
+                  <a href="{{this.text.link}}" target=_blank>
+                      <article class="exhibition light">
+                          <div class="title">{{this.title}}</div>
+                          <div class="author external">{{this.text.author}}</div>
+                      </article>
+                  </a>
+              {{/if}}
+        
+            {{/if}}
         
         {{/each}}
         
@@ -159,55 +200,83 @@
     
     </div>
 
-    {{!-- ***** COL4: IMAGES ***** --}}
-    {{!-- ***** COL4: IMAGES ***** --}}
-    {{!-- ***** COL4: IMAGES ***** --}}
-    {{!-- ***** COL4: IMAGES ***** --}}
-    {{!-- ***** COL4: IMAGES ***** --}}
+    {{!-- ***** COL4: WORKS ***** --}}
+    {{!-- ***** COL4: WORKS ***** --}}
+    {{!-- ***** COL4: WORKS ***** --}}
+    {{!-- ***** COL4: WORKS ***** --}}
+    {{!-- ***** COL4: WORKS ***** --}}
 
     <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
-        {{#each content}} 
-            {{#if this.public }} 
-                {{#if this.image.large}}
-                    <div class='space'>*</div>
-                    <a href="" class="image-link hidden"
-                       data-large="{{this.image.large}}"
-                       data-pinky="{{this.image.pinky}}"
-                       data-caption="{{{this.image.caption}}}">
-                        <article class="exhibition light ">
-                            <div class="title">{{this.title}}</div>
-                            <div class="title">{{this.image.size}}kb</div>
-                        </article>
-                    </a>
-                {{/if}} 
-        
-                {{#if this.text.author}}
-                
-                    <div class='space'>*</div>
+      {{#each content}} 
+        {{#if this.public }} 
 
-                    {{#if this.text.file}}
-                        <a href="{{this.text.file}}">
-                            <article class="exhibition light">
-                                <div class="title">{{this.title}}</div>
-                                <div class="author">{{this.text.author}}</div>
-                            </article>
-                        </a>
-                    {{/if}} 
-        
-                    {{#if this.text.link}}
-                        <a href="{{this.text.link}}" target=_blank>
-                            <article class="exhibition light">
-                                <div class="title">{{this.title}}</div>
-                                <div class="author external">{{this.text.author}}</div>
-                            </article>
-                        </a>
-                    {{/if}}
-        
-                {{/if}}
-        
-        
+            {{!-- ***** IMAGE ***** --}}
+            {{!-- ***** IMAGE ***** --}}
+            {{!-- ***** IMAGE ***** --}}
+            {{!-- ***** IMAGE ***** --}}      
+            {{#if this.image.large}}
+              <div class='space'>*</div>
+              <a href="" class="image-link hidden"
+                 data-large="{{this.image.large}}"
+                 data-pinky="{{this.image.pinky}}"
+                 data-caption="{{{this.image.caption}}}">
+                  <article class="exhibition light ">
+                      <div class="title">{{this.title}}</div>
+                      <div class="title">{{this.image.size}}kb</div>
+                  </article>
+              </a>
             {{/if}} 
-        
+
+            {{!-- ***** AUDIO ***** --}}
+            {{!-- ***** AUDIO ***** --}}
+            {{!-- ***** AUDIO ***** --}}
+            {{!-- ***** AUDIO ***** --}}
+            {{#if this.sound.size}}
+            <div class='space'>*</div>
+              <a href="" class="slide-down-link">
+                <article class="exhibition light ">
+                    <div class="title">{{this.title}}</div>
+                    <div class="title">{{this.audio.size}}kb</div>
+                </article>
+              </a>
+            </div>
+            <div class="thumb-container static">
+              <div class="audio-control play">
+                <i class="fa fa-play play-icon"></i>
+                <i class="fa fa-stop stop-icon"></i> {{this.sound.size}} kb
+              </div>
+              <audio loop>
+                <source src="{{this.sound.url}}">
+              </audio>
+            </div>        
+            {{/if}}                  
+
+            {{!-- ***** VIDEO ***** --}}
+            {{!-- ***** VIDEO ***** --}}
+            {{!-- ***** VIDEO ***** --}}
+            {{!-- ***** VIDEO ***** --}}
+            {{#if this.video.size}}
+            <div class='space'>*</div>
+              <a href="" class="slide-down-link">
+                <article class="exhibition light ">
+                    <div class="title">{{this.title}}</div>
+                    <div class="title">{{this.audio.size}}kb</div>
+                </article>
+              </a>
+            </div>
+            <div class="thumb-container static">
+              <div class="audio-control play">
+                <i class="fa fa-play play-icon"></i>
+                <i class="fa fa-stop stop-icon"></i> {{this.sound.size}} kb
+              </div>
+              <audio loop>
+                <source src="{{this.sound.url}}">
+              </audio>
+            </div>
+            {{/if}}    
+
+          {{/if}} 
+
         {{/each}}
         
         <div class='space'>*</div>
@@ -218,7 +287,6 @@
 
 <script src="./libs/handlebars/handlebars.runtime.min.js"></script>
 <script src="socket.io/socket.io.js"></script>
-<!--<script src="./libs/socket.io.min.js"></script>-->
 <script src="./libs/jquery/dist/jquery.min.js"></script>
 <script src="./dist/js/handlebars/templates.js"></script>
 <script src="./dist/js/canellwatkins-front.min.js"></script>

@@ -11,12 +11,11 @@ var contentSchema = new mongoose.Schema({
   title: String,
   text: {
     author: String,
-    body: String,
     file: String,
-    link: String
   },
   image: {
     caption: String,
+    credits: String,
     url: String,
     thumb: String,
     pinky: String,
@@ -25,12 +24,25 @@ var contentSchema = new mongoose.Schema({
     size: Number,
     frontpage: Boolean
   },
+  audio: {
+    caption: String,
+    credits: String,
+    file: String,
+    size: Number,
+    frontpage: Boolean
+  },
+  video: {
+    caption: String,
+    credits: String,
+    file: String,
+    size: Number,
+    frontpage: Boolean
+  },
   date: Date,
   year: Number,
   user: String,
   public: Boolean,
-  tags: [String],
-  container_connection: [String]
+  tags: [String]
 });
 
 module.exports = mongoose.model('content', contentSchema);

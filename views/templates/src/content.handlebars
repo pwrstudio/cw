@@ -9,19 +9,6 @@
             </p>
             <img src="{{image.thumb}}">
         {{/if}} 
-
-        {{#if text}}
-            <p><i class="fa fa-file-text-o"></i> <strong>{{title}}</strong>
-
-            {{#if text.link}}
-                <p>{{text.link}}</p>
-            {{/if}} 
-
-            {{#if text.url}}
-                <p>{{text.url}}</p>
-            {{/if}} 
-
-        {{/if}}
        
     </a>
     <div class="editContainer">
@@ -86,8 +73,7 @@
 
         {{/if}} 
         
-        {{#if text}}
-
+        {{#if audio}}
         <form class="ajaxFormUpdate" role="form" method="PUT" enctype="multipart/form-data" action="/api/content/update/text" data-post-id="{{_id}}">
             <fieldset>
 

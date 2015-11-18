@@ -1,0 +1,31 @@
+<form class="ajaxForm" enctype="multipart/form-data" action="/api/publication">
+    <fieldset>
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <div>
+                <input id="title" name="title" type="text" class="input-sm form-control" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="input-group">Year</label>
+            <input type="text" class="input-sm form-control" name="start_date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="text">Upload video</label>
+            <input type="file" name="sound">
+        </div>        
+      
+        <div class="form-group">
+            <label for="text">Caption</label>
+            <textarea class="input-sm form-control" name="caption"></textarea>
+        </div>
+
+        <div class="form-group">
+            <button id="" name="" class="btn btn-primary">Submit</button>
+        </div>
+
+    </fieldset>
+</form>

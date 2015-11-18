@@ -15,6 +15,7 @@ var containerSchema = new mongoose.Schema({
     end_date_pretty: String,
     link: String,
     publisher: String,
+    specs: String,
     tags: [String],
     solo: Boolean,
     group: Boolean,
