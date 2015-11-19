@@ -239,8 +239,8 @@
       var stats = fs.statSync(newSndPath),
         sizeInKilobytes = stats.size / 1000.0;
 
-      console.log(sndSizeInKilobytes);
 
+      content.date = new Date();
       content.year = fields.start_date;
       content.public = fields.public;
       content.audio.url = fullPath;
@@ -361,7 +361,8 @@
 
       console.log(sizeInKilobytes);
 
-      content.year = fields.year;
+      content.date = new Date();
+      content.year = fields.start_date;
       content.public = fields.public;
       content.video.url = fullPath;
       content.video.size = sizeInKilobytes;
@@ -378,7 +379,7 @@
 
     });
   };
-  
+
   /*
    *
    *  Update video
