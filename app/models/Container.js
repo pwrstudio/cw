@@ -22,7 +22,8 @@ var containerSchema = new mongoose.Schema({
     url: String,
     caption: String,
     author: String,
-    size: Number
+    size: Number,
+    public: Boolean
   },
   image: {
     url: String,

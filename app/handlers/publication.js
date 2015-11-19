@@ -211,9 +211,10 @@
       stats = fs.statSync(newPath);
       fileSizeInKilobytes = stats.size / 1000.0;
 
-      text.public = fields.public;
+      text.text.public = fields.public;
       text.date = new Date();
-      text.year = fields.year;
+      text.start_date = fields.year;
+      text.start_date_pretty = fields.year;
       text.title = fields.title;
       text.text.author = fields.author;
       text.text.url = fullFilePath;
@@ -243,19 +244,20 @@
 
     form.parse(req, function (err, fields) {
 
-      Content.findById(req.params.id, function (err, content) {
+      Container.findById(req.params.id, function (err, text) {
 
-        if (content) {
+        if (text) {
 
-          text.public = fields.public;
-          text.year = fields.year;
+          text.text.public = fields.public;
+          text.start_date = fields.year;
+          text.start_date_pretty = fields.year;
           text.title = fields.title;
           text.text.author = fields.author;
           text.text.caption = fields.caption;
 
-          content.save(function (err) {
+         text.save(function (err) {
             res.json({
-              result: 'content'
+              result: 'publication'
             });
           });
         }

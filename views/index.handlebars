@@ -131,8 +131,7 @@
             <a href="" class="slide-down-link">
                 <article class="exhibition light ">
                     <div class="title">{{this.title}}</div>
-                    <div class="author">{{this.author}}</div>
-                    <div class="publisher publication">{{this.publisher}}</div>
+                    <div class="year publication">{{this.start_date_pretty}}</div>
                 </article>
             </a>
 
@@ -148,18 +147,26 @@
                     </audio>
                 {{/if}}
 
-                {{#if this.image.thumb}}
+              {{#if this.image.thumb}}
+                <div>
+                  <a href="{{this.image.url}}" class="image-link margin_bottom" data-large="{{this.image.url}}" data-caption="{{this.title}}">
                     <img src="{{this.image.thumb}}"
-                         data-large="{{this.image.large}}"
-                         data-pinky="{{this.image.pinkynail}}"
-                         class="thumbnail lightBox"> 
-                {{/if}} 
-
-                {{#if this.link}}
-                    <div class='link-container'>
-                        <a href="{{this.link}}">External link</a>
-                    </div>
-                {{/if}}
+                           data-large="{{this.image.large}}"
+                           data-pinky="{{this.image.pinkynail}}"
+                           class="thumbnail lightBox"> 
+                  </a>
+              </div>
+              {{/if}} 
+              
+              {{#if this.link}}
+                <div><a href="{{this.link}}" class="external">{{this.publisher}}</a></div>
+              {{else}}
+                <div>{{this.publisher}}</div>
+              {{/if}}
+              
+              {{#if this.specs}}
+                <div>{{this.specs}}</div>
+              {{/if}}
 
             </div>
         
@@ -177,8 +184,8 @@
               <a href="{{this.text.url}}" class="text-link" data-caption="{{this.text.caption}}">
                 <article class="exhibition light">
                     <div class="title">{{this.title}}</div>
-                    <div class="author">{{this.text.author}}</div>
-                    <div class="size text">{{this.text.size}}kb</div>
+                    <div class="size">{{this.text.size}}kb</div>
+                    <div class="year text">{{this.start_date_pretty}}</div>
                 </article>
               </a>
         
