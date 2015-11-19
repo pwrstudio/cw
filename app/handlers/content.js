@@ -15,11 +15,6 @@
     escape = require('escape-html'),
     Content = require('../models/Content.js'),
     easyimg = require('easyimage'),
-    /*
-     *
-     *  Initialize data directory
-     *
-     */
     dataDir = '/public/data',
     fullDir = appRoot + dataDir;
 
@@ -91,6 +86,8 @@
     });
   };
 
+  // IMAGE
+
   /*
    *
    *  Add image
@@ -146,7 +143,6 @@
     });
   };
 
-
   /*
    *
    *  Update image
@@ -181,77 +177,6 @@
     });
   };
 
-
-  /*
-   *
-   *  Add text post
-   *
-   */
-
-  exports.post_text_content = function (req, res) {
-
-    var form = new formidable.IncomingForm();
-
-    form.parse(req, function (err, fields) {
-
-      var content = new Content();
-      content.public = fields.public;
-      content.date = new Date();
-      content.year = fields.year;
-      content.text.body = fields.text;
-      content.title = fields.title;
-      content.text.author = fields.author;
-      content.text.link = fields.link;
-      content.user = req.user.email;
-
-      content.save(function (err) {
-        res.json({
-          result: 'content'
-        });
-      });
-
-    });
-
-  };
-
-
-  /*
-   *
-   *  Update text post
-   *
-   */
-
-  exports.update_text_content = function (req, res) {
-
-    var form = new formidable.IncomingForm();
-
-    form.parse(req, function (err, fields) {
-
-      Content.findById(req.params.id, function (err, content) {
-
-        if (content !== null && content !== undefined) {
-
-          content.public = fields.public;
-          content.year = fields.year;
-          content.text.body = fields.text;
-          content.title = fields.title;
-          content.text.author = fields.author;
-          content.text.link = fields.link;
-          content.user = req.user.email;
-
-          content.save(function (err) {
-            res.json({
-              result: 'content'
-            });
-          });
-        }
-      });
-
-    });
-
-  };
-
-
   /*
    *
    *  Delete image
@@ -279,14 +204,233 @@
     });
   };
 
+  // AUDIO
+  // AUDIO
+  // AUDIO
+  // AUDIO
+  // AUDIO
 
   /*
    *
-   *  Delete text
+   *  Add audio
    *
    */
 
-  exports.delete_text_content = function (req, res) {
+  exports.post_audio_content = function (req, res) {
+
+    var form = new formidable.IncomingForm(),
+      now = Date.now(),
+      dir = fullDir + '/' + now;
+
+    fs.mkdirSync(dir);
+
+    form.parse(req, function (err, fields, files) {
+
+      var content = new Content(),
+        stats,
+        fullPath = '/data/' + now + '/' + files.sound.name,
+        newSndPath = dir + '/' + files.sound.name;
+
+      console.log(fields);
+      console.log(files);
+      console.log(fullPath);
+
+      fs.renameSync(files.sound.path, newSndPath);
+      var stats = fs.statSync(newSndPath),
+        sizeInKilobytes = stats.size / 1000.0;
+
+      console.log(sndSizeInKilobytes);
+
+      content.year = fields.start_date;
+      content.public = fields.public;
+      content.audio.url = fullPath;
+      content.audio.size = sizeInKilobytes;
+      content.title = fields.title;
+      content.audio.caption = fields.caption;
+
+      console.log(content);
+
+      content.save(function (err) {
+        res.json({
+          result: 'content'
+        });
+      });
+
+    });
+  };
+
+  /*
+   *
+   *  Update audio
+   *
+   */
+
+  exports.update_audio_content = function (req, res) {
+
+    var form = new formidable.IncomingForm();
+
+    form.parse(req, function (err, fields) {
+
+      Content.findById(req.params.id, function (err, content) {
+
+        if (content !== null && content !== undefined) {
+
+          content.year = fields.year;
+          content.public = fields.public;
+          content.title = fields.title;
+          content.audio.caption = fields.caption;
+
+          content.save(function (err) {
+            res.json({
+              result: 'content'
+            });
+          });
+
+        }
+      });
+
+    });
+  };
+
+  /*
+   *
+   *  Delete audio
+   *
+   */
+
+  exports.delete_audio_content = function (req, res) {
+    Content.findById(req.params.id, function (err, content) {
+      if (content.audio.url !== null && content.audio.url !== undefined) {
+
+        console.log(content);
+        var p = content.audio.url.split('/');
+        rimraf(fullDir + '/' + p[2], function (err) {
+          if (err) {
+            console.log(err);
+          }
+        });
+
+        Content.remove({
+          _id: req.params.id
+        }, function (err, content) {
+          res.json({
+            message: 'Success'
+          });
+        });
+
+      }
+    });
+
+
+  };
+
+  // VIDEO
+  // VIDEO
+  // VIDEO
+  // VIDEO
+  // VIDEO
+
+  /*
+   *
+   *  Add video
+   *
+   */
+
+  exports.post_video_content = function (req, res) {
+
+    var form = new formidable.IncomingForm(),
+      now = Date.now(),
+      dir = fullDir + '/' + now;
+
+    fs.mkdirSync(dir);
+
+    form.parse(req, function (err, fields, files) {
+
+      var content = new Content(),
+        stats,
+        fullPath = '/data/' + now + '/' + files.sound.name,
+        newPath = dir + '/' + files.sound.name;
+
+      console.log(fields);
+      console.log(files);
+      console.log(fullPath);
+
+      fs.renameSync(files.sound.path, newPath);
+      var stats = fs.statSync(newPath),
+        sizeInKilobytes = stats.size / 1000.0;
+
+      console.log(sizeInKilobytes);
+
+      content.year = fields.year;
+      content.public = fields.public;
+      content.video.url = fullPath;
+      content.video.size = sizeInKilobytes;
+      content.title = fields.title;
+      content.video.caption = fields.caption;
+
+      console.log(content);
+
+      content.save(function (err) {
+        res.json({
+          result: 'content'
+        });
+      });
+
+    });
+  };
+  
+  /*
+   *
+   *  Update video
+   *
+   */
+
+  exports.update_video_content = function (req, res) {
+
+    var form = new formidable.IncomingForm();
+
+    form.parse(req, function (err, fields) {
+
+      Content.findById(req.params.id, function (err, content) {
+
+        if (content !== null && content !== undefined) {
+
+          content.year = fields.year;
+          content.public = fields.public;
+          content.title = fields.title;
+          content.video.caption = fields.caption;
+
+          content.save(function (err) {
+            res.json({
+              result: 'content'
+            });
+          });
+
+        }
+      });
+
+    });
+  };
+
+
+  /*
+   *
+   *  Delete video
+   *
+   */
+
+  exports.delete_video_content = function (req, res) {
+    Content.findById(req.params.id, function (err, content) {
+      if (content != null) {
+        var p = content.video.url.split('/');
+        rimraf(fullDir + '/' + p[2], function (err) {
+          if (err) {
+            console.log(err);
+          }
+        });
+      }
+    });
+
     Content.remove({
       _id: req.params.id
     }, function (err, content) {
@@ -295,5 +439,6 @@
       });
     });
   };
+
 
 }());

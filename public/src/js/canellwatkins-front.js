@@ -111,8 +111,6 @@
   $(document).ready(function () {
 
     oscillator[oscillator.start ? 'start' : 'noteOn'](0);
-
-//    $("#counterOverlay").addClass("focused");
     
     /*
      *

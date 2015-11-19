@@ -2,13 +2,26 @@
     {{#each this}}
     
     <a href="#" id="{{_id}}" class="list-group-item slider">
-    
+                
         {{#if image}}
             <p>
               <i class="fa fa-file-image-o"></i> <strong>{{title}}</strong>
             </p>
             <img src="{{image.thumb}}">
-        {{/if}} 
+        {{/if}}         
+      
+      {{#if audio}}
+          <p>
+            <i class="fa fa-file-audio-o"></i> <strong>{{title}}</strong>
+          </p>
+      {{/if}}       
+      
+      {{#if video}}
+          <p>
+            <i class="fa fa-file-video-o"></i> <strong>{{title}}</strong>
+          </p>
+      {{/if}} 
+      
        
     </a>
     <div class="editContainer">
@@ -74,7 +87,7 @@
         {{/if}} 
         
         {{#if audio}}
-        <form class="ajaxFormUpdate" role="form" method="PUT" enctype="multipart/form-data" action="/api/content/update/text" data-post-id="{{_id}}">
+        <form class="ajaxFormUpdate" role="form" method="PUT" enctype="multipart/form-data" action="/api/content/update/audio" data-post-id="{{_id}}">
             <fieldset>
 
                 <div class="form-group">
@@ -83,32 +96,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="author">Author</label>
-                    <input id="author" name="author" type="text" placeholder="Author" value="{{text.author}}" class="input-sm form-control" required>
-                </div>
-
-                <div class="form-group">
                     <label for="input-group">Year</label>
                     <input class="input-sm form-control" type="text" name="year" value="{{year}}" required>
                 </div>
-
-                {{#if text.file}}
-                    <div class="form-group">
-                        <div>
-                            <label for="link">Textfile</label>
-                        </div>
-                        <a href="{{text.file}}" target=_blank>{{text.file}}</a>
-                    </div>
-                {{/if}} 
-                
-                {{#if text.link}}
+              
                 <div class="form-group">
-                    <div>
-                        <label for="link">Link to text</label>
-                    </div>
-                    <a href="{{text.link}}" target=_blank>{{text.link}}</a>
+                  <label for="text">Caption</label>
+                  <textarea class="input-sm form-control" name="caption">{{audio.caption}}</textarea>
                 </div>
-                {{/if}}
+              
+                <div class="form-group">
+                  <label for="link">Sound</label>
+                  <audio controls>
+                      <source src="{{audio.url}}">
+                  </audio>
+                </div>
 
                 <div class="form-group">
                     Public {{#if public}}
@@ -118,7 +120,49 @@
 
                 <div class="form-group">
                     <button id="textSubmit" type="submit" class="btn btn-primary">Submit</button>
-                    <div class="btn btn-danger delete text" data-id="{{_id}}">Delete</div>
+                    <div class="btn btn-danger delete audio" data-id="{{_id}}">Delete</div>
+                </div>
+
+            </fieldset>
+        </form>
+
+        {{/if}}
+      
+        {{#if video}}
+        <form class="ajaxFormUpdate" role="form" method="PUT" enctype="multipart/form-data" action="/api/content/update/video" data-post-id="{{_id}}">
+            <fieldset>
+
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input id="title" name="title" type="text" placeholder="Title" value="{{title}}" class="input-sm form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-group">Year</label>
+                    <input class="input-sm form-control" type="text" name="year" value="{{year}}" required>
+                </div>
+              
+                <div class="form-group">
+                  <label for="text">Caption</label>
+                  <textarea class="input-sm form-control" name="caption">{{video.caption}}</textarea>
+                </div>
+              
+                <div class="form-group">
+                  <label for="link">Video</label>
+                  <video controls>
+                      <source src="{{video.url}}">
+                  </video>
+                </div>
+
+                <div class="form-group">
+                    Public {{#if public}}
+                    <input type="checkbox" name="public" value="public" checked> {{/if}} {{#unless public}}
+                    <input type="checkbox" name="public" value="public"> {{/unless}}
+                </div>
+
+                <div class="form-group">
+                    <button id="textSubmit" type="submit" class="btn btn-primary">Submit</button>
+                    <div class="btn btn-danger delete video" data-id="{{_id}}">Delete</div>
                 </div>
 
             </fieldset>

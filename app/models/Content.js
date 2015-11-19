@@ -26,23 +26,18 @@ var contentSchema = new mongoose.Schema({
   },
   audio: {
     caption: String,
-    credits: String,
-    file: String,
-    size: Number,
-    frontpage: Boolean
+    url: String,
+    size: Number
   },
   video: {
     caption: String,
-    credits: String,
-    file: String,
-    size: Number,
-    frontpage: Boolean
+    url: String,
+    size: Number
   },
   date: Date,
   year: Number,
   user: String,
-  public: Boolean,
-  tags: [String]
+  public: Boolean
 });
 
 module.exports = mongoose.model('content', contentSchema);

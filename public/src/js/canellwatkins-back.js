@@ -191,6 +191,50 @@
 
     /*
      *
+     *  DELETE audio
+     *
+     */
+
+    $(document).on('click', '.delete.audio', function () {
+      $.ajax({
+        type: 'DELETE',
+        url: '/api/content/del/audio/' + $(this).data('id'),
+        dataType: 'json',
+        success: function (data) {
+          $.notify({
+            message: 'Audio deleted'
+          }, {
+            type: 'success'
+          });
+          getContent();
+        }
+      });
+    });
+
+    /*
+     *
+     *  DELETE video
+     *
+     */
+
+    $(document).on('click', '.delete.video', function () {
+      $.ajax({
+        type: 'DELETE',
+        url: '/api/content/del/video/' + $(this).data('id'),
+        dataType: 'json',
+        success: function (data) {
+          $.notify({
+            message: 'Audio deleted'
+          }, {
+            type: 'success'
+          });
+          getContent();
+        }
+      });
+    });
+
+    /*
+     *
      *  DELETE text
      *
      */

@@ -1,4 +1,4 @@
-<form class="ajaxForm" enctype="multipart/form-data" action="/api/publication">
+<form class="ajaxForm" enctype="multipart/form-data" action="api/content/post/audio">
     <fieldset>
 
         <div class="form-group">
@@ -22,10 +22,15 @@
             <label for="text">Caption</label>
             <textarea class="input-sm form-control" name="caption"></textarea>
         </div>
+      
+        <div class="form-group">
+            Public
+            <input type="checkbox" name="public" value="public">
+        </div>  
 
         <div class="form-group">
             <button id="" name="" class="btn btn-primary">Submit</button>
         </div>
-
+    
     </fieldset>
 </form>
