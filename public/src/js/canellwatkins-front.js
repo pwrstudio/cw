@@ -111,7 +111,7 @@
   $(document).ready(function () {
 
     oscillator[oscillator.start ? 'start' : 'noteOn'](0);
-    
+
     /*
      *
      *  Sockets client
@@ -150,17 +150,25 @@
 
     $(document).on("click", ".image-link", function (e) {
       e.preventDefault();
-      $(this)
-        .parent(".thumb-container.fluid")
-        .hide();
       $(".container-fluid").addClass("blurred");
-      $(".thumb-container").addClass("clicked");
       $("#overlay")
         .html('<img src="' +
           $(this).data("large") +
           '" style="background-image: url(' +
           $(this).data("pinky") +
           ')"><div class="caption-container strong">' +
+          replaceNewlines($(this).data("caption")) +
+          '</div>')
+        .show();
+    });
+
+    $(document).on("click", ".video-link", function (e) {
+      e.preventDefault();
+      $(".container-fluid").addClass("blurred");
+      $("#overlay")
+        .html('<video autoplay loop><source src="' +
+          $(this).attr("href") +
+          '"></video><div class="caption-container strong">' +
           replaceNewlines($(this).data("caption")) +
           '</div>')
         .show();
@@ -186,9 +194,10 @@
     // Close image overlay
     $('#overlay').on('click', function (e) {
       e.preventDefault();
-      $(".thumb-container").removeClass("clicked");
+      $("#overlay")
+        .html('')
+        .hide();
       $(".container-fluid").removeClass("blurred");
-      $("#overlay").hide();
     });
 
     // Play sounds

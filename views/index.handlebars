@@ -90,13 +90,13 @@
                 <article class="exhibition light">
                     <div class="title">{{this.title}}</div>
                     <div class="date">{{this.start_date_pretty}} — {{this.end_date_pretty}}</div>
-                    <div class="location external">{{this.location}}</div>
+                    <div class="location">{{this.location}}</div>
                     <div class="exhibition-type">
                       {{#if this.group}}
-                        <span class="group-icon">Group</span>
+                        <span class="group-icon external">Group</span>
                       {{/if}}
                       {{#if this.solo}}
-                      <span class="solo-icon">Solo</span>
+                      <span class="solo-icon external">Solo</span>
                       {{/if}}
                     </div>
                 </article>
@@ -220,9 +220,9 @@
                  data-large="{{this.image.large}}"
                  data-pinky="{{this.image.pinky}}"
                  data-caption="{{{this.image.caption}}}">
-                  <article class="exhibition light ">
+                  <article class="exhibition light">
                       <div class="title">{{this.title}}</div>
-                      <div class="title">{{this.image.size}}kb</div>
+                      <div class="size image">{{this.image.size}}kb</div>
                   </article>
               </a>
             {{/if}} 
@@ -231,23 +231,23 @@
             {{!-- ***** AUDIO ***** --}}
             {{!-- ***** AUDIO ***** --}}
             {{!-- ***** AUDIO ***** --}}
-            {{#if this.sound.size}}
+            {{#if this.audio.size}}
             <div class='space'>*</div>
               <a href="" class="slide-down-link">
-                <article class="exhibition light ">
+                <article class="exhibition light">
                     <div class="title">{{this.title}}</div>
-                    <div class="title">{{this.audio.size}}kb</div>
+                    <div class="size audio">{{this.audio.size}}kb</div>
                 </article>
               </a>
-            </div>
             <div class="thumb-container static">
               <div class="audio-control play">
                 <i class="fa fa-play play-icon"></i>
-                <i class="fa fa-stop stop-icon"></i> {{this.sound.size}} kb
+                <i class="fa fa-stop stop-icon"></i> {{this.audio.size}} kb
               </div>
               <audio loop>
-                <source src="{{this.sound.url}}">
+                <source src="{{this.audio.url}}">
               </audio>
+              <p>{{this.audio.caption}}</p>
             </div>        
             {{/if}}                  
 
@@ -257,22 +257,12 @@
             {{!-- ***** VIDEO ***** --}}
             {{#if this.video.size}}
             <div class='space'>*</div>
-              <a href="" class="slide-down-link">
-                <article class="exhibition light ">
+              <a href="{{this.video.url}}" class="video-link" data-caption="{{this.video.caption}}">
+                <article class="exhibition light">
                     <div class="title">{{this.title}}</div>
-                    <div class="title">{{this.audio.size}}kb</div>
+                    <div class="size video">{{this.video.size}}kb</div>
                 </article>
               </a>
-            </div>
-            <div class="thumb-container static">
-              <div class="audio-control play">
-                <i class="fa fa-play play-icon"></i>
-                <i class="fa fa-stop stop-icon"></i> {{this.sound.size}} kb
-              </div>
-              <audio loop>
-                <source src="{{this.sound.url}}">
-              </audio>
-            </div>
             {{/if}}    
 
           {{/if}} 

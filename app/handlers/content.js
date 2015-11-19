@@ -87,6 +87,10 @@
   };
 
   // IMAGE
+  // IMAGE
+  // IMAGE
+  // IMAGE
+  // IMAGE
 
   /*
    *
@@ -185,7 +189,7 @@
 
   exports.delete_image_content = function (req, res) {
     Content.findById(req.params.id, function (err, content) {
-      if (content !== null && content !== undefined) {
+      if (content.image.url) {
         var p = content.image.url.split('/');
         rimraf(fullDir + '/' + p[2], function (err) {
           if (err) {
@@ -228,17 +232,16 @@
 
       var content = new Content(),
         stats,
+        sizeInKilobytes,
         fullPath = '/data/' + now + '/' + files.sound.name,
-        newSndPath = dir + '/' + files.sound.name;
+        newPath = dir + '/' + files.sound.name;
 
       console.log(fields);
       console.log(files);
-      console.log(fullPath);
 
-      fs.renameSync(files.sound.path, newSndPath);
-      var stats = fs.statSync(newSndPath),
+      fs.renameSync(files.sound.path, newPath);
+      var stats = fs.statSync(newPath),
         sizeInKilobytes = stats.size / 1000.0;
-
 
       content.date = new Date();
       content.year = fields.start_date;
@@ -248,14 +251,11 @@
       content.title = fields.title;
       content.audio.caption = fields.caption;
 
-      console.log(content);
-
       content.save(function (err) {
         res.json({
           result: 'content'
         });
       });
-
     });
   };
 
@@ -273,7 +273,7 @@
 
       Content.findById(req.params.id, function (err, content) {
 
-        if (content !== null && content !== undefined) {
+        if (content) {
 
           content.year = fields.year;
           content.public = fields.public;
@@ -300,28 +300,23 @@
 
   exports.delete_audio_content = function (req, res) {
     Content.findById(req.params.id, function (err, content) {
-      if (content.audio.url !== null && content.audio.url !== undefined) {
-
-        console.log(content);
+      if (content.audio.url) {
         var p = content.audio.url.split('/');
         rimraf(fullDir + '/' + p[2], function (err) {
           if (err) {
             console.log(err);
           }
         });
-
-        Content.remove({
-          _id: req.params.id
-        }, function (err, content) {
-          res.json({
-            message: 'Success'
-          });
-        });
-
       }
     });
 
-
+    Content.remove({
+      _id: req.params.id
+    }, function (err, content) {
+      res.json({
+        message: 'Success'
+      });
+    });
   };
 
   // VIDEO
@@ -348,18 +343,16 @@
 
       var content = new Content(),
         stats,
+        sizeInKilobytes,
         fullPath = '/data/' + now + '/' + files.sound.name,
         newPath = dir + '/' + files.sound.name;
 
       console.log(fields);
       console.log(files);
-      console.log(fullPath);
 
       fs.renameSync(files.sound.path, newPath);
       var stats = fs.statSync(newPath),
         sizeInKilobytes = stats.size / 1000.0;
-
-      console.log(sizeInKilobytes);
 
       content.date = new Date();
       content.year = fields.start_date;
@@ -369,14 +362,11 @@
       content.title = fields.title;
       content.video.caption = fields.caption;
 
-      console.log(content);
-
       content.save(function (err) {
         res.json({
           result: 'content'
         });
       });
-
     });
   };
 
@@ -394,7 +384,7 @@
 
       Content.findById(req.params.id, function (err, content) {
 
-        if (content !== null && content !== undefined) {
+        if (content) {
 
           content.year = fields.year;
           content.public = fields.public;
@@ -413,7 +403,6 @@
     });
   };
 
-
   /*
    *
    *  Delete video
@@ -422,8 +411,8 @@
 
   exports.delete_video_content = function (req, res) {
     Content.findById(req.params.id, function (err, content) {
-      if (content != null) {
-        var p = content.video.url.split('/');
+      if (content.video.url.split) {
+        var p = content.image.url.split('/');
         rimraf(fullDir + '/' + p[2], function (err) {
           if (err) {
             console.log(err);
