@@ -49,10 +49,9 @@ a:active {
   }
 }
 
-a:hover {
-  opacity: .25;
-}
-
+//a:hover {
+//  opacity: .25;
+//}
 img {
   max-width: 85%;
 }
@@ -67,7 +66,7 @@ img {
   margin-top: 2 * $baseline;
   padding: 0;
   width: 100%;
-  transition: all .5s ease;
+  transition: all .3s ease;
 }
 
 .margin_bottom {
@@ -83,6 +82,16 @@ img {
 //
 //
 //
+a.default:hover::after {
+  display: inline;
+  content: "  (link)";
+}
+
+a[href^="mailto"]:hover::after {
+  display: inline;
+  content: "  (mail)";
+}
+
 a:hover article .external::after {
   display: inline;
   content: "  (link)";
@@ -101,6 +110,30 @@ a:hover article .image::after {
 a:hover article .audio::after {
   display: inline;
   content: "  (audio)";
+}
+
+a:hover article .text::after {
+  display: inline;
+  content: "  (text)";
+}
+
+a.geohash:hover::after {
+  display: inline;
+  content: "  (geolocation)";
+}
+
+a.up:hover::after {
+  display: inline;
+  content: "  (up)";
+}
+
+a:hover article .publication::after {
+  display: inline;
+  content: "  (publication)";
+}
+
+a.geohash {
+  display: block;
 }
 
 article {
@@ -223,6 +256,17 @@ audio {
     cursor: pointer;
     background-size: contain;
   }
+  iframe {
+    width: 80%;
+    height: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: visible;
+  }
 }
 
 .caption-container {
@@ -256,9 +300,9 @@ audio {
 }
 
 .blurred {
-  filter: blur(2px);
-  opacity: .5;
-  transition: all 1s ease;
+  filter: blur(20px);
+  opacity: .25;
+  transition: all 30s ease;
 }
 
 #tracestart-container {

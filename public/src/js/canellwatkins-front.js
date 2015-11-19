@@ -173,6 +173,18 @@
           '</div>')
         .show();
     });
+    
+    $(document).on("click", ".text-link", function (e) {
+      e.preventDefault();
+      $(".container-fluid").addClass("blurred");
+      $("#overlay")
+        .html('<iframe src="' +
+          $(this).attr("href") +
+          '"></iframe><div class="caption-container strong">' +
+          replaceNewlines($(this).data("caption")) +
+          '</div>')
+        .show();
+    });
 
 
     $(document).on("click", ".slide-down-link", function (e) {

@@ -1,51 +1,68 @@
 <div class="list-group">
-    {{#each this}} {{#if publisher}}
-    <a href="#" id="{{_id}}" class="list-group-item slider" data-toggle="collapse-next">
-        <div><strong>{{title}}</strong>
-        </div>
-        <div><em>{{publisher}}</em>
-        </div>
-        <div>{{start_date_pretty}}</div>
-    </a>
-    <div class="collapse editContainer">
-        <form class="ajaxFormUpdate" enctype="multipart/form-data" action="/api/update/publication" data-post-id="{{_id}}">
+    {{#each this}} 
+    
+      {{#if publisher}}
+        <a href="#" id="{{_id}}" class="list-group-item slider" data-toggle="collapse-next">
+            <div>
+              <i class="fa fa-book"></i> <strong>{{title}}</strong>
+            </div>
+              <div>
+                <em>{{publisher}}</em>
+              </div>
+            <div>{{start_date_pretty}}</div>
+        </a>
+      {{/if}}      
+  
+      {{#if text.url}}
+        <a href="#" id="{{_id}}" class="list-group-item slider" data-toggle="collapse-next">
+              <div>
+                <i class="fa fa-pencil"></i> <strong>{{title}}</strong>
+              </div>
+              <div>{{start_date_pretty}}</div>
+          </a>
+      {{/if}}
+  
+      {{#if publisher}}
+        <div class="collapse editContainer">
+          <form class="ajaxFormUpdate" enctype="multipart/form-data" action="/api/update/publication" data-post-id="{{_id}}">
             <fieldset>
-
                 <div class="form-group">
                     <label for="title">Title</label>
                     <div>
-                        <input id="title" name="title" type="text" placeholder="Title" class="input-sm form-control" value="{{title}}" required>
+                        <input id="title" name="title" type="text" class="input-sm form-control" value="{{title}}" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="publisher">Publisher</label>
                     <div>
-                        <input id="publisher" name="publisher" type="text" placeholder="Publisher" class="input-sm form-control" value="{{publisher}}">
+                        <input id="publisher" name="publisher" type="text" class="input-sm form-control" value="{{publisher}}">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="link">Link</label>
                     <div>
-                        <input id="link" name="link" type="url" placeholder="Link" class="input-sm form-control" value="{{link}}">
+                        <input id="link" name="link" type="url" class="input-sm form-control" value="{{link}}">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input-group">Publication year</label>
                     <div>
-                        <input type="text" class="input-sm form-control" name="start_date" value="{{start_date}}" required>
+                        <input type="text" class="input-sm form-control" name="start_date" value="{{start_date_pretty}}" required>
                     </div>
                 </div>
 
                 {{#if image.thumb}}
-                <div class="form-group">
+                  <div class="form-group">
                     <label for="link">Image</label>
                     <img src="{{image.thumb}}" class="thumbnail">
                 </div>
-                {{/if}} {{#if sound.url}}
-                <div class="form-group">
+                {{/if}} 
+              
+                {{#if sound.url}}
+                  <div class="form-group">
                     <label for="link">Sound</label>
                     <audio controls>
                         <source src="{{sound.url}}">
@@ -61,13 +78,15 @@
                 </div>
 
             </fieldset>
-        </form>
-    </div>
-          {{#if text}}
+          </form>
+        </div>
+      {{/if}}
 
-        <form class="ajaxFormUpdate" role="form" method="PUT" enctype="multipart/form-data" action="/api/content/update/text" data-post-id="{{_id}}">
+      {{#if text.url}}
+        <div class="collapse editContainer">
+          <form class="ajaxFormUpdate" role="form" method="PUT" enctype="multipart/form-data" action="/api/text/update/" data-post-id="{{_id}}">
             <fieldset>
-
+              
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input id="title" name="title" type="text" placeholder="Title" value="{{title}}" class="input-sm form-control" required>
@@ -82,25 +101,19 @@
                     <label for="input-group">Year</label>
                     <input class="input-sm form-control" type="text" name="year" value="{{year}}" required>
                 </div>
-
-                {{#if text.file}}
-                    <div class="form-group">
-                        <div>
-                            <label for="link">Textfile</label>
-                        </div>
-                        <a href="{{text.file}}" target=_blank>{{text.file}}</a>
-                    </div>
-                {{/if}} 
-                
-                {{#if text.link}}
+              
                 <div class="form-group">
-                    <div>
-                        <label for="link">Link to text</label>
-                    </div>
-                    <a href="{{text.link}}" target=_blank>{{text.link}}</a>
+                  <label for="caption">Caption</label>
+                  <textarea id="caption" name="caption" type="text" class="input-sm form-control"></textarea>
                 </div>
-                {{/if}}
 
+                <div class="form-group">
+                  <div>
+                      <label for="link">Textfile</label>
+                  </div>
+                  <a href="{{text.url}}" target=_blank>{{text.url}}</a>
+                </div>
+                
                 <div class="form-group">
                     Public {{#if public}}
                     <input type="checkbox" name="public" value="public" checked> {{/if}} {{#unless public}}
@@ -113,9 +126,9 @@
                 </div>
 
             </fieldset>
-        </form>
-
-        {{/if}}
+          </form>
+        </div>
+      {{/if}}
   
-    {{/if}} {{/each}}
+    {{/each}}
 </div>

@@ -187,83 +187,83 @@
    *
    */
 
-  //  exports.post_text_content = function (req, res) {
-  //
-  //    var form = new formidable.IncomingForm();
-  //
-  //    form.parse(req, function (err, fields) {
-  //
-  //      var content = new Content();
-  //      content.public = fields.public;
-  //      content.date = new Date();
-  //      content.year = fields.year;
-  //      content.text.body = fields.text;
-  //      content.title = fields.title;
-  //      content.text.author = fields.author;
-  //      content.text.link = fields.link;
-  //      content.user = req.user.email;
-  //
-  //      content.save(function (err) {
-  //        res.json({
-  //          result: 'content'
-  //        });
-  //      });
-  //
-  //    });
-  //
-  //  };
-  //
-  //
-  //  /*
-  //   *
-  //   *  Update text
-  //   *
-  //   */
-  //
-  //  exports.update_text_content = function (req, res) {
-  //
-  //    var form = new formidable.IncomingForm();
-  //
-  //    form.parse(req, function (err, fields) {
-  //
-  //      Content.findById(req.params.id, function (err, content) {
-  //
-  //        if (content !== null && content !== undefined) {
-  //
-  //          content.public = fields.public;
-  //          content.year = fields.year;
-  //          content.text.body = fields.text;
-  //          content.title = fields.title;
-  //          content.text.author = fields.author;
-  //          content.text.link = fields.link;
-  //          content.user = req.user.email;
-  //
-  //          content.save(function (err) {
-  //            res.json({
-  //              result: 'content'
-  //            });
-  //          });
-  //        }
-  //      });
-  //
-  //    });
-  //
-  //  };
+  exports.post_text_content = function (req, res) {
+
+    var form = new formidable.IncomingForm(),
+      now = Date.now(),
+      dir = fullDir + '/' + now;
+
+    fs.mkdirSync(dir);
+
+    form.parse(req, function (err, fields, files) {
+
+      var text = new Container(),
+        stats,
+        fileSizeInKilobytes,
+        fullFilePath = '/data/' + now + '/' + files.pdf.name,
+        newPath = dir + '/' + files.pdf.name;
+
+      console.log(fields);
+      console.log(files);
+
+      fs.renameSync(files.pdf.path, newPath);
+
+      stats = fs.statSync(newPath);
+      fileSizeInKilobytes = stats.size / 1000.0;
+
+      text.public = fields.public;
+      text.date = new Date();
+      text.year = fields.year;
+      text.title = fields.title;
+      text.text.author = fields.author;
+      text.text.url = fullFilePath;
+      text.text.size = fileSizeInKilobytes;
+      text.text.caption = fields.caption;
+
+      text.save(function (err) {
+        res.json({
+          result: 'publication'
+        });
+      });
+
+    });
+
+  };
+
 
   /*
    *
-   *  Delete text
+   *  Update text
    *
    */
 
-  //  exports.delete_text_content = function (req, res) {
-  //    Content.remove({
-  //      _id: req.params.id
-  //    }, function (err, content) {
-  //      res.json({
-  //        message: 'Success'
-  //      });
-  //    });
-  //  };
+  exports.update_text_content = function (req, res) {
+
+    var form = new formidable.IncomingForm();
+
+    form.parse(req, function (err, fields) {
+
+      Content.findById(req.params.id, function (err, content) {
+
+        if (content) {
+
+          text.public = fields.public;
+          text.year = fields.year;
+          text.title = fields.title;
+          text.text.author = fields.author;
+          text.text.caption = fields.caption;
+
+          content.save(function (err) {
+            res.json({
+              result: 'content'
+            });
+          });
+        }
+      });
+
+    });
+
+  };
+
 
 }());

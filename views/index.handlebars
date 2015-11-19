@@ -14,23 +14,23 @@
     <div class="menu-bar">
 
       <div class="col-md-5ths col-sm-5ths col-xs-5ths hidden-xs content-columns menu-col">
-        <a class="title strong">Cable length: <span id="cable-length"></span> km</a>
+        <a class="title strong up">Cable length: <span id="cable-length"></span> km</a>
       </div>
 
       <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
-        <a class="title strong">Nina Canell / Robin Watkins </a>
+        <a class="title strong up">Nina Canell / Robin Watkins </a>
       </div>
 
       <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
-        <a class="title strong">Exhibitions</a>
+        <a class="title strong up">Exhibitions</a>
       </div>
 
       <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
-        <a class="title strong">Texts</a>
+        <a class="title strong up">Texts</a>
       </div>
 
       <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
-        <a class="title strong">Works</a>
+        <a class="title strong up">Works</a>
       </div>
 
     </div>
@@ -132,7 +132,7 @@
                 <article class="exhibition light ">
                     <div class="title">{{this.title}}</div>
                     <div class="author">{{this.author}}</div>
-                    <div class="publisher">{{this.publisher}}</div>
+                    <div class="publisher publication">{{this.publisher}}</div>
                 </article>
             </a>
 
@@ -157,7 +157,7 @@
 
                 {{#if this.link}}
                     <div class='link-container'>
-                        <a href="{{this.link}}"> >> External link << </a>
+                        <a href="{{this.link}}">External link</a>
                     </div>
                 {{/if}}
 
@@ -170,27 +170,17 @@
             {{!-- ***** TEXT ***** --}}
             {{!-- ***** TEXT ***** --}}
 
-            {{#if this.text.author}}
+            {{#if this.text.size}}
                 
               <div class='space'>*</div>
 
-              {{#if this.text.file}}
-                  <a href="{{this.text.file}}">
-                      <article class="exhibition light">
-                          <div class="title">{{this.title}}</div>
-                          <div class="author">{{this.text.author}}</div>
-                      </article>
-                  </a>
-              {{/if}} 
-
-              {{#if this.text.link}}
-                  <a href="{{this.text.link}}" target=_blank>
-                      <article class="exhibition light">
-                          <div class="title">{{this.title}}</div>
-                          <div class="author external">{{this.text.author}}</div>
-                      </article>
-                  </a>
-              {{/if}}
+              <a href="{{this.text.url}}" class="text-link" data-caption="{{this.text.caption}}">
+                <article class="exhibition light">
+                    <div class="title">{{this.title}}</div>
+                    <div class="author">{{this.text.author}}</div>
+                    <div class="size text">{{this.text.size}}kb</div>
+                </article>
+              </a>
         
             {{/if}}
         

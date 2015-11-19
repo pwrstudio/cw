@@ -4,7 +4,6 @@
    *
    */
 
-
   var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     auth = require('./handlers/auth.js'),
@@ -89,8 +88,8 @@
     app.post('/api/publication', publication.post_publication);
     app.post('/api/update/publication/:id', publication.update_publication);
 
-//    app.post('/api/text/post/text', content.post_text_content);
-//    app.post('/api/text/:id', content.update_text_content);
+    app.post('/api/text/post/text', publication.post_text_content);
+    app.post('/api/text/update/:id', publication.update_text_content);
 
     /*
      *
