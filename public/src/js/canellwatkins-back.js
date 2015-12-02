@@ -74,6 +74,12 @@
           $(this)
             .html(MyApp.templates.content(data))
             .fadeIn();
+          $(".sortable").sortable({
+            cursor: "ns-resize",
+            axis: "y",
+            containment: "parent",
+            delay: 150
+          });
         });
       }
     });
@@ -165,6 +171,29 @@
     // Close image overlay
     $('#overlay').on('click', function (e) {
       $(this).hide();
+    });
+
+
+    $(document).on('click', '.updateorder', function (e) {
+      e.preventDefault();
+      $(".sort-container").each(function () {
+        $.ajax({
+          url: '/api/content/updateorder/' + $(this).data('i') + "/" + $(this).index(),
+          type: 'POST',
+          dataType: "json",
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function (data, textStatus, jqXHR) {
+            $.notify({
+              message: 'Order changed'
+            }, {
+              type: 'success'
+            });
+          },
+          error: function (jqXHR, textStatus, errorThrown) {}
+        });
+      });
     });
 
     /*

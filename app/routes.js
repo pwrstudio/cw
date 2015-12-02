@@ -67,6 +67,8 @@
     app.post('/api/content/update/video/:id', content.update_video_content);
     app.delete('/api/content/del/video/:id', content.delete_video_content);
 
+    app.post('/api/content/updateorder/:id/:index', content.update_content_order);
+
     /*
      *
      *  API: Exhibition

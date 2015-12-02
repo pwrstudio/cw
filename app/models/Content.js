@@ -37,7 +37,8 @@ var contentSchema = new mongoose.Schema({
   date: Date,
   year: Number,
   user: String,
-  public: Boolean
+  public: Boolean,
+  index: Number
 });
 
 module.exports = mongoose.model('content', contentSchema);

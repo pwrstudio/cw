@@ -46,7 +46,7 @@
       dst: dir + '/' + "large-" + fileName,
       width: 800,
       height: 800,
-      quality: 90
+      quality: 100
     });
 
     // Small
@@ -55,7 +55,7 @@
       dst: dir + '/' + "small-" + fileName,
       width: 450,
       height: 450,
-      quality: 80
+      quality: 100
     });
   }
 
@@ -68,7 +68,7 @@
 
   exports.get_content = function (req, res) {
     Content.find().sort({
-      date: -1
+      index: 1
     }).exec(function (err, contents) {
       res.json(contents);
     });
@@ -430,5 +430,33 @@
     });
   };
 
+
+  /*
+   *
+   *  Update content order
+   *
+   */
+
+
+  exports.update_content_order = function (req, res) {
+
+    console.log(req.params);
+
+    Content.findById(req.params.id, function (err, content) {
+
+      if (content) {
+
+        content.index = req.params.index;
+
+        content.save(function (err) {
+          res.json({
+            result: 'content'
+          });
+        });
+
+      }
+    });
+
+  };
 
 }());

@@ -43,7 +43,7 @@
         start_date: -1
       }).exec(function (err, data_container) {
         Content.find().sort({
-          year: -1
+          index: 1
         }).exec(function (err, data_content) {
           var query = Content.where({
             "image.frontpage": true
