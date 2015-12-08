@@ -24,7 +24,6 @@
 //
 html {
   color: $main-color;
-  font-size: 12px;
   line-height: 2 * $baseline;
 }
 
@@ -33,6 +32,7 @@ body {
   font-family: helvetica, arial, sans-serif;
   letter-spacing: 1px;
   overflow-x: hidden;
+  font-size: 11px;
 }
 
 a,
@@ -133,6 +133,11 @@ a:hover article .publication::after {
   content: "  (publication)";
 }
 
+div.cable:hover::after {
+  display: inline;
+  content: "  (cable)";
+}
+
 a.geohash {
   display: block;
 }
@@ -214,6 +219,20 @@ audio {
   position: static;
 }
 
+.opaque {
+  background: $main-color;
+  color: $background;
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
+.opaque-alt {
+  background: blue;
+  color: $background;
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
 .clicked {
   img {
     filter: grayscale(100%);
@@ -242,7 +261,7 @@ audio {
   position: fixed;
   z-index: 10000;
   display: none;
-  //  pointer-events: none;
+  pointer-events: none;
   img,
   video {
     max-width: 80%;
@@ -396,6 +415,10 @@ audio {
   width: 100% !important;
 }
 
+.mobile-title {
+  display: none;
+}
+
 //
 //
 //
@@ -434,17 +457,32 @@ audio {
   .hidden-sm {
     display: none;
   }
+  .mobile-half {
+    width: 50%;
+  }
+  .mobile-40 {
+    width: 40%;
+  }
+  .mobile-60 {
+    width: 60%;
+    padding-right: $baseline;
+  }
+  .mobile-hide {
+    display: none !important;
+  }
+  .mobile-title {
+    display: block !important;
+  }
+  .menu-bar {
+    position: absolute;
+  }
+  body {
+    font-size: 12px;
+  }
 }
 
 @media (min-width: 768px) {
   .col-sm-5ths {
-    width: 20%;
-    float: left;
-  }
-}
-
-@media (min-width: 992px) {
-  .col-md-5ths {
     width: 20%;
     float: left;
   }

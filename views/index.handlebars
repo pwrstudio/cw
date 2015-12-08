@@ -11,25 +11,25 @@
     {{!-- ***** MENU ***** --}}
     {{!-- ***** MENU ***** --}}
 
-    <div class="menu-bar">
+  <div class="menu-bar">
 
-      <div class="col-md-5ths col-sm-5ths col-xs-5ths hidden-xs content-columns menu-col">
+      <div class="col-md-5ths col-sm-5ths col-xs-5ths hidden-xs content-columns menu-col mobile-40">
         <a class="title strong up">Cable length: <span id="cable-length"></span> km</a>
       </div>
 
-      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
+      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col mobile-60">
         <a class="title strong up">Nina Canell / Robin Watkins </a>
       </div>
 
-      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
+      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col mobile-hide">
         <a class="title strong up">Exhibitions</a>
       </div>
 
-      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
+      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col mobile-hide">
         <a class="title strong up">Texts</a>
       </div>
 
-      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col">
+      <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col mobile-hide">
         <a class="title strong up">Works</a>
       </div>
 
@@ -42,7 +42,7 @@
     {{!-- ***** COL1: ROUTE ***** --}}
     {{!-- ***** COL1: ROUTE ***** --}}
 
-    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns mobile-40">
         <div class='space'>*</div>
         <div class="title ">Route:</div>
         <div class='space'>*</div>
@@ -62,7 +62,7 @@
     {{!-- ***** COL2: META ***** --}}
     {{!-- ***** COL2: META ***** --}}
 
-    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns mobile-60">
         <div class='space'>*</div>
         <div>
             <a href="mailto:info@canellwatkins.org">info@canellwatkins.org</a>
@@ -76,7 +76,10 @@
     {{!-- ***** COL2: EXHIBITIONS ***** --}}
     {{!-- ***** COL2: EXHIBITIONS ***** --}}
 
-    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns mobile-60">
+      
+        <div class="mobile-title strong up">Exhibitions</div>
+      
         {{#each container}} 
         
             {{#if this.location}}
@@ -118,7 +121,10 @@
     {{!-- ***** COL3: TEXTS / PUBLICATIONS ***** --}}
     {{!-- ***** COL3: TEXTS / PUBLICATIONS ***** --}}
 
-    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns mobile-60">
+      
+        <div class="mobile-title strong up">Texts</div>
+      
         {{#each container}} 
       
           {{!-- ***** PUBLICATION ***** --}}
@@ -203,7 +209,10 @@
     {{!-- ***** COL4: WORKS ***** --}}
     {{!-- ***** COL4: WORKS ***** --}}
 
-    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns">
+    <div class="col-md-5ths col-sm-5ths col-xs-5ths content-columns mobile-60">
+      
+      <div class="mobile-title strong up">Works</div>
+      
       {{#each content}} 
         {{#if this.public }} 
 

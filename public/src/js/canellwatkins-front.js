@@ -59,17 +59,6 @@
 
   /*
    *
-   *  Preload images
-   *
-   */
-
-  $.fn.preload = function () {
-    $('<img/>')[0].src = this;
-  };
-
-
-  /*
-   *
    *  Compare
    *
    */
@@ -150,33 +139,30 @@
 
     $(document).on("click", ".image-link", function (e) {
       e.preventDefault();
-      $(".container-fluid").addClass("blurred");
       $("#overlay")
         .html('<img src="' +
           $(this).data("large") +
           '" style="background-image: url(' +
           $(this).data("pinky") +
-          ')"><div class="caption-container strong">' +
-          replaceNewlines($(this).data("caption")) +
-          '</div>')
+          ')" data-caption="' +
+          $(this).data("caption") +
+          '"><div class="caption-container strong"></div>')
         .show();
     });
 
     $(document).on("click", ".video-link", function (e) {
       e.preventDefault();
-      $(".container-fluid").addClass("blurred");
       $("#overlay")
-        .html('<video autoplay loop><source src="' +
+        .html('<video autoplay loop data-caption="' +
+          $(this).data("caption") +
+          '"><source src="' +
           $(this).attr("href") +
-          '"></video><div class="caption-container strong">' +
-          replaceNewlines($(this).data("caption")) +
-          '</div>')
+          '"></video><div class="caption-container strong"></div>')
         .show();
     });
-    
+
     $(document).on("click", ".text-link", function (e) {
       e.preventDefault();
-      $(".container-fluid").addClass("blurred");
       $("#overlay")
         .html('<iframe src="' +
           $(this).attr("href") +
@@ -202,14 +188,30 @@
       }, 'slow');
     });
 
-
     // Close image overlay
-    $('#overlay').on('click', function (e) {
+    $(document).on('click', 'img.focused, #overlay.opaque, #overlay.opaque-alt, video.focused', function (e) {
       e.preventDefault();
       $("#overlay")
         .html('')
+        .removeClass('opaque')
+        .removeClass('opaque-alt')
         .hide();
-      $(".container-fluid").removeClass("blurred");
+    });
+
+    // Show caption image
+    $(document).on('click', '#overlay img', function (e) {
+      e.preventDefault();
+      $(this).addClass('focused');
+      $("#overlay").addClass('opaque');
+      $(".caption-container").text(replaceNewlines($(this).data("caption")));
+    });
+
+    // Show caption video
+    $(document).on('click', '#overlay video', function (e) {
+      e.preventDefault();
+      $(this).addClass('focused');
+      $("#overlay").addClass('opaque-alt');
+      $(".caption-container").text(replaceNewlines($(this).data("caption")));
     });
 
     // Play sounds
