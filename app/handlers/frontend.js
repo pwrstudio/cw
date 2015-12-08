@@ -23,15 +23,20 @@
 
   exports.index = function (req, res) {
 
-    var serverGeo = geoip.lookup("85.214.100.3");
+    var serverGeo = geoip.lookup("85.214.100.3"),
+      now = new Date(),
+      night = false,
+      solar,
+      lat,
+      long;
 
-    if (serverGeo != null) {
+    if (serverGeo) {
 
-      var lat = serverGeo.ll[0],
-        long = serverGeo.ll[1],
-        now = new Date(),
-        night = false,
-        solar = new SolarCalc(now, lat, long);
+      lat = serverGeo.ll[0];
+      long = serverGeo.ll[1];
+      now = new Date();
+      night = false;
+      solar = new SolarCalc(now, lat, long);
 
       if (now > solar.sunset) {
         night = true;
@@ -45,13 +50,17 @@
         Content.find().sort({
           index: 1
         }).exec(function (err, data_content) {
+
           var query = Content.where({
             "image.frontpage": true
           });
+
           query.findOne().exec(function (err, frontpage) {
 
-            if (frontpage != null) {
-              var ctx = {
+            var ctx;
+
+            if (frontpage) {
+              ctx = {
                 night: night,
                 frontpage: {
                   full: frontpage.image.url,
@@ -61,7 +70,7 @@
                 content: data_content
               };
             } else {
-              var ctx = {
+              ctx = {
                 night: night,
                 container: data_container,
                 content: data_content

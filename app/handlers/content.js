@@ -114,9 +114,6 @@
         fullFilePath = '/data/' + now + '/' + files.pic.name,
         newPath = dir + '/' + files.pic.name;
 
-      console.log(fields);
-      console.log(files);
-
       fs.renameSync(files.pic.path, newPath);
 
       resizeContent(newPath, dir, files.pic.name);
@@ -136,8 +133,6 @@
       content.image.pinky = '/data/' + now + '/' + "pinkynail-" + files.pic.name;
       content.title = fields.title;
       content.image.caption = fields.caption;
-
-      console.log(content.image.caption);
 
       content.save(function (err) {
         res.json({
@@ -161,7 +156,7 @@
 
       Content.findById(req.params.id, function (err, content) {
 
-        if (content !== null && content !== undefined) {
+        if (content) {
 
           content.year = fields.year;
           content.public = fields.public;
@@ -189,8 +184,11 @@
 
   exports.delete_image_content = function (req, res) {
     Content.findById(req.params.id, function (err, content) {
+
+      var p;
+
       if (content.image.url) {
-        var p = content.image.url.split('/');
+        p = content.image.url.split('/');
         rimraf(fullDir + '/' + p[2], function (err) {
           if (err) {
             console.log(err);
@@ -231,17 +229,14 @@
     form.parse(req, function (err, fields, files) {
 
       var content = new Content(),
-        stats,
-        sizeInKilobytes,
         fullPath = '/data/' + now + '/' + files.sound.name,
-        newPath = dir + '/' + files.sound.name;
-
-      console.log(fields);
-      console.log(files);
+        newPath = dir + '/' + files.sound.name,
+        stats,
+        sizeInKilobytes;
 
       fs.renameSync(files.sound.path, newPath);
-      var stats = fs.statSync(newPath),
-        sizeInKilobytes = stats.size / 1000.0;
+      stats = fs.statSync(newPath);
+      sizeInKilobytes = stats.size / 1000.0;
 
       content.date = new Date();
       content.year = fields.start_date;
@@ -347,12 +342,9 @@
         fullPath = '/data/' + now + '/' + files.sound.name,
         newPath = dir + '/' + files.sound.name;
 
-      console.log(fields);
-      console.log(files);
-
       fs.renameSync(files.sound.path, newPath);
-      var stats = fs.statSync(newPath),
-        sizeInKilobytes = stats.size / 1000.0;
+      stats = fs.statSync(newPath);
+      sizeInKilobytes = stats.size / 1000.0;
 
       content.date = new Date();
       content.year = fields.start_date;
@@ -439,8 +431,6 @@
 
 
   exports.update_content_order = function (req, res) {
-
-    console.log(req.params);
 
     Content.findById(req.params.id, function (err, content) {
 

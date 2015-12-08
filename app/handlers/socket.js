@@ -23,7 +23,7 @@
   // Look up location of ip
   function getGeo(i, callback) {
     var clientGeo = geoip.lookup(i);
-    if (clientGeo !== null) {
+    if (clientGeo) {
       callback(clientGeo);
     }
   }
@@ -32,12 +32,8 @@
 
     io.on('connection', function (socket) {
 
-      //        console.log(socket.handshake.headers);
-      //        console.log(socket.handshake);
-
       var ip = socket.handshake.headers["x-real-ip"],
         id = socket.id;
-
 
       if (!ip) {
         ip = socket.handshake.address;
@@ -47,12 +43,6 @@
       }
 
       ip = ip.replace("::ffff:", "");
-
-      // Get clients location
-      //        prevGeo = geoip.lookup(ip);
-      //
-      //        // Set first geo-point
-      //        prevPoint = new geopoint(prevGeo.ll[0], prevGeo.ll[1]);
 
       // Trace the route from server to client
       mtr.trace_raw(ip, {}, function (data, d) {
@@ -70,8 +60,6 @@
               // Generate geohash
               geohash = Geohash.encode(geo.ll[0], geo.ll[1]);
               thisPoint = new geopoint(geo.ll[0], geo.ll[1]);
-
-              //              console.log(geohash);
 
               // Get current point    
               if (prevPoint) {
@@ -111,8 +99,6 @@
                     }
 
                   }
-
-                  console.log(close);
 
                   // Collect the data
                   var point = {

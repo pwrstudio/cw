@@ -8,7 +8,6 @@
 
   "use strict";
 
-
   var formidable = require('formidable'),
     Container = require('../models/Container.js'),
     rimraf = require('rimraf'),
@@ -45,8 +44,8 @@
       height: 450,
       quality: 80,
     });
-  }
 
+  }
 
   /*
    *
@@ -58,8 +57,6 @@
     fullDir = appRoot + dataDir;
 
   fs.existsSync(fullDir) || fs.mkdirSync(fullDir);
-
-
 
   /*
    *
@@ -74,7 +71,6 @@
       res.json(publications);
     });
   };
-
 
   /*
    *
@@ -92,46 +88,51 @@
 
     form.parse(req, function (err, fields, files) {
 
-      var publication = new Container();
+      var publication = new Container(),
+        stats,
+        fileSizeInKilobytes,
+        newPath,
+        fullPath;
+      
       publication.title = fields.title;
       publication.link = fields.link;
       publication.publisher = fields.publisher;
       publication.start_date = fields.start_date;
       publication.start_date_pretty = fields.start_date;
 
-      if (files.pic.size !== 0) {
+      if (files.pic.size > 0) {
 
-        var fullFilePath = '/data/' + now + '/' + files.pic.name;
+        fullPath = '/data/' + now + '/' + files.pic.name;
 
-        var newPath = dir + '/' + files.pic.name;
+        newPath = dir + '/' + files.pic.name;
 
         fs.renameSync(files.pic.path, newPath);
 
         resizeContent(newPath, dir, files.pic.name);
 
-        var stats = fs.statSync(newPath);
-        var fileSizeInKilobytes = stats.size / 1000.0;
+        stats = fs.statSync(newPath);
+        fileSizeInKilobytes = stats.size / 1000.0;
 
         publication.image.size = fileSizeInKilobytes;
-        publication.image.url = fullFilePath;
+        publication.image.url = fullPath;
         publication.image.thumb = '/data/' + now + '/' + "thumbnail-" + files.pic.name;
         publication.image.large = '/data/' + now + '/' + "large-" + files.pic.name;
         publication.image.small = '/data/' + now + '/' + "small-" + files.pic.name;
 
       }
 
-      if (files.sound.size !== 0) {
+      if (files.sound.size > 0) {
 
-        var fullSndPath = '/data/' + now + '/' + files.sound.name;
+        fullPath = '/data/' + now + '/' + files.sound.name;
 
-        var newSndPath = dir + '/' + files.sound.name;
+        newPath = dir + '/' + files.sound.name;
 
-        fs.renameSync(files.sound.path, newSndPath);
-        var stats = fs.statSync(newSndPath);
-        var sndSizeInKilobytes = stats.size / 1000.0;
+        fs.renameSync(files.sound.path, newPath);
+        stats = fs.statSync(newPath);
+        fileSizeInKilobytes = stats.size / 1000.0;
 
-        publication.sound.url = fullSndPath;
-        publication.sound.size = sndSizeInKilobytes;
+        publication.sound.url = fullPath;
+        publication.sound.size = fileSizeInKilobytes;
 
       }
 
@@ -144,7 +145,6 @@
     });
 
   };
-
 
   /*
    *
@@ -255,7 +255,7 @@
           text.text.author = fields.author;
           text.text.caption = fields.caption;
 
-         text.save(function (err) {
+          text.save(function (err) {
             res.json({
               result: 'publication'
             });
