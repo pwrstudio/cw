@@ -18,6 +18,7 @@ var containerSchema = new mongoose.Schema({
   specs: String,
   solo: Boolean,
   group: Boolean,
+  index: Number,
   text: {
     url: String,
     caption: String,

@@ -22,17 +22,18 @@
 //
 //
 //
-html {
+html,
+body {
   color: $main-color;
   line-height: 2 * $baseline;
-}
-
-body {
+  overflow-x: hidden;
   background: $background;
   font-family: helvetica, arial, sans-serif;
   letter-spacing: 1px;
-  overflow-x: hidden;
   font-size: 11px;
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+  width: 100%;
 }
 
 a,
@@ -63,7 +64,7 @@ img {
   display: inline-block;
   margin-bottom: 6 * $baseline;
   margin-left: $baseline;
-  margin-top: 2 * $baseline;
+  margin-top: 2%;
   padding: 0;
   width: 100%;
   //  transition: all .2s ease;

@@ -53,6 +53,15 @@
           $(this)
             .html(MyApp.templates.publication(data))
             .fadeIn();
+          $(".sortable-publication").sortable({
+            cursor: "ns-resize",
+            axis: "y",
+            containment: "parent",
+            delay: 150,
+            scroll: true,
+            scrollSensitivity: 80,
+            scrollSpeed: 3
+          });
         });
       }
     });
@@ -74,11 +83,22 @@
           $(this)
             .html(MyApp.templates.content(data))
             .fadeIn();
-          $(".sortable").sortable({
+          $(".sortable-content").sortable({
             cursor: "ns-resize",
             axis: "y",
             containment: "parent",
-            delay: 150
+            delay: 150,
+            scroll: true,
+            scrollSensitivity: 80,
+            scrollSpeed: 3,
+            sort: function (event, ui) {
+              var currentScrollTop = $(window).scrollTop(),
+                topHelper = ui.position.top,
+                delta = topHelper - currentScrollTop;
+              setTimeout(function () {
+                $(window).scrollTop(currentScrollTop + delta);
+              }, 5);
+            }
           });
         });
       }
@@ -174,9 +194,9 @@
     });
 
 
-    $(document).on('click', '.updateorder', function (e) {
+    $(document).on('click', '.update-content-order', function (e) {
       e.preventDefault();
-      $(".sort-container").each(function () {
+      $(".sort-container.content").each(function () {
         $.ajax({
           url: '/api/content/updateorder/' + $(this).data('i') + "/" + $(this).index(),
           type: 'POST',
@@ -186,7 +206,29 @@
           processData: false,
           success: function (data, textStatus, jqXHR) {
             $.notify({
-              message: 'Order changed'
+              message: 'Content order changed'
+            }, {
+              type: 'success'
+            });
+          },
+          error: function (jqXHR, textStatus, errorThrown) {}
+        });
+      });
+    });
+
+    $(document).on('click', '.update-publication-order', function (e) {
+      e.preventDefault();
+      $(".sort-container.publication").each(function () {
+        $.ajax({
+          url: '/api/publication/updateorder/' + $(this).data('i') + "/" + $(this).index(),
+          type: 'POST',
+          dataType: "json",
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function (data, textStatus, jqXHR) {
+            $.notify({
+              message: 'Publication order changed'
             }, {
               type: 'success'
             });

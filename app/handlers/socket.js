@@ -85,8 +85,6 @@
                   distance: 100
                 }, function (err, items) {
 
-                  console.log(items);
-
                   if (items) {
 
                     for (i = 1; i < items.length && i < 6; i++) {

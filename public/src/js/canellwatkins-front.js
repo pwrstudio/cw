@@ -161,6 +161,18 @@
         .show();
     });
 
+    $(document).on("click", ".audio-link", function (e) {
+      e.preventDefault();
+      $("#overlay")
+        .html('<audio autoplay loop data-caption="' +
+          $(this).data("caption") +
+          '"><source src="' +
+          $(this).data("sound") +
+          '"></audio><div class="caption-container strong"></div>')
+        .addClass('opaque')
+        .show();
+    });
+
     $(document).on("click", ".text-link", function (e) {
       e.preventDefault();
       $("#overlay")
@@ -169,7 +181,9 @@
           '"></iframe><div class="caption-container strong">' +
           replaceNewlines($(this).data("caption")) +
           '</div>')
+        .addClass('opaque')
         .show();
+
     });
 
 
@@ -203,15 +217,15 @@
       e.preventDefault();
       $(this).addClass('focused');
       $("#overlay").addClass('opaque');
-      $(".caption-container").text(replaceNewlines($(this).data("caption")));
+      $(".caption-container").html(replaceNewlines($(this).data("caption")));
     });
 
     // Show caption video
     $(document).on('click', '#overlay video', function (e) {
       e.preventDefault();
       $(this).addClass('focused');
-      $("#overlay").addClass('opaque-alt');
-      $(".caption-container").text(replaceNewlines($(this).data("caption")));
+      $("#overlay").addClass('opaque');
+      $(".caption-container").html(replaceNewlines($(this).data("caption")));
     });
 
     // Play sounds

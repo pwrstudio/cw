@@ -132,49 +132,22 @@
           {{!-- ***** PUBLICATION ***** --}}
           {{!-- ***** PUBLICATION ***** --}}
       
-          {{#if this.publisher}}
-            <div class='space'>*</div>
-            <a href="" class="slide-down-link">
-                <article class="exhibition light ">
-                    <div class="title">{{this.title}}</div>
-                    <div class="year publication">{{this.start_date_pretty}}</div>
-                </article>
-            </a>
+            {{#if this.publisher}}
 
-            <div class="thumb-container static">
-
-                {{#if this.sound.size}}
-                    <div class="audio-control play">
-                      <i class="fa fa-play play-icon"></i>
-                      <i class="fa fa-stop stop-icon"></i> {{this.sound.size}} kb
-                    </div>
-                    <audio loop>
-                        <source src="{{this.sound.url}}">
-                    </audio>
-                {{/if}}
-
-              {{#if this.image.thumb}}
-                <div>
-                  <a href="{{this.image.url}}" class="image-link margin_bottom" data-large="{{this.image.url}}" data-caption="{{this.title}}">
-                    <img src="{{this.image.thumb}}"
-                           data-large="{{this.image.large}}"
-                           data-pinky="{{this.image.pinkynail}}"
-                           class="thumbnail lightBox"> 
-                  </a>
-              </div>
-              {{/if}} 
-              
-              {{#if this.link}}
-                <div><a href="{{this.link}}" class="external">{{this.publisher}}</a></div>
-              {{else}}
-                <div>{{this.publisher}}</div>
-              {{/if}}
-              
-              {{#if this.specs}}
-                <div>{{this.specs}}</div>
-              {{/if}}
-
-            </div>
+              <div class='space'>*</div>
+              <a href="" class="{{#if this.sound.size}}audio-link{{else}}image-link{{/if}} hidden"
+                 data-large="{{this.image.large}}"
+                 data-pinky="{{this.image.pinkynail}}"
+                 data-caption="{{{this.title}}}<br>{{{this.publisher}}}<br>{{this.start_date_pretty}}<br>{{this.specs}}"
+                 {{#if this.sound.size}}
+                  data-sound="{{this.sound.url}}"
+                 data-soundsize="{{this.sound.size}}"
+                {{/if}}>
+                  <article class="exhibition light ">
+                      <div class="title">{{this.title}}</div>
+                      <div class="year publication">{{this.start_date_pretty}}</div>
+                  </article>
+              </a>
         
             {{/if}} 
       

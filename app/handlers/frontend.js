@@ -45,7 +45,7 @@
       }
 
       Container.find().sort({
-        start_date: -1
+        index: 1
       }).exec(function (err, data_container) {
         Content.find().sort({
           index: 1

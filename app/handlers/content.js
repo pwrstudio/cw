@@ -295,8 +295,11 @@
 
   exports.delete_audio_content = function (req, res) {
     Content.findById(req.params.id, function (err, content) {
+
+      var p;
+
       if (content.audio.url) {
-        var p = content.audio.url.split('/');
+        p = content.audio.url.split('/');
         rimraf(fullDir + '/' + p[2], function (err) {
           if (err) {
             console.log(err);
@@ -403,8 +406,8 @@
 
   exports.delete_video_content = function (req, res) {
     Content.findById(req.params.id, function (err, content) {
-      if (content.video.url.split) {
-        var p = content.image.url.split('/');
+      if (content.video.url) {
+        var p = content.video.url.split('/');
         rimraf(fullDir + '/' + p[2], function (err) {
           if (err) {
             console.log(err);

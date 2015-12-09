@@ -66,7 +66,7 @@
 
   exports.get_publication = function (req, res) {
     Container.find().sort({
-      start_date: -1
+      index: 1
     }).exec(function (err, publications) {
       res.json(publications);
     });
@@ -93,7 +93,7 @@
         fileSizeInKilobytes,
         newPath,
         fullPath;
-      
+
       publication.title = fields.title;
       publication.link = fields.link;
       publication.publisher = fields.publisher;
@@ -263,6 +263,33 @@
         }
       });
 
+    });
+
+  };
+
+
+  /*
+   *
+   *  Update content order
+   *
+   */
+
+
+  exports.update_order = function (req, res) {
+
+    Container.findById(req.params.id, function (err, container) {
+
+      if (container) {
+
+        container.index = req.params.index;
+
+        container.save(function (err) {
+          res.json({
+            result: 'container'
+          });
+        });
+
+      }
     });
 
   };

@@ -8,11 +8,6 @@
 //
 //
 @import 'compass/reset';
-* {
-  -webkit-touch-callout: none;
-  user-select: none;
-}
-
 //
 //
 //
@@ -196,13 +191,15 @@ form,
   }
 }
 
-.updateorder {
+.update-publication-order,
+.update-content-order {
   margin-top: $baseline;
 }
 
 .sortable {
   overflow: auto;
 }
+
 //
 //
 //
