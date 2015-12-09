@@ -13,7 +13,9 @@ var gulp = require('gulp'),
   minifyCSS = require('gulp-minify-css'),
   handlebars = require('gulp-handlebars'),
   wrap = require('gulp-wrap'),
-  declare = require('gulp-declare');
+  declare = require('gulp-declare'),
+  imageResize = require('gulp-image-resize');
+
 
 
 // Concatenate & Minify JS
@@ -63,6 +65,18 @@ gulp.task('templates', function () {
     .pipe(uglify())
     .pipe(gulp.dest('public/dist/js/handlebars'));
 });
+
+//gulp.task('resize', function () {
+//  gulp.src('public/data/**/*.{png,gif,jpg}')
+//    .pipe(imageResize({
+//      width: 300,
+//      height: 300
+//    }))
+//    .pipe(rename(function (path) {
+//      path.basename = "thumbnail-" + path.basename;
+//    }))
+//    .pipe(gulp.dest(''));
+//});
 
 // Watch for changes in files
 gulp.task('watch', function () {

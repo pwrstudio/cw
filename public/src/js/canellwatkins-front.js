@@ -164,11 +164,10 @@
     $(document).on("click", ".audio-link", function (e) {
       e.preventDefault();
       $("#overlay")
-        .html('<audio autoplay loop data-caption="' +
-          $(this).data("caption") +
-          '"><source src="' +
+        .html('<audio autoplay loop><source src="' +
           $(this).data("sound") +
-          '"></audio><div class="caption-container strong"></div>')
+          '"></audio><div class="caption-container strong">' +
+          $(this).data("caption") + '</div>')
         .addClass('opaque')
         .show();
     });
@@ -228,26 +227,26 @@
       $(".caption-container").html(replaceNewlines($(this).data("caption")));
     });
 
-    // Play sounds
-    $(document).on('click', '.play', function (e) {
-      e.preventDefault();
-      $(this)
-        .removeClass("play")
-        .addClass("pause")
-        .next("audio")[0]
-        .play();
-    });
-
-    // Pause sounds
-    $(document).on('click', '.pause', function (e) {
-      e.preventDefault();
-      $(this)
-        .removeClass("pause")
-        .addClass("play")
-        .next("audio")[0]
-        .pause()
-        .currentTime = 0;
-    });
+    //    // Play sounds
+    //    $(document).on('click', '.play', function (e) {
+    //      e.preventDefault();
+    //      $(this)
+    //        .removeClass("play")
+    //        .addClass("pause")
+    //        .next("audio")[0]
+    //        .play();
+    //    });
+    //
+    //    // Pause sounds
+    //    $(document).on('click', '.pause', function (e) {
+    //      e.preventDefault();
+    //      $(this)
+    //        .removeClass("pause")
+    //        .addClass("play")
+    //        .next("audio")[0]
+    //        .pause()
+    //        .currentTime = 0;
+    //    });
 
   });
 
