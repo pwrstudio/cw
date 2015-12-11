@@ -196,7 +196,11 @@ form,
   margin-top: $baseline;
 }
 
-.sortable {
+.sortable-content {
+  overflow: auto;
+}
+
+.sortable-publication {
   overflow: auto;
 }
 

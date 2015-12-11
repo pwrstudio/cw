@@ -90,15 +90,15 @@
             delay: 150,
             scroll: true,
             scrollSensitivity: 80,
-            scrollSpeed: 3,
-            sort: function (event, ui) {
-              var currentScrollTop = $(window).scrollTop(),
-                topHelper = ui.position.top,
-                delta = topHelper - currentScrollTop;
-              setTimeout(function () {
-                $(window).scrollTop(currentScrollTop + delta);
-              }, 5);
-            }
+            scrollSpeed: 3
+              //            sort: function (event, ui) {
+              //              var currentScrollTop = $(window).scrollTop(),
+              //                topHelper = ui.position.top,
+              //                delta = topHelper - currentScrollTop;
+              //              setTimeout(function () {
+              //                $(window).scrollTop(currentScrollTop + delta);
+              //              }, 100);
+              //            }
           });
         });
       }
@@ -124,9 +124,9 @@
     $("#video-form-container").html(MyApp.templates.videoform());
   }
 
-  function loadTextForm() {
-    $("#text-form-container").html(MyApp.templates.textform());
-  }
+  //  function loadTextForm() {
+  //    $("#text-form-container").html(MyApp.templates.textform());
+  //  }
 
   function loadExhibitionForm() {
     $("#exhibition-form-container").html(MyApp.templates.exhibitionform());
@@ -156,7 +156,7 @@
 
     // Load forms
     loadImageForm();
-    loadTextForm();
+    //    loadTextForm();
     loadExhibitionForm();
     loadPublicationForm();
     loadAudioForm();
@@ -398,7 +398,7 @@
 
             getPublications();
             loadPublicationForm();
-            loadTextForm();
+            //            loadTextForm();
             $('a[href="#publication_list"]').tab('show');
             spinner.hide();
             formObj.find("input").val('');

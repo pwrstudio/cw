@@ -90,8 +90,8 @@
     app.post('/api/publication', publication.post_publication);
     app.post('/api/update/publication/:id', publication.update_publication);
 
-    app.post('/api/text/post/text', publication.post_text_content);
-    app.post('/api/text/update/:id', publication.update_text_content);
+    //    app.post('/api/text/post/text', publication.post_text_content);
+    //    app.post('/api/text/update/:id', publication.update_text_content);
 
     app.post('/api/publication/updateorder/:id/:index', publication.update_order);
 

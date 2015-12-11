@@ -100,6 +100,8 @@
       publication.start_date = fields.start_date;
       publication.start_date_pretty = fields.start_date;
 
+      console.log(files);
+
       if (files.pic.size > 0) {
 
         fullPath = '/data/' + now + '/' + files.pic.name;
@@ -128,11 +130,28 @@
         newPath = dir + '/' + files.sound.name;
 
         fs.renameSync(files.sound.path, newPath);
+
         stats = fs.statSync(newPath);
         fileSizeInKilobytes = stats.size / 1000.0;
 
         publication.sound.url = fullPath;
         publication.sound.size = fileSizeInKilobytes;
+
+      }
+
+      if (files.text.size > 0) {
+
+        fullPath = '/data/' + now + '/' + files.text.name;
+
+        newPath = dir + '/' + files.text.name;
+
+        fs.renameSync(files.text.path, newPath);
+
+        stats = fs.statSync(newPath);
+        fileSizeInKilobytes = stats.size / 1000.0;
+
+        publication.text.url = fullPath;
+        publication.text.size = fileSizeInKilobytes;
 
       }
 
@@ -180,93 +199,6 @@
     });
 
   };
-
-  /*
-   *
-   *  Add text
-   *
-   */
-
-  exports.post_text_content = function (req, res) {
-
-    var form = new formidable.IncomingForm(),
-      now = Date.now(),
-      dir = fullDir + '/' + now;
-
-    fs.mkdirSync(dir);
-
-    form.parse(req, function (err, fields, files) {
-
-      var text = new Container(),
-        stats,
-        fileSizeInKilobytes,
-        fullFilePath = '/data/' + now + '/' + files.pdf.name,
-        newPath = dir + '/' + files.pdf.name;
-
-      console.log(fields);
-      console.log(files);
-
-      fs.renameSync(files.pdf.path, newPath);
-
-      stats = fs.statSync(newPath);
-      fileSizeInKilobytes = stats.size / 1000.0;
-
-      text.text.public = fields.public;
-      text.date = new Date();
-      text.start_date = fields.year;
-      text.start_date_pretty = fields.year;
-      text.title = fields.title;
-      text.text.author = fields.author;
-      text.text.url = fullFilePath;
-      text.text.size = fileSizeInKilobytes;
-      text.text.caption = fields.caption;
-
-      text.save(function (err) {
-        res.json({
-          result: 'publication'
-        });
-      });
-
-    });
-
-  };
-
-
-  /*
-   *
-   *  Update text
-   *
-   */
-
-  exports.update_text_content = function (req, res) {
-
-    var form = new formidable.IncomingForm();
-
-    form.parse(req, function (err, fields) {
-
-      Container.findById(req.params.id, function (err, text) {
-
-        if (text) {
-
-          text.text.public = fields.public;
-          text.start_date = fields.year;
-          text.start_date_pretty = fields.year;
-          text.title = fields.title;
-          text.text.author = fields.author;
-          text.text.caption = fields.caption;
-
-          text.save(function (err) {
-            res.json({
-              result: 'publication'
-            });
-          });
-        }
-      });
-
-    });
-
-  };
-
 
   /*
    *

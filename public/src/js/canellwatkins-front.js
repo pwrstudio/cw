@@ -124,7 +124,6 @@
     });
 
     socket.on('traced', function (msg) {
-      //      console.log("traced");
       if (msg !== null) {
         traceResults.push(msg);
         $("#tracestart-container").html(MyApp.templates.tracestart(msg));
@@ -194,11 +193,11 @@
     });
 
 
-    $(document).on("click", ".menu-col", function (e) {
+    $(document).on("click", ".up", function (e) {
       e.preventDefault();
       $('body').animate({
         scrollTop: 0
-      }, 'slow');
+      });
     });
 
     // Close image overlay
@@ -227,26 +226,26 @@
       $(".caption-container").html(replaceNewlines($(this).data("caption")));
     });
 
-    //    // Play sounds
-    //    $(document).on('click', '.play', function (e) {
-    //      e.preventDefault();
-    //      $(this)
-    //        .removeClass("play")
-    //        .addClass("pause")
-    //        .next("audio")[0]
-    //        .play();
-    //    });
-    //
-    //    // Pause sounds
-    //    $(document).on('click', '.pause', function (e) {
-    //      e.preventDefault();
-    //      $(this)
-    //        .removeClass("pause")
-    //        .addClass("play")
-    //        .next("audio")[0]
-    //        .pause()
-    //        .currentTime = 0;
-    //    });
+    // Play sounds
+    $(document).on('click', '.play', function (e) {
+      e.preventDefault();
+      $(this)
+        .removeClass("play")
+        .addClass("pause")
+        .next("audio")[0]
+        .play();
+    });
+
+    // Pause sounds
+    $(document).on('click', '.pause', function (e) {
+      e.preventDefault();
+      $(this)
+        .removeClass("pause")
+        .addClass("play")
+        .next("audio")[0]
+        .pause()
+        .currentTime = 0;
+    });
 
   });
 

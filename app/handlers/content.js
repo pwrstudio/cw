@@ -122,7 +122,7 @@
       fileSizeInKilobytes = stats.size / 1000.0;
 
       content.date = new Date();
-      content.year = fields.year;
+      content.year = escape(fields.year);
       content.public = fields.public;
       content.image.frontpage = fields.frontpage;
       content.image.size = fileSizeInKilobytes;
@@ -131,8 +131,8 @@
       content.image.large = '/data/' + now + '/' + "large-" + files.pic.name;
       content.image.small = '/data/' + now + '/' + "small-" + files.pic.name;
       content.image.pinky = '/data/' + now + '/' + "pinkynail-" + files.pic.name;
-      content.title = fields.title;
-      content.image.caption = fields.caption;
+      content.title = escape(fields.title);
+      content.image.caption = escape(fields.caption);
 
       content.save(function (err) {
         res.json({
@@ -161,8 +161,10 @@
           content.year = fields.year;
           content.public = fields.public;
           content.image.frontpage = fields.frontpage;
-          content.title = fields.title;
-          content.image.caption = fields.caption;
+          content.title = escape(fields.title);
+          content.image.caption = escape(fields.caption);
+          
+          console.log(escape(fields.caption));
 
           content.save(function (err) {
             res.json({
@@ -243,8 +245,8 @@
       content.public = fields.public;
       content.audio.url = fullPath;
       content.audio.size = sizeInKilobytes;
-      content.title = fields.title;
-      content.audio.caption = fields.caption;
+      content.title = escape(fields.title);
+      content.audio.caption = escape(fields.caption);
 
       content.save(function (err) {
         res.json({
@@ -272,8 +274,8 @@
 
           content.year = fields.year;
           content.public = fields.public;
-          content.title = fields.title;
-          content.audio.caption = fields.caption;
+          content.title = escape(fields.title);
+          content.audio.caption = escape(fields.caption);
 
           content.save(function (err) {
             res.json({
@@ -354,8 +356,8 @@
       content.public = fields.public;
       content.video.url = fullPath;
       content.video.size = sizeInKilobytes;
-      content.title = fields.title;
-      content.video.caption = fields.caption;
+      content.title = escape(fields.title);
+      content.video.caption = escape(fields.caption);
 
       content.save(function (err) {
         res.json({
@@ -384,7 +386,7 @@
           content.year = fields.year;
           content.public = fields.public;
           content.title = fields.title;
-          content.video.caption = fields.caption;
+          content.video.caption = escape(fields.caption);
 
           content.save(function (err) {
             res.json({
