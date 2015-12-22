@@ -118,6 +118,7 @@
           $("#counterOverlay").hide();
           $(".content-columns").show();
           $("#cable-length").html(msg.total);
+          $("#round-trip").html(msg.roundtrip);
         }, 1500);
       }, 700);
 
@@ -137,7 +138,6 @@
      */
 
     $(document).on("click", ".image-link", function (e) {
-      e.preventDefault();
       $("#overlay")
         .html('<img src="' +
           $(this).data("large") +
@@ -147,10 +147,10 @@
           $(this).data("caption") +
           '"><div class="caption-container strong"></div>')
         .show();
+      return false;
     });
 
     $(document).on("click", ".video-link", function (e) {
-      e.preventDefault();
       $("#overlay")
         .html('<video autoplay loop data-caption="' +
           $(this).data("caption") +
@@ -158,10 +158,10 @@
           $(this).attr("href") +
           '"></video><div class="caption-container strong"></div>')
         .show();
+      return false;
     });
 
     $(document).on("click", ".audio-link", function (e) {
-      e.preventDefault();
       $("#overlay")
         .html('<audio autoplay loop><source src="' +
           $(this).data("sound") +
@@ -169,10 +169,10 @@
           $(this).data("caption") + '</div>')
         .addClass('opaque')
         .show();
+      return false;
     });
 
     $(document).on("click", ".text-link", function (e) {
-      e.preventDefault();
       $("#overlay")
         .html('<iframe src="' +
           $(this).attr("href") +
@@ -181,70 +181,68 @@
           '</div>')
         .addClass('opaque')
         .show();
-
+      return false;
     });
 
 
     $(document).on("click", ".slide-down-link", function (e) {
-      e.preventDefault();
       $(this)
         .next(".thumb-container")
-        .slideToggle(700);
+        .toggle();
+      return false;
     });
 
 
     $(document).on("click", ".up", function (e) {
-      e.preventDefault();
-      $('body').animate({
-        scrollTop: 0
-      });
+      $(window).scrollTop(0);
+      return false;
     });
 
     // Close image overlay
     $(document).on('click', 'img.focused, #overlay.opaque, #overlay.opaque-alt, video.focused', function (e) {
-      e.preventDefault();
       $("#overlay")
         .html('')
         .removeClass('opaque')
         .removeClass('opaque-alt')
         .hide();
+      return false;
     });
 
     // Show caption image
     $(document).on('click', '#overlay img', function (e) {
-      e.preventDefault();
       $(this).addClass('focused');
       $("#overlay").addClass('opaque');
       $(".caption-container").html(replaceNewlines($(this).data("caption")));
+      return false;
     });
 
     // Show caption video
     $(document).on('click', '#overlay video', function (e) {
-      e.preventDefault();
       $(this).addClass('focused');
       $("#overlay").addClass('opaque');
       $(".caption-container").html(replaceNewlines($(this).data("caption")));
+      return false;
     });
 
     // Play sounds
     $(document).on('click', '.play', function (e) {
-      e.preventDefault();
       $(this)
         .removeClass("play")
         .addClass("pause")
         .next("audio")[0]
         .play();
+      return false;
     });
 
     // Pause sounds
     $(document).on('click', '.pause', function (e) {
-      e.preventDefault();
       $(this)
         .removeClass("pause")
         .addClass("play")
         .next("audio")[0]
         .pause()
         .currentTime = 0;
+      return false;
     });
 
   });

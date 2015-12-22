@@ -90,7 +90,7 @@
             delay: 150,
             scroll: true,
             scrollSensitivity: 80,
-            scrollSpeed: 3
+            scrollSpeed: 3,
               //            sort: function (event, ui) {
               //              var currentScrollTop = $(window).scrollTop(),
               //                topHelper = ui.position.top,

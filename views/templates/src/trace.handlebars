@@ -1,6 +1,6 @@
 {{#if ip}}
 <article class='ping_container'>
-  <div>⟢ {{ip}}</div>
+  <div>‡ {{ip}}</div>
   {{#if orgname}}
   <div>{{orgname}}</div>
   {{else}} {{#if orgid}}
@@ -19,6 +19,9 @@
 {{#if cables}}
 {{#each cables}}
 {{#if this.url}}<a href="{{this.url}}" target="_blank">{{/if}}
-<div class="cableContainer space cable">∿ {{this.name}}<br>[{{this.owners}}]</div>
+<div class="cableContainer space cable">~ {{this.name}}<br>[{{this.owners}}]</div>
 {{#if this.url}}</a>{{/if}}
-{{/each}} {{/if}} {{/if}}
+{{/each}} 
+<div class='space'>*</div>
+{{/if}} 
+{{/if}}

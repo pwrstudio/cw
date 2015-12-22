@@ -121,3 +121,9 @@ require('./app/handlers/socket.js')(app, io);
  */
 
 exports = module.exports = app;
+
+// For now...
+
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ' + err);
+});

@@ -15,7 +15,7 @@
 
       <div class='col-md-5ths col-sm-5ths col-xs-5ths hidden-xs content-columns menu-col mobile-40'>
         <a class='title strong up'>Cable length: <span id='cable-length'></span> km</a>
-      </div>
+      </div>      
 
       <div class='col-md-5ths col-sm-5ths col-xs-5ths content-columns menu-col mobile-60'>
         <a class='title strong up'>Nina Canell / Robin Watkins </a>
@@ -44,7 +44,9 @@
 
     <div class='col-md-5ths col-sm-5ths col-xs-5ths content-columns mobile-40'>
         <div class='space'>*</div>
-        <div class='title '>Route:</div>
+        <div class='title'>Signal roundtrip time: <span id='round-trip'></span> ms</div>
+        <div class='space'>*</div>
+        <div class='title'>Route:</div>
         <div class='space'>*</div>
         <div id='trace-container'></div>
         <article class='ping_container'>
@@ -142,6 +144,8 @@
                   </article>
               </a>
             <div class='thumb-container static'>
+              
+              <div class='space'>¬</div>
           
               {{#if this.image.size}}
                 <div class="link-container">
@@ -225,6 +229,9 @@
                 </article>
               </a>
             <div class='thumb-container static'>
+              
+              <div class='space'>¬</div>
+              
               <div class='audio-control play'>
                 <i class='fa fa-play play-icon'></i>
                 <i class='fa fa-stop stop-icon'></i> {{this.audio.size}} kb
