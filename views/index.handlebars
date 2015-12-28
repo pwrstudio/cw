@@ -44,7 +44,7 @@
 
     <div class='col-md-5ths col-sm-5ths col-xs-5ths content-columns mobile-40'>
         <div class='space'>*</div>
-        <div class='title'>Signal roundtrip time: <span id='round-trip'></span> ms</div>
+        <div class='title'>Signal roundtrip: <span id='round-trip'></span> ms</div>
         <div class='space'>*</div>
         <div class='title'>Route:</div>
         <div class='space'>*</div>
@@ -82,35 +82,32 @@
       
         <div class='mobile-title strong up'>Exhibitions</div>
       
-        {{#each container}} 
+        {{#each exhibitions}} 
         
-            {{#if this.location}}
-
             <div class='space'>*</div> 
 
-                {{#if this.link}}
-                    <a href='{{this.link}}' target=_blank>
-                {{/if}}
+            {{#if this.link}}
+                <a href='{{this.link}}' target=_blank>
+            {{/if}}
 
-                <article class='exhibition light'>
-                    <div class='title'>{{this.title}}</div>
-                    <div class='date'>{{this.start_date_pretty}} — {{this.end_date_pretty}}</div>
-                    <div class='location'>{{this.location}}</div>
-                    <div class='exhibition-type'>
-                      {{#if this.group}}
-                        <span class='group-icon external'>Group</span>
-                      {{/if}}
-                      {{#if this.solo}}
-                      <span class='solo-icon external'>Solo</span>
-                      {{/if}}
-                    </div>
-                </article>
+            <article class='exhibition light'>
+                <div class='title'>{{this.title}}</div>
+                <div class='date'>{{this.start_date_pretty}} — {{this.end_date_pretty}}</div>
+                <div class='location'>{{this.location}}</div>
+                <div class='exhibition-type'>
+                  {{#if this.group}}
+                    <span class='group-icon external'>Group</span>
+                  {{/if}}
+                  {{#if this.solo}}
+                  <span class='solo-icon external'>Solo</span>
+                  {{/if}}
+                </div>
+            </article>
 
-                {{#if this.link}}
-                    </a>
-                {{/if}}
+            {{#if this.link}}
+                </a>
+            {{/if}}
 
-            {{/if}} 
         {{/each}}
         
         <div class='space'>*</div>
@@ -127,22 +124,20 @@
       
         <div class='mobile-title strong up'>Texts</div>
       
-        {{#each container}} 
+        {{#each publications}} 
       
           {{!-- ***** PUBLICATION ***** --}}
           {{!-- ***** PUBLICATION ***** --}}
           {{!-- ***** PUBLICATION ***** --}}
           {{!-- ***** PUBLICATION ***** --}}
       
-            {{#if this.publisher}}
-
-              <div class='space'>*</div>
-              <a href='' class='slide-down-link'>
-                  <article class='exhibition light '>
-                      <div class='title'>{{this.title}}</div>
-                      <div class='year publication'>{{this.start_date_pretty}}</div>
-                  </article>
-              </a>
+            <div class='space'>*</div>
+            <a href='' class='slide-down-link'>
+                <article class='exhibition light '>
+                    <div class='title'>{{this.title}}</div>
+                    <div class='year publication'>{{this.start_date_pretty}}</div>
+                </article>
+            </a>
             <div class='thumb-container static'>
               
               <div class='space'>¬</div>
@@ -170,16 +165,14 @@
                   <i class='fa fa-play play-icon'></i>
                   <i class='fa fa-stop stop-icon'></i> {{this.sound.size}} kb
                 </div>
-                <audio loop>
+                <audio>
                   <source src='{{this.sound.url}}'>
                 </audio>
                 <p>{{{this.sound.caption}}}</p>
               {{/if}}
                 
             </div> 
-        
-            {{/if}} 
-      
+              
         {{/each}}
         
         <div class='space'>*</div>
@@ -236,10 +229,10 @@
                 <i class='fa fa-play play-icon'></i>
                 <i class='fa fa-stop stop-icon'></i> {{this.audio.size}} kb
               </div>
-              <audio loop>
+              <audio>
                 <source src='{{this.audio.url}}'>
               </audio>
-              <p>{{this.audio.caption}}</p>
+              <p class='audio-caption'>{{this.audio.caption}}</p>
             </div>        
             {{/if}}                  
 

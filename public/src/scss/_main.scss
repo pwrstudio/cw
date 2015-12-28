@@ -153,7 +153,6 @@ article {
 .audio-control {
   display: block;
   margin-top: 2 * $baseline;
-  margin-bottom: 2 * $baseline;
   cursor: pointer;
   width: 100%;
 }
@@ -183,6 +182,13 @@ audio {
   display: none;
 }
 
+.audio-caption {
+  margin-top: 2 * $baseline;
+}
+
+//.title {
+//  max-width: 20em;
+//}
 .menu-bar {
   position: fixed;
   top: 0;
@@ -207,7 +213,7 @@ audio {
 
 .content-columns {
   display: none;
-  padding-right: 20px;
+  padding-right: 40px;
 }
 
 .thumb-container {
@@ -215,6 +221,7 @@ audio {
   margin: 0;
   padding: 0;
   line-height: 0;
+  margin-bottom: 2 * $baseline;
 }
 
 .fluid {
@@ -257,7 +264,6 @@ audio {
 
 .link-container {
   margin-top: 2 * $baseline;
-  margin-bottom: 2 * $baseline;
 }
 
 // Lightbox 
@@ -283,6 +289,7 @@ audio {
     pointer-events: visible;
     cursor: pointer;
     background-size: contain;
+    zindex: 10000;
   }
   iframe {
     width: 70%;
@@ -294,6 +301,7 @@ audio {
     top: 50%;
     transform: translateY(-50%);
     pointer-events: visible;
+    zindex: 10000;
   }
 }
 

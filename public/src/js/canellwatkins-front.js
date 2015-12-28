@@ -184,27 +184,15 @@
       return false;
     });
 
-
     $(document).on("click", ".slide-down-link", function (e) {
       $(this)
         .next(".thumb-container")
-        .toggle();
+        .slideToggle();
       return false;
     });
-
 
     $(document).on("click", ".up", function (e) {
       $(window).scrollTop(0);
-      return false;
-    });
-
-    // Close image overlay
-    $(document).on('click', 'img.focused, #overlay.opaque, #overlay.opaque-alt, video.focused', function (e) {
-      $("#overlay")
-        .html('')
-        .removeClass('opaque')
-        .removeClass('opaque-alt')
-        .hide();
       return false;
     });
 
@@ -213,7 +201,15 @@
       $(this).addClass('focused');
       $("#overlay").addClass('opaque');
       $(".caption-container").html(replaceNewlines($(this).data("caption")));
-      return false;
+    });
+
+    // Close image overlay
+    $(document).on('click', '.focused, .opaque, .opaque-alt', function (e) {
+      $("#overlay")
+        .html('')
+        .removeClass('opaque')
+        .removeClass('opaque-alt')
+        .hide();
     });
 
     // Show caption video
@@ -221,7 +217,6 @@
       $(this).addClass('focused');
       $("#overlay").addClass('opaque');
       $(".caption-container").html(replaceNewlines($(this).data("caption")));
-      return false;
     });
 
     // Play sounds

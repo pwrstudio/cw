@@ -1,3 +1,5 @@
+/*jslint browser: true, devel: true, node: true, nomen: true, plusplus: true*/
+
 /*
  *
  *  FRONTEND HANDLER
@@ -44,41 +46,58 @@
         night = true;
       }
 
-      Container.find().sort({
+      // Find publications
+      Container.find({
+        publisher: {
+          $exists: true
+        }
+      }).sort({
         index: 1
-      }).exec(function (err, data_container) {
-        Content.find().sort({
-          index: 1
-        }).exec(function (err, data_content) {
+      }).exec(function (err, publications) {
 
-          var query = Content.where({
-            "image.frontpage": true
-          });
+        // Find exhibitions
+        Container.find({
+          location: {
+            $exists: true
+          }
+        }).sort({
+          start_date: -1
+        }).exec(function (err, exhibitions) {
 
-          query.findOne().exec(function (err, frontpage) {
+          // Find works
+          Content.find().sort({
+            index: 1
+          }).exec(function (err, data_content) {
 
             var ctx;
 
-            if (frontpage) {
-              ctx = {
-                night: night,
-                frontpage: {
-                  full: frontpage.image.url,
-                  pinky: frontpage.image.pinky
-                },
-                container: data_container,
-                content: data_content
-              };
-            } else {
-              ctx = {
-                night: night,
-                container: data_container,
-                content: data_content
-              };
-            }
+            // Find frontpage
+            Content.findOne({
+              "image.frontpage": true
+            }).exec(function (err, frontpage) {
 
-            res.render('index', ctx);
+              if (frontpage) {
+                ctx = {
+                  night: night,
+                  frontpage: {
+                    full: frontpage.image.url,
+                    pinky: frontpage.image.pinky
+                  },
+                  publications: publications,
+                  exhibitions: exhibitions,
+                  content: data_content
+                };
+              } else {
+                ctx = {
+                  night: night,
+                  publications: publications,
+                  exhibitions: exhibitions,
+                  content: data_content
+                };
+              }
+              res.render('index', ctx);
 
+            });
           });
         });
       });

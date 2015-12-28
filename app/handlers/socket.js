@@ -71,12 +71,12 @@
                 // Calculate distance between previous point and current point
                 distance = prevPoint.distanceTo(thisPoint, true);
 
-                console.log(prevPoint._degLat + "/" + prevPoint._degLon + " to " + thisPoint._degLat + "/" + thisPoint._degLon + " == " + distance);
+                //                console.log(prevPoint._degLat + "/" + prevPoint._degLon + " to " + thisPoint._degLat + "/" + thisPoint._degLon + " == " + distance);
 
                 // Update total distance
                 totalDistance = totalDistance + distance;
 
-                console.log("TOTAL:" + totalDistance);
+                //                console.log("TOTAL:" + totalDistance);
 
               }
 
@@ -143,12 +143,16 @@
 
             session.pingHost(ip, function (error, target, sent, rcvd) {
 
+              console.log('in');
+
               var point,
                 roundtrip = rcvd - sent;
 
               if (error) {
+                console.log(error);
                 point = {
-                  total: Math.round(totalDistance)
+                  total: Math.round(totalDistance),
+                  roundtrip: 32
                 };
               } else {
                 console.log(roundtrip);
