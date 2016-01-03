@@ -69,35 +69,105 @@
             index: 1
           }).exec(function (err, data_content) {
 
-            var ctx;
+            var ctx = {},
+              frontpage = {};
 
-            // Find frontpage
+            // Find VIDEO frontpage
             Content.findOne({
-              "image.frontpage": true
-            }).exec(function (err, frontpage) {
+              "video.frontpage": true
+            }).exec(function (err, videoFrontpage) {
 
-              if (frontpage) {
+              console.log(videoFrontpage);
+
+              if (videoFrontpage) {
+
                 ctx = {
                   night: night,
                   frontpage: {
-                    full: frontpage.image.url,
-                    pinky: frontpage.image.pinky
+                    video: videoFrontpage.video.url
                   },
                   publications: publications,
                   exhibitions: exhibitions,
                   content: data_content
                 };
-              } else {
-                ctx = {
-                  night: night,
-                  publications: publications,
-                  exhibitions: exhibitions,
-                  content: data_content
-                };
-              }
-              res.render('index', ctx);
 
+                console.log(frontpage);
+                console.log("VIDEO");
+
+                res.render('index', ctx);
+
+                return;
+
+              } else {
+
+                // Find AUDIO frontpage
+                Content.findOne({
+                  "audio.frontpage": true
+                }).exec(function (err, audioFrontpage) {
+
+                  console.log(audioFrontpage);
+
+                  if (audioFrontpage) {
+
+                    ctx = {
+                      night: night,
+                      frontpage: {
+                        audio: audioFrontpage.audio.url
+                      },
+                      publications: publications,
+                      exhibitions: exhibitions,
+                      content: data_content
+                    };
+
+                    console.log(frontpage);
+                    console.log("AUDIO");
+
+                    res.render('index', ctx);
+
+                    return;
+
+                  } else {
+
+                    // Find IMAGE frontpage
+                    Content.findOne({
+                      "image.frontpage": true
+                    }).exec(function (err, imageFrontpage) {
+
+                      console.log(imageFrontpage);
+
+                      if (imageFrontpage) {
+
+                        ctx = {
+                          night: night,
+                          frontpage: {
+                            image: imageFrontpage.image.url,
+                            pinky: imageFrontpage.image.pinky,
+                          },
+                          publications: publications,
+                          exhibitions: exhibitions,
+                          content: data_content
+                        };
+
+                        console.log(frontpage);
+                        console.log("IMAGE");
+
+                        res.render('index', ctx);
+
+                        return;
+
+                      }
+
+                    });
+
+                  }
+
+                });
+
+              }
             });
+
+
+
           });
         });
       });

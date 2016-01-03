@@ -27,12 +27,14 @@ var contentSchema = new mongoose.Schema({
   audio: {
     caption: String,
     url: String,
-    size: Number
+    size: Number,
+    frontpage: Boolean
   },
   video: {
     caption: String,
     url: String,
-    size: Number
+    size: Number,
+    frontpage: Boolean
   },
   date: Date,
   year: Number,

@@ -1,5 +1,3 @@
-/*jslint browser: true, devel: true, node: true, nomen: true, plusplus: true*/
-
 /*
  *
  *  Sockets
@@ -17,7 +15,6 @@
     Geohash = require('latlon-geohash'),
     mtr = require('../helpers/mtr.js'),
     Cables = require('../models/Cables.js'),
-    ping = require("net-ping"),
     prevGeo,
     prevPoint,
     thisPoint,
@@ -52,9 +49,7 @@
 
         var geohash,
           thisPoint,
-          distance,
-          session = ping.createSession();
-
+          distance;
 
         if (d[0] === 'h') {
 
@@ -71,12 +66,8 @@
                 // Calculate distance between previous point and current point
                 distance = prevPoint.distanceTo(thisPoint, true);
 
-                //                console.log(prevPoint._degLat + "/" + prevPoint._degLon + " to " + thisPoint._degLat + "/" + thisPoint._degLon + " == " + distance);
-
                 // Update total distance
                 totalDistance = totalDistance + distance;
-
-                //                console.log("TOTAL:" + totalDistance);
 
               }
 
@@ -94,13 +85,10 @@
                   distance: 100
                 }, function (err, items) {
 
-                  var point = {},
-                    newObject = {};
-
                   if (items) {
 
-                    for (i = 1; i < items.length && i < 6; i += i) {
-                      newObject = {
+                    for (i = 1; i < items.length && i < 6; i++) {
+                      var newObject = {
                         name: items[i].name,
                         url: items[i].url,
                         owners: items[i].owners
@@ -111,7 +99,7 @@
                   }
 
                   // Collect the data
-                  point = {
+                  var point = {
                     ip: d[2],
                     index: d[1],
                     country: iso3311a2.getCountry(geo.country),
@@ -140,35 +128,13 @@
         // End of traceroute
         if (d[0] === 'x') {
           if (io.sockets.connected[id]) {
-
-            session.pingHost(ip, function (error, target, sent, rcvd) {
-
-              console.log('in');
-
-              var point,
-                roundtrip = rcvd - sent;
-
-              if (error) {
-                console.log(error);
-                point = {
-                  total: Math.round(totalDistance),
-                  roundtrip: 32
-                };
-              } else {
-                console.log(roundtrip);
-                point = {
-                  total: Math.round(totalDistance),
-                  roundtrip: roundtrip
-                };
-              }
-
-              // Reset distance
-              totalDistance = 0;
-              prevPoint = null;
-              io.sockets.connected[id].emit('tracedone', point);
-
-            });
-
+            var point = {
+              total: Math.round(totalDistance)
+            };
+            // Reset distance
+            totalDistance = 0;
+            prevPoint = null;
+            io.sockets.connected[id].emit('tracedone', point);
           }
         }
 
@@ -176,6 +142,6 @@
 
     });
 
-  };
+  }
 
 }());

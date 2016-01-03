@@ -163,7 +163,7 @@
           content.image.frontpage = fields.frontpage;
           content.title = escape(fields.title);
           content.image.caption = escape(fields.caption);
-          
+
           console.log(escape(fields.caption));
 
           content.save(function (err) {
@@ -242,6 +242,7 @@
 
       content.date = new Date();
       content.year = fields.start_date;
+      content.audio.frontpage = fields.frontpage;
       content.public = fields.public;
       content.audio.url = fullPath;
       content.audio.size = sizeInKilobytes;
@@ -273,6 +274,7 @@
         if (content) {
 
           content.year = fields.year;
+          content.audio.frontpage = fields.frontpage;
           content.public = fields.public;
           content.title = escape(fields.title);
           content.audio.caption = escape(fields.caption);
@@ -355,6 +357,7 @@
       content.year = fields.start_date;
       content.public = fields.public;
       content.video.url = fullPath;
+      content.video.frontpage = fields.frontpage;
       content.video.size = sizeInKilobytes;
       content.title = escape(fields.title);
       content.video.caption = escape(fields.caption);
@@ -386,6 +389,7 @@
           content.year = fields.year;
           content.public = fields.public;
           content.title = fields.title;
+          content.video.frontpage = fields.frontpage;
           content.video.caption = escape(fields.caption);
 
           content.save(function (err) {

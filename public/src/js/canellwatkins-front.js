@@ -111,14 +111,32 @@
 
     socket.on('tracedone', function (msg) {
       setTimeout(function () {
+
+
         $("#tracestart-container").html(MyApp.templates.tracestart(msg));
         setTimeout(function () {
+
+          var video = document.getElementById("frontpageVideo"),
+            audio = document.getElementById("frontpageAudio");
+
           oscillator.stop(0);
+          
           renderTraceQ();
+
+          if (audio) {
+            audio.pause();
+          }
+
+          if (video) {
+            video.pause();
+          }
+
+
           $("#counterOverlay").hide();
           $(".content-columns").show();
           $("#cable-length").html(msg.total);
-          $("#round-trip").html(msg.roundtrip);
+          $("#round-trip").html(32);
+          socket.disconnect();
         }, 1500);
       }, 700);
 

@@ -1,8 +1,30 @@
 <div id='overlay'></div>
 
-<div id='counterOverlay' style='background-image: url({{frontpage.full}}), url({{frontpage.pinky}});'>
-  <div id='tracestart-container' class='strong'></div>
-</div>
+{{#if frontpage.image}}
+
+  <div id='counterOverlay' style='background-image: url({{frontpage.image}}), url({{frontpage.pinky}});'>
+    <div id='tracestart-container' class='strong'></div>
+  </div>
+
+{{/if}} 
+
+{{#if frontpage.audio}}
+
+  <div id='counterOverlay' class='audio'>
+    <div id='tracestart-container' class='strong'></div>
+    <audio id='frontpageAudio' autoplay loop src='{{frontpage.audio}}'></audio>
+  </div>
+
+{{/if}} 
+
+{{#if frontpage.video}}
+
+  <div id='counterOverlay' class='audio'>
+    <div id='tracestart-container' class='strong'></div>
+    <video  id='frontpageVideo' autoplay loop src="{{frontpage.video}}"></video>
+  </div>
+
+{{/if}} 
 
 <div class='container-fluid'>
   
@@ -44,7 +66,7 @@
 
     <div class='col-md-5ths col-sm-5ths col-xs-5ths content-columns mobile-40'>
         <div class='space'>*</div>
-        <div class='title'>Signal roundtrip: <span id='round-trip'></span> ms</div>
+        <div class='title'>Signal roundtrip: <span id='round-trip'>32</span> ms</div>
         <div class='space'>*</div>
         <div class='title'>Route:</div>
         <div class='space'>*</div>
@@ -91,7 +113,7 @@
             {{/if}}
 
             <article class='exhibition light'>
-                <div class='title'>{{this.title}}</div>
+                <div class='title'>{{{this.title}}}</div>
                 <div class='date'>{{this.start_date_pretty}} — {{this.end_date_pretty}}</div>
                 <div class='location'>{{this.location}}</div>
                 <div class='exhibition-type'>
@@ -134,7 +156,7 @@
             <div class='space'>*</div>
             <a href='' class='slide-down-link'>
                 <article class='exhibition light '>
-                    <div class='title'>{{this.title}}</div>
+                    <div class='title'>{{{this.title}}}</div>
                     <div class='year publication'>{{this.start_date_pretty}}</div>
                 </article>
             </a>
@@ -203,7 +225,7 @@
                  data-pinky='{{this.image.pinky}}'
                  data-caption='{{this.image.caption}}'>
                   <article class='exhibition light'>
-                      <div class='title'>{{this.title}}</div>
+                      <div class='title'>{{{this.title}}}</div>
                       <div class='size image'>{{this.image.size}}kb</div>
                   </article>
               </a>
@@ -217,7 +239,7 @@
             <div class='space'>*</div>
               <a href='' class='slide-down-link'>
                 <article class='exhibition light'>
-                    <div class='title'>{{this.title}}</div>
+                    <div class='title'>{{{this.title}}}</div>
                     <div class='size audio'>{{this.audio.size}}kb</div>
                 </article>
               </a>
@@ -244,7 +266,7 @@
             <div class='space'>*</div>
               <a href='{{this.video.url}}' class='video-link' data-caption='{{this.video.caption}}'>
                 <article class='exhibition light'>
-                    <div class='title'>{{this.title}}</div>
+                    <div class='title'>{{{this.title}}}</div>
                     <div class='size video'>{{this.video.size}}kb</div>
                 </article>
               </a>

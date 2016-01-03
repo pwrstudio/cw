@@ -118,6 +118,20 @@
                       <input type="checkbox" name="public" value="public" checked> {{/if}} {{#unless public}}
                       <input type="checkbox" name="public" value="public"> {{/unless}}
                   </div>
+                
+                  <div class="form-group">
+
+                      Frontpage
+
+                      {{#if audio.frontpage}}
+                          <input type="checkbox" name="frontpage" value="frontpage" checked> 
+                      {{/if}} 
+
+                      {{#unless audio.frontpage}}
+                          <input type="checkbox" name="frontpage" value="frontpage">
+                      {{/unless}}
+
+                  </div>
 
                   <div class="form-group">
                       <button id="textSubmit" type="submit" class="btn btn-primary">Submit</button>
@@ -159,6 +173,20 @@
                       Public {{#if public}}
                       <input type="checkbox" name="public" value="public" checked> {{/if}} {{#unless public}}
                       <input type="checkbox" name="public" value="public"> {{/unless}}
+                  </div>
+                
+                  <div class="form-group">
+
+                      Frontpage
+
+                      {{#if video.frontpage}}
+                          <input type="checkbox" name="frontpage" value="frontpage" checked> 
+                      {{/if}} 
+
+                      {{#unless video.frontpage}}
+                          <input type="checkbox" name="frontpage" value="frontpage">
+                      {{/unless}}
+
                   </div>
 
                   <div class="form-group">
