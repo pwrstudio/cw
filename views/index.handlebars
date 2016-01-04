@@ -168,7 +168,7 @@
                 <div class="link-container">
                 <a href=''
                     class='image-link' 
-                    data-large='{{this.image.large}}'
+                    data-large='{{this.image.url}}'
                     data-pinky='{{this.image.pinkynail}}'
                     data-caption='{{{this.title}}}<br>{{{this.publisher}}}<br>{{this.start_date_pretty}}<br>{{this.specs}}'>Image ({{this.image.size}}kb)</a>
                 </div>
@@ -218,10 +218,10 @@
             {{!-- ***** IMAGE ***** --}}
             {{!-- ***** IMAGE ***** --}}
             {{!-- ***** IMAGE ***** --}}      
-            {{#if this.image.large}}
+            {{#if this.image.url}}
               <div class='space'>*</div>
               <a href='' class='image-link hidden'
-                 data-large='{{this.image.large}}'
+                 data-large='{{this.image.url}}'
                  data-pinky='{{this.image.pinky}}'
                  data-caption='{{this.image.caption}}'>
                   <article class='exhibition light'>
