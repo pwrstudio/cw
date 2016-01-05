@@ -2,7 +2,7 @@
 
 {{#if frontpage.image}}
 
-  <div id='counterOverlay' style='background-image: url({{frontpage.image}}), url({{frontpage.pinky}});'>
+  <div id='counterOverlay' style='background-image: url("{{frontpage.image}}"), url("{{frontpage.pinky}}");'>
     <div id='tracestart-container' class='strong'></div>
   </div>
 
@@ -22,6 +22,14 @@
   <div id='counterOverlay' class='audio'>
     <div id='tracestart-container' class='strong'></div>
     <video  id='frontpageVideo' autoplay loop src="{{frontpage.video}}"></video>
+  </div>
+
+{{/if}} 
+
+{{#if frontpage.empty}}
+
+  <div id='counterOverlay' class='audio'>
+    <div id='tracestart-container' class='strong'></div>
   </div>
 
 {{/if}} 

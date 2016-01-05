@@ -1,55 +1,213 @@
 <form class="ajaxForm" enctype="multipart/form-data" action="/api/publication">
-    <fieldset>
+  <fieldset>
 
-        <div class="form-group">
-            <label for="title">Title</label>
-            <div>
-                <input id="title" name="title" type="text" class="input-sm form-control" required>
-            </div>
-        </div>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <div>
+        <input id="title" name="title" type="text" class="input-sm form-control" required>
+      </div>
+    </div>
 
-        <div class="form-group">
-            <label for="publisher">Publisher</label>
-            <div>
-                <input id="publisher" name="publisher" type="text" class="input-sm form-control">
-            </div>
-        </div>
+    <div class="form-group">
+      <label for="publisher">Publisher</label>
+      <div>
+        <input id="publisher" name="publisher" type="text" class="input-sm form-control">
+      </div>
+    </div>
 
-        <div class="form-group">
-            <label for="link">Link</label>
-            <div>
-                <input id="link" name="link" type="url" class="input-sm form-control">
-            </div>
-        </div>
+    <div class="form-group">
+      <label for="link">Link</label>
+      <div>
+        <input id="link" name="link" type="url" class="input-sm form-control">
+      </div>
+    </div>
 
-        <div class="form-group">
-            <label for="input-group">Publication year</label>
-            <input type="text" class="input-sm form-control" name="start_date" required>
-        </div>
-      
-        <div class="form-group">
-            <label for="caption">Specs</label>
-            <textarea id="caption" name="specs" type="text" class="input-xl form-control"></textarea>
-        </div>
+    <div class="form-group">
+      <label for="input-group">Publication year</label>
+      <input type="text" class="input-sm form-control" name="start_date" required>
+    </div>
 
-        <div class="form-group">
-            <label for="pic">Upload image</label>
-            <input type="file" name="pic" accept="image/*">
-        </div>
-      
-        <div class="form-group">
-            <label for="text">Upload text</label>
-            <input type="file" name="text">
-        </div>
+    <div class="form-group">
+      <label for="caption">Specs</label>
+      <textarea id="caption" name="specs" type="text" class="input-xl form-control"></textarea>
+    </div>
 
-        <div class="form-group">
-            <label for="sound">Upload sound</label>
-            <input type="file" name="sound">
-        </div>        
+    <!--IMAGES-->
+    <!--IMAGES-->
+    <!--IMAGES-->
+    <!--IMAGES-->
 
-        <div class="form-group">
-            <button id="" name="" class="btn btn-primary">Submit</button>
-        </div>
+    <div class='image-upload'>
 
-    </fieldset>
+      <h1>Image</h1>
+
+
+      <div class="form-group upload">
+        <input type="file" name="pic1" accept="image/*">
+        <label for="pic">Caption</label>
+        <input type="text" name="caption1">
+        <div class='btn btn-sm'>Another image</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="pic1" accept="image/*">
+        <label for="pic">Caption</label>
+        <input type="text" name="caption1">
+        <div class='btn btn-sm'>Another image</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="pic1" accept="image/*">
+        <label for="pic">Caption</label>
+        <input type="text" name="caption1">
+        <div class='btn btn-sm'>Another image</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="pic1" accept="image/*">
+        <label for="pic">Caption</label>
+        <input type="text" name="caption1">
+        <div class='btn btn-sm'>Another image</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="pic1" accept="image/*">
+        <label for="pic">Caption</label>
+        <input type="text" name="caption1">
+        <div class='btn btn-sm'>Another image</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="pic1" accept="image/*">
+        <label for="pic">Caption</label>
+        <input type="text" name="caption1">
+        <div class='btn btn-sm'>Another image</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="pic1" accept="image/*">
+        <label for="pic">Caption</label>
+        <input type="text" name="caption1">
+        <div class='btn btn-sm'>Another image</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="pic1" accept="image/*">
+        <label for="pic">Caption</label>
+        <input type="text" name="caption1">
+        <div class='btn btn-sm'>Another image</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="pic1" accept="image/*">
+        <label for="pic">Caption</label>
+        <input type="text" name="caption1">
+        <div class='btn upload-reveal'>Another image</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="pic1" accept="image/*">
+        <label for="pic">Caption</label>
+        <input type="text" name="caption1">
+        <div class='btn upload-reveal'>Another image</div>
+      </div>
+
+    </div>
+
+    <!--TEXT-->
+    <!--TEXT-->
+    <!--TEXT-->
+    <!--TEXT-->
+    <!--TEXT-->
+
+    <div class='text-upload'>
+      <h1>Text</h1>
+      <div class="form-group">
+        <input type="file" name="text">
+      </div>
+
+    </div>
+
+    <!--SOUND-->
+    <!--SOUND-->
+    <!--SOUND-->
+    <!--SOUND-->
+    <!--SOUND-->
+
+    <div class='sound-upload'>
+
+      <h1>Sound</h1>
+
+      <div class="form-group">
+        <input type="file" name="sound1">
+        <input type="text" name="soundcaption1">
+        <div class='btn sound upload-reveal'>Add sound</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="sound1">
+
+        <input type="text" name="soundcaption1">
+        <div class='btn sound upload-reveal'>Add sound</div>
+      </div>
+
+      <div class="form-group hidden">
+
+        <input type="file" name="sound1">
+
+        <input type="text" name="soundcaption1">
+        <div class='btn sound upload-reveal'>Add sound</div>
+      </div>
+
+      <div class="form-group hidden">
+
+        <input type="file" name="sound1">
+
+        <input type="text" name="soundcaption1">
+        <div class='btn sound upload-reveal'>Add sound</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="sound1">
+        <input type="text" name="soundcaption1">
+        <div class='btn sound upload-reveal'>Add sound</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="sound1">
+        <input type="text" name="soundcaption1">
+        <div class='btn sound upload-reveal'>Add sound</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="sound1">
+        <input type="text" name="soundcaption1">
+        <div class='btn sound upload-reveal'>Add sound</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="sound1">
+        <input type="text" name="soundcaption1">
+        <div class='btn sound upload-reveal'>Add sound</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="sound1">
+        <input type="text" name="soundcaption1">
+        <div class='btn sound upload-reveal'>Add sound</div>
+      </div>
+
+      <div class="form-group hidden">
+        <input type="file" name="sound1">
+        <input type="text" name="soundcaption1">
+      </div>
+
+    </div>
+
+
+    <div class="form-group">
+      <button id="" name="" class="btn btn-primary">Submit</button>
+    </div>
+
+  </fieldset>
 </form>

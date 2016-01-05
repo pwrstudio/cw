@@ -91,7 +91,6 @@
                   content: data_content
                 };
 
-                console.log(frontpage);
                 console.log("VIDEO");
 
                 res.render('index', ctx);
@@ -119,7 +118,6 @@
                       content: data_content
                     };
 
-                    console.log(frontpage);
                     console.log("AUDIO");
 
                     res.render('index', ctx);
@@ -148,12 +146,31 @@
                           content: data_content
                         };
 
-                        console.log(frontpage);
+                        console.log(ctx.frontpage);
                         console.log("IMAGE");
 
                         res.render('index', ctx);
 
                         return;
+
+                      } else {
+
+                        ctx = {
+                          frontpage: {
+                            empty: true
+                          },
+                          night: night,
+                          publications: publications,
+                          exhibitions: exhibitions,
+                          content: data_content
+                        };
+
+                        console.log("EMPTY FRONTPAGE");
+
+                        res.render('index', ctx);
+
+                        return;
+
 
                       }
 
