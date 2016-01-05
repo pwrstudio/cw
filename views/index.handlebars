@@ -172,34 +172,35 @@
               
               <div class='space'>¬</div>
           
-              {{#if this.image.size}}
+              {{#each this.image}}
                 <div class="link-container">
                 <a href=''
-                    class='image-link' 
-                    data-large='{{this.image.url}}'
-                    data-pinky='{{this.image.pinkynail}}'
-                    data-caption='{{{this.title}}}<br>{{{this.publisher}}}<br>{{this.start_date_pretty}}<br>{{this.specs}}'>Image ({{this.image.size}}kb)</a>
+                    class='image-link image' 
+                    data-large='{{this.url}}'
+                    data-pinky='{{this.pinkynail}}'
+                    data-caption='{{{this.caption}}}'>
+                      {{#if this.caption}}{{{this.caption}}}{{else}}Image{{/if}} ({{this.size}}kb)</a>
                 </div>
-              {{/if}}
+              {{/each}}
 
-              {{#if this.text.size}}
+              {{#each this.text}}
                 <div class="link-container">
-                <a href='{{this.text.url}}' 
-                    class='text-link' 
-                    data-caption='{{{this.title}}}<br>{{{this.publisher}}}<br>{{this.start_date_pretty}}<br>{{this.specs}}'>Text file ({{this.text.size}}kb)</a>
+                <a href='{{this.url}}' 
+                    class='text-link text' 
+                    data-caption='{{{this.caption}}}'>
+                      {{#if this.caption}}{{{this.caption}}}{{else}}Text{{/if}} ({{this.size}}kb)</a>
                 </div>
-              {{/if}}
+              {{/each}}
 
-              {{#if this.sound.size}}
-              <div class='audio-control play'>
+              {{#each this.sound}}
+                <div class='audio-control play'>
                   <i class='fa fa-play play-icon'></i>
-                  <i class='fa fa-stop stop-icon'></i> {{this.sound.size}} kb
+                  <i class='fa fa-stop stop-icon'></i> {{{this.caption}}} ({{this.size}})kb
                 </div>
                 <audio>
-                  <source src='{{this.sound.url}}'>
+                  <source src='{{this.url}}'>
                 </audio>
-                <p>{{{this.sound.caption}}}</p>
-              {{/if}}
+              {{/each}}
                 
             </div> 
               

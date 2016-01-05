@@ -19,24 +19,24 @@ var containerSchema = new mongoose.Schema({
   solo: Boolean,
   group: Boolean,
   index: Number,
-  text: {
+  text: [{
     url: String,
-    caption: String,
-    author: String,
     size: Number,
-    public: Boolean
-  },
-  image: {
+    caption: String
+  }],
+  image: [{
     url: String,
     thumb: String,
     small: String,
     large: String,
-    size: Number
-  },
-  sound: {
+    size: Number,
+    caption: String
+  }],
+  sound: [{
     url: String,
-    size: Number
-  }
+    size: Number,
+    caption: String
+  }]
 });
 
 module.exports = mongoose.model('container', containerSchema);

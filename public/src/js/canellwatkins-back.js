@@ -91,14 +91,14 @@
             scroll: true,
             scrollSensitivity: 80,
             scrollSpeed: 3,
-              //            sort: function (event, ui) {
-              //              var currentScrollTop = $(window).scrollTop(),
-              //                topHelper = ui.position.top,
-              //                delta = topHelper - currentScrollTop;
-              //              setTimeout(function () {
-              //                $(window).scrollTop(currentScrollTop + delta);
-              //              }, 100);
-              //            }
+            //            sort: function (event, ui) {
+            //              var currentScrollTop = $(window).scrollTop(),
+            //                topHelper = ui.position.top,
+            //                delta = topHelper - currentScrollTop;
+            //              setTimeout(function () {
+            //                $(window).scrollTop(currentScrollTop + delta);
+            //              }, 100);
+            //            }
           });
         });
       }
@@ -123,10 +123,6 @@
   function loadVideoForm() {
     $("#video-form-container").html(MyApp.templates.videoform());
   }
-
-  //  function loadTextForm() {
-  //    $("#text-form-container").html(MyApp.templates.textform());
-  //  }
 
   function loadExhibitionForm() {
     $("#exhibition-form-container").html(MyApp.templates.exhibitionform());
@@ -156,7 +152,6 @@
 
     // Load forms
     loadImageForm();
-    //    loadTextForm();
     loadExhibitionForm();
     loadPublicationForm();
     loadAudioForm();
@@ -173,6 +168,21 @@
       $(this)
         .next(".editContainer")
         .slideToggle();
+    });
+
+    /*
+     *
+     *  Show additional meda uploads
+     *
+     */
+
+    $(document).on("click", ".upload-reveal", function (e) {
+      e.preventDefault();
+      $(this)
+        .addClass('hidden')
+        .parent()
+        .next(".hidden")
+        .removeClass('hidden');
     });
 
     /*
@@ -369,7 +379,7 @@
       });
 
       var formObj = $(this),
-        spinner = $(this).parent().find(".spinner"),
+        spinner = $("#spinner"),
         formURL = formObj.attr("action"),
         formData = new FormData(this);
 

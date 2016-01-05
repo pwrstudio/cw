@@ -48,10 +48,10 @@
         exhibition.end_date = fields.end_date;
         exhibition.start_date_pretty = fields.start_date;
         exhibition.end_date_pretty = fields.end_date;
-        if (fields.radios == "solo") {
+        if (fields.radios === "solo") {
           exhibition.solo = true;
         }
-        if (fields.radios == "group") {
+        if (fields.radios === "group") {
           exhibition.group = true;
         }
 
@@ -92,10 +92,10 @@
           exhibition.end_date = fields.end_date;
           exhibition.start_date_pretty = fields.start_date;
           exhibition.end_date_pretty = fields.end_date;
-          if (fields.radios == "solo") {
+          if (fields.radios === "solo") {
             exhibition.solo = true;
           }
-          if (fields.radios == "group") {
+          if (fields.radios === "group") {
             exhibition.group = true;
           }
 
