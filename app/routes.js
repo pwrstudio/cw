@@ -11,7 +11,10 @@
     exhibition = require('./handlers/exhibition.js'),
     publication = require('./handlers/publication.js'),
     frontend = require('./handlers/frontend.js'),
-    container = require('./handlers/container.js');
+    container = require('./handlers/container.js'),
+    collection = require('./handlers/collection.js'),
+    pdf = require('./handlers/pdf.js');
+
 
   module.exports = function (app) {
 
@@ -90,9 +93,6 @@
     app.post('/api/publication', publication.post_publication);
     app.post('/api/update/publication/:id', publication.update_publication);
 
-    //    app.post('/api/text/post/text', publication.post_text_content);
-    //    app.post('/api/text/update/:id', publication.update_text_content);
-
     app.post('/api/publication/updateorder/:id/:index', publication.update_order);
 
     /*
@@ -105,11 +105,37 @@
 
     /*
      *
+     *  API: Collection
+     *
+     */
+
+    app.delete('/api/collection/del/:id', collection.delete_collection);
+    app.get('/api/collection/', collection.get_collection);
+    app.get('/api/collection/single/:id', collection.get_collection_by_id);
+    app.post('/api/collection/', collection.make_collection);
+
+
+    /*
+     *
+     *  PDF
+     *
+     */
+    app.get('/pdf/:slug', pdf.generatePdf);
+
+
+
+    /*
+     *
      *  FRONTEND
      *
      */
 
     app.get('/infra', auth.isLoggedIn, frontend.infra);
+
+    app.get('/infra/collection', auth.isLoggedIn, frontend.collectioninfra);
+
+    app.get('/collection/:slug', frontend.collection);
+
     app.get('/', frontend.index);
 
     app.get('*', frontend.fallback);

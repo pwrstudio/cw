@@ -207,6 +207,47 @@
 
   /*
    *
+   *  Render collection page
+   *
+   */
+
+  exports.collection = function (req, res) {
+
+    // Find collection by slug
+    Collection.findOne({
+      slug: req.params.slug
+    }).exec(function (err, collection) {
+      var objects = [];
+
+      for (var i = 0; i < collection.content.length; i++) {
+        Content.findById(collection.content[i], function (err, item) {
+          objects.push(item);
+        });
+      }
+
+      var data = {
+        collection: collection,
+        objects: objects
+      }
+      res.render('collection', data);
+    });
+  };
+
+  /*
+   *
+   *  Render collections area
+   *
+   */
+
+  exports.collectioninfra = function (req, res) {
+    res.render('collectioninfra', {
+      layout: "backend"
+    });
+  };
+
+
+  /*
+   *
    *  Fallback 404
    *
    */

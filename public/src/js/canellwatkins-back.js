@@ -69,6 +69,49 @@
 
   /*
    *
+   *  COLLECTIONS render
+   *
+   */
+
+  function getCollection() {
+    $.ajax({
+      type: 'GET',
+      url: '/api/collection/',
+      dataType: 'json',
+      success: function (data) {
+        $('#collection-container').fadeOut(function () {
+          $(this)
+            .html(MyApp.templates.collection(data))
+            .fadeIn();
+        });
+      }
+    });
+  }
+
+
+  /*
+   *
+   *  CONTENT in COLLECTION list render
+   *
+   */
+
+  function getCollectionContent() {
+    $.ajax({
+      type: 'GET',
+      url: '/api/content/get/-1',
+      dataType: 'json',
+      success: function (data) {
+        $('#collection-content-container').fadeOut(function () {
+          $(this)
+            .html(MyApp.templates.collectioncontent(data))
+            .fadeIn();
+        });
+      }
+    });
+  }
+
+  /*
+   *
    *  CONTENT render
    *
    */
@@ -90,15 +133,7 @@
             delay: 150,
             scroll: true,
             scrollSensitivity: 80,
-            scrollSpeed: 3,
-            //            sort: function (event, ui) {
-            //              var currentScrollTop = $(window).scrollTop(),
-            //                topHelper = ui.position.top,
-            //                delta = topHelper - currentScrollTop;
-            //              setTimeout(function () {
-            //                $(window).scrollTop(currentScrollTop + delta);
-            //              }, 100);
-            //            }
+            scrollSpeed: 3
           });
         });
       }
@@ -133,6 +168,10 @@
     $("#publication-form-container").html(MyApp.templates.publicationform());
   }
 
+  function loadCollectionForm() {
+    $("#collection-form-container").html(MyApp.templates.collectionform());
+  }
+
   /*
    *
    *
@@ -149,6 +188,8 @@
     getExhibitions();
     getPublications();
     getContent();
+    getCollection();
+    getCollectionContent();
 
     // Load forms
     loadImageForm();
@@ -156,6 +197,7 @@
     loadPublicationForm();
     loadAudioForm();
     loadVideoForm();
+    loadCollectionForm();
 
     /*
      *
@@ -356,6 +398,104 @@
           getExhibitions();
           getPublications();
         }
+      });
+    });
+
+    /*
+     *
+     *  DELETE Collection click
+     *
+     */
+
+    $(document).on('click', '.delete.collection', function () {
+      $.ajax({
+        type: 'DELETE',
+        url: '/api/collection/del/' + $(this).data('id'),
+        dataType: 'json',
+        success: function (data) {
+          $.notify({
+            message: 'Item deleted'
+          }, {
+            type: 'success'
+          });
+          getCollection();
+        }
+      });
+    });
+
+    /*
+     *
+     *  Mark selected content for collection
+     *
+     */
+
+    $(document).on('click', '.collection-select-button', function () {
+
+      var container = $(this).parent(".list-group-item");
+
+      if (container.hasClass("selected")) {
+        $(this).text("Add to collection");
+      } else {
+        $(this).text("Remove from collection");
+      }
+
+      $(this).parent(".list-group-item").toggleClass("selected");
+
+    });
+
+
+    /*
+     *
+     *  Submit new collection
+     *
+     */
+
+    $(document).on('submit', '.collection-form', function (e) {
+
+      e.preventDefault();
+
+      var formObj = $(this),
+        spinner = $(this).parent().find(".spinner"),
+        formURL = formObj.attr("action"),
+        selected = [],
+        formData = {
+          title: $("#main-title").val(),
+          selected: selected
+        };
+
+      $(this).validate({
+        rules: {
+          year: {
+            required: true,
+            date: true
+          }
+        }
+      });
+
+      spinner.show();
+      formObj.hide();
+
+      $(".selected").each(function () {
+        selected.push($(this).attr("id"));
+      });
+
+      $.ajax({
+        url: formURL,
+        type: 'POST',
+        data: formData,
+        success: function (data, textStatus, jqXHR) {
+          $.notify({
+            message: 'Collection sucessfully created'
+          }, {
+            type: 'success'
+          });
+          getCollection();
+          getCollectionContent();
+          loadCollectionForm();
+          $('a[href="#collections"]').tab('show');
+          spinner.hide();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {}
       });
     });
 
