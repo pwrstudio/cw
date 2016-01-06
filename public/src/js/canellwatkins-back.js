@@ -434,12 +434,16 @@
       var container = $(this).parent(".list-group-item");
 
       if (container.hasClass("selected")) {
-        $(this).text("Add to collection");
+        $(this).html('<i class="fa fa-plus-square"></i>');
       } else {
-        $(this).text("Remove from collection");
+        $(this).html('<i class="fa fa-minus-square"></i>');
       }
 
-      $(this).parent(".list-group-item").toggleClass("selected");
+      $(this)
+        .parent(".list-group-item")
+        .toggleClass("selected");
+
+      return false;
 
     });
 
@@ -455,7 +459,7 @@
       e.preventDefault();
 
       var formObj = $(this),
-        spinner = $(this).parent().find(".spinner"),
+        spinner = $("#spinner"),
         formURL = formObj.attr("action"),
         selected = [],
         formData = {
@@ -485,14 +489,13 @@
         data: formData,
         success: function (data, textStatus, jqXHR) {
           $.notify({
-            message: 'Collection sucessfully created'
+            message: 'Collection created'
           }, {
             type: 'success'
           });
           getCollection();
           getCollectionContent();
           loadCollectionForm();
-          $('a[href="#collections"]').tab('show');
           spinner.hide();
         },
         error: function (jqXHR, textStatus, errorThrown) {}

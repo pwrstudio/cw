@@ -55,11 +55,12 @@
 
   exports.make_collection = function (req, res) {
 
-    //  console.log(req.body);
-    //  console.log(req.body.title);
-    //  console.log(req.body.selected);
-
     var collection = new Collection();
+
+    console.log(req.body);
+    console.log(req.body.title);
+    console.log(req.body.selected);
+
     collection.title = req.body.title;
     collection.slug = slug(req.body.title);
     collection.content = req.body.selected;
@@ -67,7 +68,7 @@
     collection.date = new Date();
 
     collection.save(function (err) {
-      //    console.log(collection);
+      console.log(collection);
       if (err) {
         res.send(err);
       }

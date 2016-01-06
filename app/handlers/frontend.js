@@ -15,7 +15,8 @@
     SolarCalc = require('solar-calc'),
     Container = require('../models/Container.js'),
     Content = require('../models/Content.js'),
-    Collection = require('../models/Collection.js');
+    Collection = require('../models/Collection.js'),
+    async = require('async');
 
   /*
    *
@@ -217,19 +218,34 @@
     Collection.findOne({
       slug: req.params.slug
     }).exec(function (err, collection) {
+
       var objects = [];
 
-      for (var i = 0; i < collection.content.length; i++) {
-        Content.findById(collection.content[i], function (err, item) {
-          objects.push(item);
-        });
-      }
+      async.each(collection.content, function (contentItem, callback) {
 
-      var data = {
-        collection: collection,
-        objects: objects
-      }
-      res.render('collection', data);
+        Content.findById(contentItem, function (err, item) {
+          //          console.log(item.title);
+          objects.push(item);
+          callback(err);
+        });
+
+      }, function (err) {
+
+        if (err) {
+          return next(err);
+        }
+
+        var data = {
+          collection: collection,
+          objects: objects
+        }
+
+        console.log(data);
+
+        res.render('collection', data);
+
+      });
+
     });
   };
 

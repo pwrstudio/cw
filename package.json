@@ -19,6 +19,7 @@
     "net-ping": "^1.1.12"
   },
   "dependencies": {
+    "async": "^1.5.1",
     "bcrypt": "^0.8.2",
     "body-parser": "~1.4.2",
     "chance": "^0.7.5",
