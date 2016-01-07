@@ -4,3 +4,5 @@ node_modules/
 .sass-cache/
 public/dist/
 npm-debug.log
+public/file.pdf
+dump/

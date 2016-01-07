@@ -92,6 +92,8 @@
                   content: data_content
                 };
 
+                console.log(ctx.publications);
+
                 console.log("VIDEO");
 
                 res.render('index', ctx);
@@ -147,7 +149,6 @@
                           content: data_content
                         };
 
-                        console.log(ctx.frontpage);
                         console.log("IMAGE");
 
                         res.render('index', ctx);
@@ -180,12 +181,8 @@
                   }
 
                 });
-
               }
             });
-
-
-
           });
         });
       });
@@ -219,32 +216,7 @@
       slug: req.params.slug
     }).exec(function (err, collection) {
 
-      var objects = [];
-
-      async.each(collection.content, function (contentItem, callback) {
-
-        Content.findById(contentItem, function (err, item) {
-          //          console.log(item.title);
-          objects.push(item);
-          callback(err);
-        });
-
-      }, function (err) {
-
-        if (err) {
-          return next(err);
-        }
-
-        var data = {
-          collection: collection,
-          objects: objects
-        }
-
-        console.log(data);
-
-        res.render('collection', data);
-
-      });
+      res.render('collection', collection);
 
     });
   };
@@ -259,6 +231,28 @@
     res.render('collectioninfra', {
       layout: "backend"
     });
+  };
+
+  /*
+   *
+   *  Render collection for pdf generation
+   *
+   */
+
+  exports.renderPdf = function (req, res) {
+
+    // Find collection by slug
+    Collection.findOne({
+      slug: req.params.slug
+    }).exec(function (err, collection) {
+
+      res.render('pdf', {
+        data: collection,
+        layout: 'pdfback'
+      });
+
+    });
+
   };
 
 

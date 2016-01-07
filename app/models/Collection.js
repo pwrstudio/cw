@@ -11,7 +11,7 @@ var collectionSchema = new mongoose.Schema({
   slug: String,
   link: String,
   date: Date,
-  content: [String]
+  content: []
 });
 
 module.exports = mongoose.model('collection', collectionSchema);

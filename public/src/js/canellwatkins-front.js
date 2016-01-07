@@ -159,9 +159,9 @@
       $("#overlay")
         .html('<img src="' +
           $(this).data("large") +
-          '" style="background-image: url("' +
+          '" style="background-image: url(\'' +
           $(this).data("pinky") +
-          '")" data-caption="' +
+          '\')" data-caption="' +
           $(this).data("caption") +
           '"><div class="caption-container strong"></div>')
         .show();

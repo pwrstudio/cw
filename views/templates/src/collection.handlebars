@@ -18,6 +18,20 @@
           <a href="/pdf/{{this.slug}}" class="btn btn-primary">Make pdf</a>
           <a class="btn btn-danger delete collection" data-id="{{_id}}">Delete</a>
         </div>
+            
+        
+        <div>
+        
+          {{#each this.content}} 
+
+            <div id="{{_id}}" class="list-group-item set-height">
+              <p><i class="fa fa-file-image-o"></i> <strong>{{this.title}}</strong></p>
+              <img src="{{this.image.thumb}}" class="collection-image not-selected">
+            </div>    
+          
+          {{/each}}
+
+        </div>
 
       </fieldset>
     </form>

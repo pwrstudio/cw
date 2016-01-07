@@ -121,7 +121,7 @@
      *
      */
     app.get('/pdf/:slug', pdf.generatePdf);
-
+    app.get('/pdfgen/:slug', frontend.renderPdf);
 
 
     /*

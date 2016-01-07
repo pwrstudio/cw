@@ -9,7 +9,10 @@
    */
 
   var slug = require('slug'),
-    Collection = require('../models/Collection.js');
+    Collection = require('../models/Collection.js'),
+    Content = require('../models/Content.js'),
+    async = require('async');
+
 
   /*
    *
@@ -24,14 +27,19 @@
       if (err) {
         res.send(err);
       }
+
+      console.log(collections);
+
       res.json(collections);
+
     });
+
   };
 
 
   /*
    *
-   *  Get a collection  by id
+   *  Get a collection by id
    *
    */
 
@@ -57,24 +65,45 @@
 
     var collection = new Collection();
 
-    console.log(req.body);
-    console.log(req.body.title);
     console.log(req.body.selected);
 
     collection.title = req.body.title;
     collection.slug = slug(req.body.title);
-    collection.content = req.body.selected;
     collection.private = false;
     collection.date = new Date();
 
-    collection.save(function (err) {
-      console.log(collection);
-      if (err) {
-        res.send(err);
-      }
-      res.json({
-        result: 'collection'
+    var objects = [];
+
+    async.each(req.body.selected, function (contentItem, callback) {
+
+      console.log(contentItem);
+
+      Content.findById(contentItem, function (err, item) {
+        console.log(item);
+        objects.push(item);
+        callback(err);
       });
+
+    }, function (err) {
+
+      if (err) {
+        return next(err);
+      }
+
+      console.log(objects);
+
+      collection.content = objects;
+
+      collection.save(function (err) {
+        console.log(collection);
+        if (err) {
+          res.send(err);
+        }
+        res.json({
+          result: 'collection'
+        });
+      });
+
     });
 
   };

@@ -32,7 +32,7 @@
 
         phantom.create(function (ph) {
           ph.createPage(function (page) {
-            page.open("http://h2487661.stratoserver.net:8080/collection/" + collection.slug, function (status) {
+            page.open("http://h2487661.stratoserver.net:8080/pdfgen/" + collection.slug, function (status) {
               console.log("opened? ", status);
               page.set('paperSize', {
                 format: 'A4',

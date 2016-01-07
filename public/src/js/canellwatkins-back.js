@@ -403,7 +403,7 @@
 
     /*
      *
-     *  DELETE Collection click
+     *  DELETE Collection
      *
      */
 
@@ -429,7 +429,7 @@
      *
      */
 
-    $(document).on('click', '.collection-select-button', function () {
+    $(document).on('click', '.collection-select-button', function (e) {
 
       var container = $(this).parent(".list-group-item");
 
@@ -443,10 +443,9 @@
         .parent(".list-group-item")
         .toggleClass("selected");
 
-      return false;
+      e.preventDefault();
 
     });
-
 
     /*
      *
@@ -635,7 +634,9 @@
 
           }
 
-          formObj.parent(".editContainer").slideToggle();
+          formObj
+            .parent(".editContainer")
+            .slideToggle();
 
         },
         error: function (jqXHR, textStatus, errorThrown) {}
