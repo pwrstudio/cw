@@ -28,11 +28,11 @@
       slug: req.params.slug
     }).exec(function (err, collection) {
 
-      if (collection != undefined && collection != null) {
+      if (collection) {
 
         phantom.create(function (ph) {
           ph.createPage(function (page) {
-            page.open("http://ec2-52-5-9-41.compute-1.amazonaws.com/collection/" + collection.slug, function (status) {
+            page.open("http://h2487661.stratoserver.net:8080/collection/" + collection.slug, function (status) {
               console.log("opened? ", status);
               page.set('paperSize', {
                 format: 'A4',

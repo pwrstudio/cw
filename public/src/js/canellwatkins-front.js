@@ -1,3 +1,6 @@
+/*jslint browser: true, devel: true, node: true, nomen: true, plusplus: true*/
+/*global $, jQuery*/
+
 (function () {
 
   "use strict";
@@ -36,7 +39,6 @@
       window.msAudioContext);
 
   if (ContextClass) {
-    // Web Audio API is available.
     var context = new ContextClass(),
       gainNode,
       oscillator;
@@ -112,7 +114,6 @@
     socket.on('tracedone', function (msg) {
       setTimeout(function () {
 
-
         $("#tracestart-container").html(MyApp.templates.tracestart(msg));
         setTimeout(function () {
 
@@ -120,7 +121,7 @@
             audio = document.getElementById("frontpageAudio");
 
           oscillator.stop(0);
-          
+
           renderTraceQ();
 
           if (audio) {
@@ -130,7 +131,6 @@
           if (video) {
             video.pause();
           }
-
 
           $("#counterOverlay").hide();
           $(".content-columns").show();
@@ -159,9 +159,9 @@
       $("#overlay")
         .html('<img src="' +
           $(this).data("large") +
-          '" style="background-image: url(' +
+          '" style="background-image: url("' +
           $(this).data("pinky") +
-          ')" data-caption="' +
+          '")" data-caption="' +
           $(this).data("caption") +
           '"><div class="caption-container strong"></div>')
         .show();
@@ -234,7 +234,9 @@
     $(document).on('click', '#overlay video', function (e) {
       $(this).addClass('focused');
       $("#overlay").addClass('opaque');
-      $(".caption-container").html(replaceNewlines($(this).data("caption")));
+      $(".caption-container")
+        .html(replaceNewlines($(this)
+          .data("caption")));
     });
 
     // Play sounds
@@ -255,7 +257,14 @@
         .next("audio")[0]
         .pause()
         .currentTime = 0;
-      return false;
+    });
+
+    // Return to play symbol when sound has ended
+    $('audio').on('ended', function () {
+      $(this)
+        .prev('.audio-control')
+        .removeClass("pause")
+        .addClass("play");
     });
 
   });

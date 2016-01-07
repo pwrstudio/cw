@@ -171,37 +171,41 @@
             <div class='thumb-container static'>
               
               <div class='space'>¬</div>
+              
+              <div class='thumb-container-inner'>
           
-              {{#each this.image}}
-                <div class="link-container">
-                <a href=''
-                    class='image-link image' 
-                    data-large='{{this.url}}'
-                    data-pinky='{{this.pinkynail}}'
-                    data-caption='{{{this.caption}}}'>
-                      {{#if this.caption}}{{{this.caption}}}{{else}}Image{{/if}} ({{this.size}}kb)</a>
-                </div>
-              {{/each}}
+                {{#each this.image}}
+                  <div class="link-container">
+                  <a href=''
+                      class='image-link image' 
+                      data-large='{{this.url}}'
+                      data-pinky='{{this.pinkynail}}'
+                      data-caption='{{{this.caption}}}'>
+                        {{#if this.caption}}{{{this.caption}}}{{else}}Image{{/if}} ({{this.size}}kb)</a>
+                  </div>
+                {{/each}}
 
-              {{#each this.text}}
-                <div class="link-container">
-                <a href='{{this.url}}' 
-                    class='text-link text' 
-                    data-caption='{{{this.caption}}}'>
-                      {{#if this.caption}}{{{this.caption}}}{{else}}Text{{/if}} ({{this.size}}kb)</a>
-                </div>
-              {{/each}}
+                {{#each this.text}}
+                  <div class="link-container">
+                  <a href='{{this.url}}' 
+                      class='text-link text' 
+                      data-caption='{{{this.caption}}}'>
+                        {{#if this.caption}}{{{this.caption}}}{{else}}Text{{/if}} ({{this.size}}kb)</a>
+                  </div>
+                {{/each}}
 
-              {{#each this.sound}}
-                <div class='audio-control play'>
-                  <i class='fa fa-play play-icon'></i>
-                  <i class='fa fa-stop stop-icon'></i> {{{this.caption}}} ({{this.size}})kb
-                </div>
-                <audio>
-                  <source src='{{this.url}}'>
-                </audio>
-              {{/each}}
+                {{#each this.sound}}
+                  <div class='audio-control play'>
+                    <i class='fa fa-play play-icon'></i>
+                    <i class='fa fa-stop stop-icon'></i> {{{this.caption}}} ({{this.size}})kb
+                  </div>
+                  <audio>
+                    <source src='{{this.url}}'>
+                  </audio>
+                {{/each}}
                 
+              </div> 
+              
             </div> 
               
         {{/each}}
@@ -232,10 +236,10 @@
               <a href='' class='image-link hidden'
                  data-large='{{this.image.url}}'
                  data-pinky='{{this.image.pinky}}'
-                 data-caption='{{this.image.caption}}'>
+                 data-caption='{{{this.image.caption}}}'>
                   <article class='exhibition light'>
-                      <div class='title'>{{{this.title}}}</div>
-                      <div class='size image'>{{this.image.size}}kb</div>
+                    <div class='title'>{{{this.title}}}</div>
+                    <div class='size image'>{{this.image.size}}kb</div>
                   </article>
               </a>
             {{/if}} 
@@ -248,22 +252,28 @@
             <div class='space'>*</div>
               <a href='' class='slide-down-link'>
                 <article class='exhibition light'>
-                    <div class='title'>{{{this.title}}}</div>
-                    <div class='size audio'>{{this.audio.size}}kb</div>
+                  <div class='title'>{{{this.title}}}</div>
+                  <div class='size audio'>{{this.audio.size}}kb</div>
                 </article>
               </a>
             <div class='thumb-container static'>
               
               <div class='space'>¬</div>
               
-              <div class='audio-control play'>
-                <i class='fa fa-play play-icon'></i>
-                <i class='fa fa-stop stop-icon'></i> {{this.audio.size}} kb
-              </div>
-              <audio>
-                <source src='{{this.audio.url}}'>
-              </audio>
-              <p class='audio-caption'>{{this.audio.caption}}</p>
+              <div class='thumb-container-inner'>
+
+                <div class='audio-control play'>
+                  <i class='fa fa-play play-icon'></i>
+                  <i class='fa fa-stop stop-icon'></i> {{this.audio.size}} kb
+                </div>
+                
+                <audio>
+                  <source src='{{this.audio.url}}'>
+                </audio>
+                <p class='audio-caption'>{{{this.audio.caption}}}</p>
+                
+              </div>  
+              
             </div>        
             {{/if}}                  
 
@@ -273,7 +283,7 @@
             {{!-- ***** VIDEO ***** --}}
             {{#if this.video.size}}
             <div class='space'>*</div>
-              <a href='{{this.video.url}}' class='video-link' data-caption='{{this.video.caption}}'>
+              <a href='{{this.video.url}}' class='video-link' data-caption='{{{this.video.caption}}}'>
                 <article class='exhibition light'>
                     <div class='title'>{{{this.title}}}</div>
                     <div class='size video'>{{this.video.size}}kb</div>
