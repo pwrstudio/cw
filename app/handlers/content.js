@@ -164,7 +164,7 @@
           content.title = escape(fields.title);
           content.image.caption = escape(fields.caption);
 
-          console.log(escape(fields.caption));
+//          console.log(escape(fields.caption));
 
           content.save(function (err) {
             res.json({

@@ -30,7 +30,16 @@
 
   module.exports = function (app, io) {
 
+
+
     io.on('connection', function (socket) {
+
+      // PONG
+      
+      socket.on('ping', function () {
+        socket.emit('pong');
+        console.log('pong');
+      });
 
       var ip = socket.handshake.headers["x-real-ip"],
         id = socket.id;

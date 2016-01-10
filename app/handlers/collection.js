@@ -130,4 +130,50 @@
 
   };
 
+  /*
+   *
+   *  Change collection order
+   *
+   */
+
+  exports.update_order = function (req, res) {
+
+    Collection.findById(req.params.id, function (err, c) {
+
+      if (c) {
+
+        c.content.forEach(function (object) {
+
+          //          console.log("current index: ", object);
+          //          console.log("current index: ", object.order);
+          //          console.log("object: ", object.title);
+          //          console.log("object: ", object._id);
+          //          console.log("request: ", req.params.object);
+          //          console.log("new index: ", req.params.index);
+          //          console.log("– – – – – –");
+
+          if (object._id == req.params.object) {
+
+            object.order = Number(req.params.index);
+
+            c.markModified('content');
+
+            //            console.log('XXXXXX found');
+
+            c.save(function (err) {
+              res.json({
+                result: 'collection'
+              });
+            });
+
+            return;
+
+          }
+
+        });
+      }
+    });
+  };
+
+
 }());

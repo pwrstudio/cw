@@ -78,8 +78,6 @@
               "video.frontpage": true
             }).exec(function (err, videoFrontpage) {
 
-              console.log(videoFrontpage);
-
               if (videoFrontpage) {
 
                 ctx = {
@@ -96,7 +94,16 @@
 
                 console.log("VIDEO");
 
-                res.render('index', ctx);
+                res.render('index', {
+                  data: ctx,
+                  helpers: {
+                    replacenewlines: function (caption) {
+                      var out = caption.replace(new RegExp('\n', 'g'), '<br>');
+                      console.log(out);
+                      return out;
+                    }
+                  }
+                });
 
                 return;
 
@@ -106,8 +113,6 @@
                 Content.findOne({
                   "audio.frontpage": true
                 }).exec(function (err, audioFrontpage) {
-
-                  console.log(audioFrontpage);
 
                   if (audioFrontpage) {
 
@@ -123,7 +128,16 @@
 
                     console.log("AUDIO");
 
-                    res.render('index', ctx);
+                    res.render('index', {
+                      data: ctx,
+                      helpers: {
+                        replacenewlines: function (caption) {
+                          var out = caption.replace(new RegExp('\n', 'g'), '<br>');
+                          console.log(out);
+                          return out;
+                        }
+                      }
+                    });
 
                     return;
 
@@ -133,8 +147,6 @@
                     Content.findOne({
                       "image.frontpage": true
                     }).exec(function (err, imageFrontpage) {
-
-                      console.log(imageFrontpage);
 
                       if (imageFrontpage) {
 
@@ -151,7 +163,16 @@
 
                         console.log("IMAGE");
 
-                        res.render('index', ctx);
+                        res.render('index', {
+                          data: ctx,
+                          helpers: {
+                            replacenewlines: function (caption) {
+                              var out = caption.replace(new RegExp('\n', 'g'), '<br>');
+                              console.log(out);
+                              return out;
+                            }
+                          }
+                        });
 
                         return;
 
@@ -169,10 +190,18 @@
 
                         console.log("EMPTY FRONTPAGE");
 
-                        res.render('index', ctx);
+                        res.render('index', {
+                          data: ctx,
+                          helpers: {
+                            replacenewlines: function (caption) {
+                              var out = caption.replace(new RegExp('\n', 'g'), '<br>');
+                              console.log(out);
+                              return out;
+                            }
+                          }
+                        });
 
                         return;
-
 
                       }
 

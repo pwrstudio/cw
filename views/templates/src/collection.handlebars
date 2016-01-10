@@ -1,9 +1,11 @@
-<div class="list-group">
+<div class="list-group sortable-content">
   {{#each this}}
-  <div id="{{_id}}" class="list-group-item slider" data-toggle="collapse-next">
-    {{this.title}}
-  </div>
+
+
+  <div id="{{_id}}" class="list-group-item slider" data-toggle="collapse-next">{{this.title}}</div>
+
   <div class="collapse editContainer">
+
     <form class="ajaxFormUpdate" enctype="multipart/form-data" action="/api/update/exhibition" data-post-id="{{_id}}">
       <fieldset>
 
@@ -13,28 +15,29 @@
         </div>
 
         <div class="form-group">
-          <a class="btn btn-primary">Update</a>
+          <a class="update-collection-order btn btn-primary">Save content order</a>
           <a class="btn btn-primary" href="/collection/{{this.slug}}" target=_blank>View</a>
           <a href="/pdf/{{this.slug}}" class="btn btn-primary">Make pdf</a>
           <a class="btn btn-danger delete collection" data-id="{{_id}}">Delete</a>
         </div>
-            
-        
-        <div>
-        
-          {{#each this.content}} 
 
-            <div id="{{_id}}" class="list-group-item set-height">
+        <div id="{{_id}}" class="list-group sort-container sortable-content flex">
+
+          {{#each this.content}}
+
+            <div id="{{_id}}" class="list-group-item sortables content set-height" order='{{this.order}}'>
               <p><i class="fa fa-file-image-o"></i> <strong>{{this.title}}</strong></p>
-              <img src="{{this.image.thumb}}" class="collection-image not-selected">
-            </div>    
-          
+              <img src="{{this.image.thumb}}" class="collection-image">
+            </div>
+
           {{/each}}
 
         </div>
 
       </fieldset>
     </form>
+
   </div>
+
   {{/each}}
 </div>

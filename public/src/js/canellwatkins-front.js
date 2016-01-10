@@ -47,7 +47,6 @@
     gainNode = context.createGain ? context.createGain() : context.createGainNode();
 
     oscillator.frequency.value = getRandomInt(500, 13500);
-    console.log(oscillator.frequency.value);
     gainNode.gain.value = 0.05;
 
     oscillator.connect(gainNode);
@@ -109,7 +108,21 @@
      *
      */
 
-    var socket = io();
+    var socket = io(),
+      startTime;
+
+    // PING
+
+    window.setInterval(function () {
+      startTime = Date.now();
+      socket.emit('ping');
+    }, 2000);
+
+    socket.on('pong', function () {
+      var latency = Date.now() - startTime;
+      console.log(latency);
+      $("#round-trip").html(latency);
+    });
 
     socket.on('tracedone', function (msg) {
       setTimeout(function () {
@@ -135,8 +148,7 @@
           $("#counterOverlay").hide();
           $(".content-columns").show();
           $("#cable-length").html(msg.total);
-          $("#round-trip").html(32);
-          socket.disconnect();
+          //          socket.disconnect();
         }, 1500);
       }, 700);
 
@@ -234,9 +246,7 @@
     $(document).on('click', '#overlay video', function (e) {
       $(this).addClass('focused');
       $("#overlay").addClass('opaque');
-      $(".caption-container")
-        .html(replaceNewlines($(this)
-          .data("caption")));
+      $(".caption-container").html(replaceNewlines($(this).data("caption")));
     });
 
     // Play sounds

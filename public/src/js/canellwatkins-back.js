@@ -83,6 +83,15 @@
           $(this)
             .html(MyApp.templates.collection(data))
             .fadeIn();
+          $(".sortable-content").sortable({
+            cursor: "ns-resize",
+            axis: "y",
+            containment: "parent",
+            delay: 150,
+            scroll: true,
+            scrollSensitivity: 80,
+            scrollSpeed: 3
+          });
         });
       }
     });
@@ -284,6 +293,33 @@
             }, {
               type: 'success'
             });
+          },
+          error: function (jqXHR, textStatus, errorThrown) {}
+        });
+      });
+    });
+
+    $(document).on('click', '.update-collection-order', function (e) {
+      e.preventDefault();
+      console.log('in');
+
+      $(".list-group-item.sortables").each(function () {
+        console.log($(this).attr('id'));
+        console.log($(this).index());
+        $.ajax({
+          url: '/api/collection/updateorder/' + $(this).parent().attr('id') + "/" + $(this).attr('id') + "/" + $(this).index(),
+          type: 'POST',
+          dataType: "json",
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function (data, textStatus, jqXHR) {
+            $.notify({
+              message: 'Collection order changed'
+            }, {
+              type: 'success'
+            });
+            getCollection();
           },
           error: function (jqXHR, textStatus, errorThrown) {}
         });

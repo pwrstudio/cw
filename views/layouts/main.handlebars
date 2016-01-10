@@ -18,9 +18,14 @@
     <meta property="og:url" content="http://www.canellwatkins.org/" />
     <meta property="og:image" content="http://canellwatkins.org" />
     <meta property="og:description" content="Nina Canell & Robin Watkins" />
-    <meta property="og:site_name" content="Canell / Watkins" /> {{#if night}}
-    <link rel="stylesheet" href="/dist/css/front-night.css"> {{else}}
-    <link rel="stylesheet" href="/dist/css/front-day.css"> {{/if}}
+    <meta property="og:site_name" content="Canell / Watkins" /> 
+    
+    {{#if data.night}}
+      <link rel="stylesheet" href="/dist/css/front-night.css"> 
+    {{else}}
+      <link rel="stylesheet" href="/dist/css/front-day.css">
+    {{/if}}
+    
     <link rel="stylesheet" href="/libs/fontawesome/css/font-awesome.min.css">
 
     <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-icon-57x57.png">

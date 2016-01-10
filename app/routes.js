@@ -113,6 +113,7 @@
     app.get('/api/collection/', collection.get_collection);
     app.get('/api/collection/single/:id', collection.get_collection_by_id);
     app.post('/api/collection/', collection.make_collection);
+    app.post('/api/collection/updateorder/:id/:object/:index', collection.update_order);
 
 
     /*
