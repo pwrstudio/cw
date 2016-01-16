@@ -55,6 +55,8 @@
       }).sort({
         index: 1
       }).exec(function (err, publications) {
+        
+        console.log(publications);
 
         // Find exhibitions
         Container.find({

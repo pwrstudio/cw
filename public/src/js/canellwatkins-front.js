@@ -113,11 +113,11 @@
 
     // PING
 
-    window.setInterval(function () {
+    //    window.setInterval(function () {
       startTime = Date.now();
       socket.emit('ping');
-    }, 2000);
-
+    //    }, 2000);
+    
     socket.on('pong', function () {
       var latency = Date.now() - startTime;
       console.log(latency);

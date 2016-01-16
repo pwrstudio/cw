@@ -176,13 +176,9 @@
       publication.link = fields.link;
       publication.start_date = fields.start_date;
       publication.start_date_pretty = fields.start_date;
+      publication.publisher = fields.publisher || 'self-published';
 
-      if (fields.publisher) {
-        publication.publisher = fields.publisher;
-      } else {
-        publication.publisher = '&nbsp;';
-      }
-      
+
       console.log(files);
       console.log(files.snd1);
 
@@ -315,7 +311,7 @@
 
           publication.title = fields.title;
           publication.link = fields.link;
-          publication.publisher = fields.publisher;
+          publication.publisher = fields.publisher || 'self-published';
           publication.start_date = fields.start_date;
           publication.start_date_pretty = fields.start_date;
 

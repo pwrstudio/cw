@@ -169,14 +169,18 @@
             <a href='' class='slide-down-link'>
                 <article class='exhibition light '>
                     <div class='title'>{{{this.title}}}</div>
+                    <div class='publisher'>{{{this.publisher}}}</div>
                     <div class='year publication'>{{this.start_date_pretty}}</div>
                 </article>
             </a>
+      
             <div class='thumb-container static'>
-              
+            
+
               <div class='space'>¬</div>
               
               <div class='thumb-container-inner'>
+                
           
                 {{#each this.image}}
                   <div class="link-container">
@@ -184,8 +188,8 @@
                       class='image-link image' 
                       data-large='{{this.url}}'
                       data-pinky='{{this.thumb}}'
-                      data-caption='{{{this.caption}}}'>
-                        {{#if this.caption}}{{{this.caption}}}{{else}}Image{{/if}} ({{this.size}}kb)</a>
+                      data-caption='{{{this.caption}}}<br>{{../title}}<br>{{../publisher}}, {{../start_date_pretty}}'>
+                        {{#if this.caption}}◊ {{{this.caption}}}{{else}}◊ Image{{/if}} ({{this.size}}kb)</a>
                   </div>
                 {{/each}}
 
@@ -193,10 +197,11 @@
                   <div class="link-container">
                   <a href='{{this.url}}' 
                       class='text-link text' 
-                      data-caption='{{{this.caption}}}'>
-                        {{#if this.caption}}{{{this.caption}}}{{else}}Text{{/if}} ({{this.size}}kb)</a>
+                      data-caption='{{{this.caption}}}<br>{{../title}}<br>{{../publisher}}, {{../start_date_pretty}}'>
+                        {{#if this.caption}}◊ {{{this.caption}}}{{else}}◊ Text{{/if}} ({{this.size}}kb)</a>
                   </div>
                 {{/each}}
+                
 
                 {{#each this.sound}}
                   <div class='audio-control play'>
